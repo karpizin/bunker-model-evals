@@ -1,0 +1,7 @@
+# Pinned Q4-class Nemotron 3.5 Bolt artifact for the v3.1 quantization comparison.
+
+https://huggingface.co/AtomicChat/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-GGUF/resolve/dc8110a7e7fd4c1f35191a7e8842a94518c4a6d1/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-AD-IQ4_XS.gguf?download=true
+  dir=./models/nvidia-nemotron-3.5-bolt-74b-q4
+  out=NVIDIA-Nemotron-3.5-Bolt-74B-A9B-AD-IQ4_XS.gguf
+  size=46568598432
+  sha256=a74d21cd56ef59d00b2b58fb6afa1b721692e034a487d0212a63c1ed1d7e2634
