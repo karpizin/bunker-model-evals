@@ -146,8 +146,9 @@ def write_readme(path: Path, manifest: dict[str, Any], rows: list[dict[str, Any]
         key=lambda row: (row.get("v3_mean_pct") or 0, -(row.get("critical_min") or 0)),
         reverse=True,
     )
+    publication_date = str(manifest["published_at"]).split("T", 1)[0]
     lines = [
-        "# Bunker Benchmark v3 — public result bundle (2026-10-27)",
+        f"# Bunker Benchmark v3 — public result bundle ({publication_date})",
         "",
         f"Publication ID: `{manifest['publication_id']}`  ",
         f"Published: `{manifest['published_at']}`",

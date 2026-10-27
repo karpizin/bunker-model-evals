@@ -6,6 +6,7 @@
 - [Latest v3.1 semantic re-evaluation](BUNKER_BENCHMARK_V3_1_RESCORE_20261028.md)
 - [October 2026 execution wave](BUNKER_BENCHMARK_V3_OCTOBER_WAVE_20261026.md)
 - [Public raw-result bundle](results/bunker-v3-public-results-20261027/README.md)
+- [Raw results added on 2026-10-28](results/bunker-v3-new-results-20261028/README.md)
 - [Tool-call compatibility audit](BUNKER_BENCHMARK_V3_TOOL_COMPAT_20261019.md)
 
 ## Model comparisons
