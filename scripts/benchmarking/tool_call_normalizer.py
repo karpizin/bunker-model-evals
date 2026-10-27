@@ -37,6 +37,10 @@ DEEPSEEK_R1_RE = re.compile(
 LFM_TOOL_CALL_RE = re.compile(
     r"<\|tool_call_start\|>(.*?)<\|tool_call_end\|>", re.I | re.S
 )
+ORPHAN_REASONING_CLOSE_RE = re.compile(
+    r"^\s*(?:</(?:think(?:ing)?|analysis)>\s*)+",
+    re.I,
+)
 
 
 def normalize_tool_response(text: str, message: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -443,7 +447,12 @@ def parse_deepseek_calls(content: str) -> list[dict[str, Any]]:
 
 def strip_think_tags(text: str) -> str:
     stripped = re.sub(r"<think(?:ing)?>.*?</think(?:ing)?>", "", text, flags=re.I | re.S)
-    return re.sub(r"^\s*</think(?:ing)?>\s*", "", stripped, flags=re.I)
+    return strip_orphan_reasoning_closers(stripped)
+
+
+def strip_orphan_reasoning_closers(text: str) -> str:
+    """Remove empty leading close tags without hiding a real reasoning block."""
+    return ORPHAN_REASONING_CLOSE_RE.sub("", text, count=1)
 
 
 def strip_fence(text: str) -> str:

@@ -3,6 +3,12 @@
 Generated: `2026-10-27T15:08:30+03:00`
 Rubric: `bunker_benchmark_v3_1_semantic_concepts_20261027`
 
+> Post-publication result (2026-10-28): `NVIDIA-Nemotron-3.5-Bolt-74B-A9B-AD-IQ4_XS`
+> scored **93.50%** in all three runs after the versioned
+> `orphan_reasoning_closer_v1` normalization. This corresponds to a provisional
+> position between ranks 14 and 15 in the table below. See the
+> [quant comparison and audit](NEMOTRON_BOLT_IQ2_VS_IQ4XS_20261028.md).
+
 ## Outcome
 
 Scanned **119** archived result files and **219** complete 20-case runs. After removing byte-equivalent duplicate runs, **208** runs across **71** model configurations were re-scored. The new rubric changed **804** formerly failed literal checks to pass after accepting equivalent wording, and changed **0** passes to failures.

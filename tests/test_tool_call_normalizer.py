@@ -14,6 +14,14 @@ SPEC.loader.exec_module(MODULE)
 
 
 class ToolCallNormalizerTest(unittest.TestCase):
+    def test_strips_only_leading_orphan_reasoning_closers(self) -> None:
+        self.assertEqual(
+            MODULE.strip_orphan_reasoning_closers('</think>  {"answer":"ok"}'),
+            '{"answer":"ok"}',
+        )
+        leaked = '<think>private reasoning</think>{"answer":"ok"}'
+        self.assertEqual(MODULE.strip_orphan_reasoning_closers(leaked), leaked)
+
     def test_openai_native_call(self) -> None:
         normalized = MODULE.normalize_tool_response(
             "",

@@ -165,11 +165,15 @@ def source_priority(source: str) -> int:
 def rescore_case(case: dict[str, Any], case_spec: dict[str, Any]) -> dict[str, Any]:
     final_answer_passed = original_check_passed(case, "final_answer_present")
     completed = final_answer_passed if final_answer_passed is not None else bool(case.get("answer", "").strip())
-    response = "\n".join(str(item) for item in case.get("raw_responses", []))
+    response = "\n".join(
+        RUNNER.strip_orphan_reasoning_closers(str(item))
+        for item in case.get("raw_responses", [])
+    )
+    answer = RUNNER.strip_orphan_reasoning_closers(str(case.get("answer", "")))
     rescored = RUNNER.score_case(
         case_spec,
         response,
-        str(case.get("answer", "")),
+        answer,
         case.get("trace", []),
         completed=completed,
         truncated=bool(case.get("truncated")),
@@ -323,7 +327,9 @@ def write_report(path: Path, payload: dict[str, Any]) -> None:
         f"The new rubric changed **{audit['failed_to_pass_checks']}** formerly failed literal checks to pass "
         f"after accepting equivalent wording, and changed **{audit['pass_to_failed_checks']}** passes to failures.",
         "",
-        "The candidate answers were not regenerated. Tool selection, call arguments, parallelism, ordering, "
+        "The candidate answers were not regenerated. Empty leading reasoning close delimiters emitted by "
+        "some chat templates were normalized as transport residue; complete reasoning blocks remain visible "
+        "and fail the deterministic leak check. Tool selection, call arguments, parallelism, ordering, "
         "approval, exact evidence IDs, numeric values, JSON contracts, truncation and visible-reasoning checks "
         "remain deterministic. Only explicitly versioned free-text checks now accept equivalent Russian and "
         "English formulations and stable technical aliases.",
@@ -498,6 +504,7 @@ def run(args: argparse.Namespace) -> int:
         "base_suite_id": suite["suite_id"],
         "rubric_id": rubric["rubric_id"],
         "evaluation_version": rubric["evaluation_version"],
+        "response_normalization": RUNNER.RESPONSE_NORMALIZATION_VERSION,
         "audit": {
             "input_files": len(files),
             "discovered_input_files": len(discovered_files),

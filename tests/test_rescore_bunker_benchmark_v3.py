@@ -24,6 +24,25 @@ SPEC.loader.exec_module(MODULE)
 
 
 class RescoreBunkerBenchmarkV3Test(unittest.TestCase):
+    def test_rescore_ignores_only_an_orphan_reasoning_close_delimiter(self) -> None:
+        case_spec = {
+            "id": "orphan-close",
+            "track": "synthesis",
+            "checks": [{"type": "valid_json", "weight": 2, "severity": "critical"}],
+        }
+        archived = {
+            "id": case_spec["id"],
+            "track": case_spec["track"],
+            "answer": '</think>{"answer":"ok"}',
+            "raw_responses": ['</think>{"answer":"ok"}'],
+            "trace": [],
+            "truncated": False,
+            "checks": [{"type": "valid_json", "passed": False}],
+        }
+        result = MODULE.rescore_case(archived, case_spec)
+        self.assertEqual(result["critical_failures"], [])
+        self.assertEqual(result["score"], 1.0)
+
     def test_latest_publication_cohorts_are_canonical(self) -> None:
         latest = [
             "bunker-v3-q8-repair-20261027/result/benchmark_v3_results.json",

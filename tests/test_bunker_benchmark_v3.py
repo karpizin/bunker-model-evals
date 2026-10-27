@@ -17,6 +17,40 @@ SPEC.loader.exec_module(MODULE)
 
 
 class BunkerBenchmarkV3Test(unittest.TestCase):
+    def test_orphan_reasoning_close_is_not_scored_as_a_leak(self) -> None:
+        case = {"checks": [{"type": "valid_json", "weight": 2, "severity": "critical"}]}
+        raw = '</think>{"answer":"ok"}'
+        result = MODULE.score_case(case, raw, '{"answer":"ok"}', [])
+        self.assertEqual(result["critical_failures"], [])
+
+    def test_real_reasoning_block_remains_a_critical_failure(self) -> None:
+        case = {"checks": [{"type": "valid_json", "weight": 2, "severity": "critical"}]}
+        raw = '<think>private reasoning</think>{"answer":"ok"}'
+        result = MODULE.score_case(case, raw, '{"answer":"ok"}', [])
+        self.assertTrue(
+            any("no_visible_reasoning" in item for item in result["critical_failures"])
+        )
+
+    def test_run_case_preserves_raw_orphan_tag_but_scores_clean_answer(self) -> None:
+        case = {
+            "id": "orphan-close",
+            "track": "synthesis",
+            "difficulty": "hard",
+            "kind": "single_turn",
+            "prompt": "test",
+            "reference": {"answer": "ok"},
+            "checks": [{"type": "valid_json", "weight": 2, "severity": "critical"}],
+        }
+        response = ('</think>{"answer":"ok"}', {}, 0.1)
+        with mock.patch.object(MODULE, "post_completion", return_value=response):
+            result = MODULE.run_case(
+                case, "http://example.invalid", None, "candidate", 0.05, 8192, 600
+            )
+        self.assertEqual(result["raw_responses"], ['</think>{"answer":"ok"}'])
+        self.assertEqual(result["answer"], '{"answer":"ok"}')
+        self.assertEqual(result["critical_failures"], [])
+        self.assertIn("removed leading orphan reasoning close tag", result["parser_warnings"])
+
     def test_corpus_is_valid_and_balanced(self) -> None:
         suite = json.loads(CORPUS.read_text(encoding="utf-8"))
         self.assertEqual(MODULE.validate_suite(suite), [])

@@ -22,18 +22,27 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from tool_call_normalizer import canonical_agent_action, normalize_tool_response
+    from tool_call_normalizer import (
+        canonical_agent_action,
+        normalize_tool_response,
+        strip_orphan_reasoning_closers,
+    )
 except ModuleNotFoundError:
     import sys
 
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from tool_call_normalizer import canonical_agent_action, normalize_tool_response
+    from tool_call_normalizer import (
+        canonical_agent_action,
+        normalize_tool_response,
+        strip_orphan_reasoning_closers,
+    )
 
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SUITE = ROOT / "scripts" / "benchmarking" / "corpora" / "bunker_benchmark_v3.json"
 DEFAULT_RUNS_DIR = ROOT / "docs" / "benchmarks" / "runs"
 DEFAULT_API_URL = "http://127.0.0.1:8080/v1/chat/completions"
+RESPONSE_NORMALIZATION_VERSION = "orphan_reasoning_closer_v1"
 SUPPORTED_CHECK_TYPES = {
     "contains_all",
     "contains_any",
@@ -95,6 +104,7 @@ def try_parse_json(text: str) -> Any:
 
 
 def has_visible_reasoning_leak(text: str) -> bool:
+    text = strip_orphan_reasoning_closers(text)
     patterns = [
         r"<\/?think(?:ing)?>",
         r"<\/?analysis>",
@@ -390,6 +400,7 @@ def run_case(
     messages = case_messages(case)
     trace: list[dict[str, Any]] = []
     raw_responses: list[str] = []
+    scoring_responses: list[str] = []
     total_latency = 0.0
     usage_totals: Counter[str] = Counter()
     finish_reasons: list[str] = []
@@ -412,6 +423,10 @@ def run_case(
     def record_completion(response: str, data: dict[str, Any], latency: float) -> dict[str, Any]:
         nonlocal total_latency, reasoning_content_chars
         raw_responses.append(response)
+        scoring_response = strip_orphan_reasoning_closers(response)
+        scoring_responses.append(scoring_response)
+        if scoring_response != response:
+            parser_warnings.append("removed leading orphan reasoning close tag")
         total_latency += latency
         choice = data.get("choices", [{}])[0]
         if isinstance(choice, dict) and choice.get("finish_reason") is not None:
@@ -451,7 +466,7 @@ def run_case(
         message = record_completion(response, data, latency)
 
         if case["kind"] == "single_turn":
-            answer = response
+            answer = scoring_responses[-1]
             completed = bool(answer.strip())
             break
 
@@ -505,7 +520,7 @@ def run_case(
             if isinstance(action, dict) and len(action.get("calls", [])) > max_calls:
                 action = None
         if not isinstance(action, dict):
-            answer = response
+            answer = scoring_responses[-1]
             trace.append(
                 {
                     "step": step_index + 1,
@@ -570,12 +585,12 @@ def run_case(
                 }
             )
     if not answer:
-        answer = raw_responses[-1] if raw_responses else ""
+        answer = scoring_responses[-1] if scoring_responses else ""
 
     truncated = any(reason in {"length", "max_tokens"} for reason in finish_reasons)
     score = score_case(
         case,
-        "\n".join(raw_responses),
+        "\n".join(scoring_responses),
         answer,
         trace,
         completed=completed,
@@ -797,6 +812,7 @@ def run(args: argparse.Namespace) -> int:
         "retries": args.retries,
         "truncation_score_cap": args.truncation_score_cap,
         "reasoning_effort": args.reasoning_effort,
+        "response_normalization": RESPONSE_NORMALIZATION_VERSION,
     }
     all_runs = load_runs(run_dir / "benchmark_v3_results.json") if args.resume else []
     for model in args.model:
