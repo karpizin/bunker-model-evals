@@ -1,0 +1,23 @@
+https://huggingface.co/JonathanColetti/Qwen3.8-27B-Uncensored-GGUF/resolve/main/Qwen3.8-27B-Uncensored-Q6_K.gguf?download=true
+  dir=./models/qwen3.8-27b-uncensored
+  out=Qwen3.8-27B-Uncensored-Q6_K.gguf
+
+https://huggingface.co/gaston-parravicini/Qwen3.6-27B-Abliterated-MTP-GGUF/resolve/main/Qwen3.6-27B-abliterated-Gaston-MTP-Q4_K_M.gguf?download=true
+  dir=./models/qwen3.6-27b-abliterated-mtp
+  out=Qwen3.6-27B-abliterated-Gaston-MTP-Q4_K_M.gguf
+
+https://huggingface.co/HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive/resolve/main/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf?download=true
+  dir=./models/quant-sweep-temp
+  out=Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf
+
+https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q6_K.gguf?download=true
+  dir=./models/quant-sweep-temp
+  out=Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q6_K.gguf
+
+https://huggingface.co/HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive/resolve/main/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf?download=true
+  dir=./models/quant-sweep-temp
+  out=Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf
+
+https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q8_0.gguf?download=true
+  dir=./models/quant-sweep-temp
+  out=Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q8_0.gguf

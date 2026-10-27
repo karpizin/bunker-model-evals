@@ -1,0 +1,17 @@
+root   ::= object
+object ::= "{" space rpc space "," space method space "," space params space "," space id space "}"
+rpc    ::= "\"jsonrpc\"" space ":" space "\"2.0\""
+method ::= "\"method\"" space ":" space "\"tools/call\""
+params ::= "\"params\"" space ":" space "{" space name space "," space args space "}"
+name   ::= "\"name\"" space ":" space string
+args   ::= "\"arguments\"" space ":" space value
+id     ::= "\"id\"" space ":" space number
+
+objgeneric ::= "{" space ( string space ":" space value ( space "," space string space ":" space value )* )? space "}"
+array      ::= "[" space ( value ( space "," space value )* )? space "]"
+value      ::= objgeneric | array | string | number | boolean | "null"
+
+string  ::= "\"" ( [^"\\\x00-\x1F] | "\\" ( ["\\/bfnrt] | "u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] ) )* "\""
+number  ::= ("-"? ([0-9] | [1-9] [0-9]*)) ("." [0-9]+)? ([eE] [+-]? [0-9]+)?
+boolean ::= "true" | "false"
+space   ::= " "*

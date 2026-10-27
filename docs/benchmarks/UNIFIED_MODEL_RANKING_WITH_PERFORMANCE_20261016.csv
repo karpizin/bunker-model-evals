@@ -1,0 +1,50 @@
+rank,model,environment,contract_v2_pct,semantic_v2_pct,wall_tokens_per_s,ttft_estimate_s
+1,GPT-6 Astra,"OpenRouter, archive",93.37,,39.96,
+2,DeepSeek V4 Flash,"OpenRouter, archive",93.32,,50.49,
+3,Qwen3.8-27B Q4_K_M,AMD 395+,93.18,,10.93,0.60
+4,Qwen 3.8 27B,"OpenRouter, fresh v2",92.85,92.57,,
+5,Qwen3.8-27B UD-Q4_K_M,AMD 395+,92.62,,12.60,0.58
+6,Qwen3.8-Flash-Next UD-IQ3_XXS,"AMD 395+, MTP",91.95,,40.22,0.62
+7,Qwen3.5-122B-A10B Q3_K_M,Local,90.44,,22.76,1.16
+8,Qwen3.5-122B-A10B UD-IQ4_NL,Local,90.04,,22.42,1.16
+9,Qwen3.6-35B-A3B UD-Q6_K,"Local, MTP",90.02,,55.10,0.43
+10,GLM-5.3-Flash,"OpenRouter, fresh v2",89.69,90.61,,
+11,Qwen3.8-27B UD-Q6_K_M,AMD 395+,89.63,,9.40,0.70
+12,Gemini 3.8 Flash,"OpenRouter, archive",89.43,,69.56,
+13,DeepSeek V4 Flash,"OpenRouter, fresh v2",89.08,90.75,,
+14,MiniMax-M2.7 Q2_K,Local,88.30,,33.84,1.34
+15,Qwen3.6-27B UD-IQ3_XXS,"Local, MTP",88.23,,21.04,0.94
+16,Qwen3-4B-Instruct 4bit,Apple MLX,88.20,,30.75,
+17,Qwen3.6-27B Q4_K_M,Local,88.15,,12.17,1.00
+18,Gemma-4-31B Heretic Q4_K_M,Local,86.96,,10.55,0.62
+19,Gemma-4-26B-A4B UD-Q4_K_M,Local,86.77,,49.20,0.20
+20,Qwen3.5-9B Q5_K_M,Local,86.68,,32.38,0.31
+21,Gemma-4-E4B Q5_K_M,Local,86.66,,50.34,0.11
+22,Gemma-4-26B-A4B,"OpenRouter, fresh v2",86.43,87.25,,
+23,Qwen3.6-27B UD-IQ2_M,Local,86.33,,16.18,0.94
+24,Gemma-4-26B-A4B UD-Q3_K_M,Local,85.95,,53.83,0.20
+25,Claude Opus 5,"OpenRouter, archive",85.13,,55.67,
+26,Mistral Medium 3.5 128B Q3_K_M,Local,84.55,,3.61,1.91
+27,Qwen3-Coder-Next Q4_K_M,Local,84.46,,51.70,0.58
+28,Gemma-4-E4B Q4_K_M,M3 Max,84.17,,23.33,0.32
+29,GPT-5.4 Nano,"OpenRouter, archive",83.50,,109.13,
+30,Qwen3.5-9B Q5_K_M,M3 Max,83.15,,11.27,1.06
+31,GLM-4.5-Air Q3_K_M,Local,81.94,,25.13,0.90
+32,Llama-3.1-Nemotron-Ultra-253B Q2_K,Local,81.25,,1.73,5.32
+33,MiMo-V2.5 UD-IQ2_M,Local,80.24,,23.48,1.45
+34,Gemma-4-E2B Q4_K_M,M3 Max,79.78,,47.32,0.18
+35,Llama-3.3-70B Q4_K_M,Local,79.08,,5.02,1.08
+36,Qwen3.5-4B Q5_K_M,M3 Max,76.56,,24.62,0.44
+37,Huihui-Qwen3.6-35B-A3B Q4_K,"Local, MTP",75.82,,67.27,0.36
+38,Qwen3.8-2.4T-A95B,"OpenRouter, archive",75.66,,104.78,
+39,Gemma-4-31B Q6_K,Local,75.65,,8.12,0.72
+40,Llama-4-Scout-17B-16E Q4_K_M,Local,74.50,,17.80,0.93
+41,Gemma-3-12B Heretic Q4_K_M,M3 Max,74.33,,12.86,0.57
+42,Mistral-Small-4-119B Q3_K_M,Local,74.33,,42.58,0.68
+43,Gemma-3n-E2B 4bit,Apple MLX,70.78,,33.05,
+44,Phi-4-mini-instruct Q5_K_S,M3 Max,69.24,,23.27,0.21
+45,LFM2.5-24B-A2B UD-Q6_K_XL,AMD 395+,68.58,,77.49,0.30
+46,LFM2.5-24B-A2B Q4_K_M,AMD 395+,66.90,,102.23,0.24
+47,Nemotron-3.5-Lightning-30B-A3B UD-Q6_K_XL,AMD 395+,64.46,,53.15,0.27
+48,Nemotron-3.5-Lightning-30B-A3B UD-Q4_K_M,AMD 395+,62.45,,55.29,0.29
+49,Nemotron-3.5-Lightning-30B-A3B Q4_0,AMD 395+,57.77,,60.43,0.25

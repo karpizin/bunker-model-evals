@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+tools/presentations/**/node_modules/
+
+# Models and generated runs stay on benchmark hosts or in artifact storage.
+models/
+docs/benchmarks/runs/*
+!docs/benchmarks/runs/README.md

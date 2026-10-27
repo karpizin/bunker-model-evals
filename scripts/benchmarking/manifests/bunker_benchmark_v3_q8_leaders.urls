@@ -1,0 +1,32 @@
+# Pinned public artifacts for the Bunker Benchmark v3.1 Q8 leader sweep.
+# Qwen target and its Q4 MTP sidecar were already present on the AMD395 host.
+
+https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/4ca720788d1e01f1bff70c033e0d0028fd02e502/Qwen3.8-27B-Q8_0.gguf?download=true
+  dir=./models/qwen3.8-27b-q8
+  out=Qwen3.8-27B-Q8_0.gguf
+  size=29047086048
+  sha256=a680f44a06920e5d689774823782006aa3acc8db95750323373b24139b67e348
+
+https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/4ca720788d1e01f1bff70c033e0d0028fd02e502/MTP/mtp-Qwen3.8-27B-Q4_0.gguf?download=true
+  dir=./models/qwen3.8-27b-unsloth
+  out=mtp-Qwen3.8-27B-Q4_0.gguf
+  size=1369590656
+  sha256=50d9ce5a6da381bbcfb31061cf73df94a90e6faf8efeddee379a9cb8f1501c6e
+
+https://huggingface.co/unsloth/gemma-4-31B-it-GGUF/resolve/c1ac76e99d5513b141e8adde7288b85c3f9c32ec/gemma-4-31B-it-Q8_0.gguf?download=true
+  dir=./models/gemma-4-31b
+  out=gemma-4-31B-it-Q8_0.gguf
+  size=32635677632
+  sha256=d5808e5874e660a85ab45b2da00c9e3b4a003621249a333772232d1a703e4d67
+
+https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF/resolve/bfc15c382204943c3a8fff0c750b94ae2364d7a3/gemma-4-E4B-it-Q6_K.gguf?download=true
+  dir=./models/gemma-4-e4b
+  out=gemma-4-E4B-it-Q6_K.gguf
+  size=7074929792
+  sha256=fd83f3ef44d22e00ff0f638753dde9a66a83e8ccf79c11024f47d383c489531b
+
+https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF/resolve/bfc15c382204943c3a8fff0c750b94ae2364d7a3/gemma-4-E4B-it-Q8_0.gguf?download=true
+  dir=./models/gemma-4-e4b
+  out=gemma-4-E4B-it-Q8_0.gguf
+  size=8192953472
+  sha256=f8854aa4480df62585a279e7ca0a881554fc18a41c59c4f62642d16a2ae47012

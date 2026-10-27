@@ -1,0 +1,129 @@
+{
+  "machine": {
+    "host": "Bunkers-Mac-mini",
+    "date": "2026-04-11",
+    "hardware": "Mac mini Apple M4",
+    "memory": "16 GB unified memory",
+    "tool": "llama-bench",
+    "command": "llama-bench -r 1 --no-warmup -p 256 -n 64 -ngl 99 --fit-target 1024 -o json"
+  },
+  "results": [
+    {
+      "model": "Qwen3.5-4B-UD-Q5_K_XL.gguf",
+      "status": "ok",
+      "prompt_tps": 364.025813,
+      "gen_tps": 23.802769
+    },
+    {
+      "model": "gemma-4-E4B-it-IQ4_XS.gguf",
+      "status": "ok",
+      "prompt_tps": 307.63552,
+      "gen_tps": 31.76735
+    },
+    {
+      "model": "Ministral-3-8B-Instruct-2512-Q5_K_M.gguf",
+      "status": "ok",
+      "prompt_tps": 187.708336,
+      "gen_tps": 16.91307
+    },
+    {
+      "model": "Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q6_K.gguf",
+      "status": "ok",
+      "prompt_tps": 204.216866,
+      "gen_tps": 13.873792
+    },
+    {
+      "model": "Ministral-3-14B-Instruct-2512-Q4_K_M.gguf",
+      "status": "ok",
+      "prompt_tps": 130.005748,
+      "gen_tps": 12.388224
+    },
+    {
+      "model": "Qwen3-30B-A3B.Q2_K.gguf",
+      "status": "ok",
+      "prompt_tps": 301.849447,
+      "gen_tps": 43.122687
+    },
+    {
+      "model": "gemma-4-26B-A4B-it-UD-IQ3_S.gguf",
+      "status": "ok",
+      "prompt_tps": 278.193715,
+      "gen_tps": 30.255087
+    },
+    {
+      "model": "gemma-4-31B-it-UD-Q2_K_XL.gguf",
+      "status": "generation_failed",
+      "prompt_tps": 117.266741,
+      "gen_tps": null,
+      "error": "failed to decode generation batch, res = -3"
+    },
+    {
+      "model": "Gemma-4-96E-A4B-Heretic-TQ3_1S.gguf",
+      "status": "load_failed",
+      "prompt_tps": null,
+      "gen_tps": null,
+      "error": "failed to load model"
+    },
+    {
+      "model": "gemma-4-26B-A4B-it-UD-Q3_K_M.gguf",
+      "status": "prompt_failed",
+      "prompt_tps": null,
+      "gen_tps": null,
+      "error": "failed to decode prompt batch, res = -3"
+    },
+    {
+      "model": "Mistral-Nemo-2407-12B-Thinking-Claude-Gemini-GPT5.2-Uncensored-HERETIC.Q2_K.gguf",
+      "status": "ok",
+      "prompt_tps": 140.412542,
+      "gen_tps": 15.802152
+    },
+    {
+      "model": "gemma-4-E4B-it-Q4_K_M.gguf",
+      "status": "ok",
+      "prompt_tps": 368.858054,
+      "gen_tps": 29.544383
+    },
+    {
+      "model": "gemma-4-E4B-it-Q6_K.gguf",
+      "status": "ok",
+      "prompt_tps": 343.315005,
+      "gen_tps": 22.744898
+    },
+    {
+      "model": "Mistral-Nemo-2407-12B-Thinking-Claude-Gemini-GPT5.2-Uncensored-HERETIC.Q4_K_M.gguf",
+      "status": "ok",
+      "prompt_tps": 144.319549,
+      "gen_tps": 13.851151
+    },
+    {
+      "model": "GigaChat3.1-10B-A1.8B-q6_K.gguf",
+      "status": "ok",
+      "prompt_tps": 489.544511,
+      "gen_tps": 45.317468
+    },
+    {
+      "model": "gemma-4-31B-it-UD-IQ2_XXS.gguf",
+      "status": "ok",
+      "prompt_tps": 54.231325,
+      "gen_tps": 6.899265
+    },
+    {
+      "model": "gemma-4-26B-A4B-it-UD-IQ1_M.gguf",
+      "status": "ok",
+      "prompt_tps": 289.293281,
+      "gen_tps": 33.798144
+    },
+    {
+      "model": "gemma-4-31B-it-UD-IQ2_M.gguf",
+      "status": "ok",
+      "prompt_tps": 54.06519,
+      "gen_tps": 6.397016
+    },
+    {
+      "model": "gemma-4-26B-A4B-it-UD-IQ2_M.gguf",
+      "status": "ok",
+      "prompt_tps": 310.644127,
+      "gen_tps": 32.415546
+    }
+  ]
+}

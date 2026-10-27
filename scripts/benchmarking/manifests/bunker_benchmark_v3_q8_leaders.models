@@ -1,0 +1,5 @@
+# label|model|profile|server|draft-model
+Qwen3.8-27B-Q8_0-MTP|__BUNKER_DATA_ROOT__/models/qwen3.8-27b-q8/Qwen3.8-27B-Q8_0.gguf|mtp-external|flint|__BUNKER_DATA_ROOT__/models/qwen3.8-27b-unsloth/mtp-Qwen3.8-27B-Q4_0.gguf
+gemma-4-E4B-it-Q6_K|__BUNKER_DATA_ROOT__/models/gemma-4-e4b/gemma-4-E4B-it-Q6_K.gguf|plain|flint|
+gemma-4-E4B-it-Q8_0|__BUNKER_DATA_ROOT__/models/gemma-4-e4b/gemma-4-E4B-it-Q8_0.gguf|plain|flint|
+gemma-4-31B-it-Q8_0|__BUNKER_DATA_ROOT__/models/gemma-4-31b/gemma-4-31B-it-Q8_0.gguf|plain|flint|

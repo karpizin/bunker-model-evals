@@ -1,0 +1,89 @@
+Expanding query: 'Nuclear fusion reactor components'...
+Loading embedding model...
+Applying DEEP strategy (full files)... Max chars: 98304
+  Added full file: Nuclear_reactor_core.txt (674 chars)
+  Added full file: Nuclear_technology.txt (465 chars)
+  Added full file: Fusion_power.txt (2679 chars)
+  Added full file: Fusion_energy.txt (2679 chars)
+  Added full file: Fusion_reactor.txt (2679 chars)
+  Added full file: Deuterium–tritium_fusion.txt (900 chars)
+  Added full file: Deuterium-tritium_fusion.txt (900 chars)
+  Added full file: Nuclear_fuel.txt (409 chars)
+  Added full file: Nuclear_reactors.txt (3296 chars)
+  Added full file: RBMK.txt (3802 chars)
+  Added full file: Nuclear_reactor.txt (3296 chars)
+  Added full file: Nuclear_fusion.txt (3038 chars)
+  Added full file: Thermonuclear_reaction.txt (3038 chars)
+  Added full file: Fusion_reaction.txt (3038 chars)
+  Added full file: Thermonuclear_fusion.txt (41 chars)
+  Added full file: Breeder_reactor.txt (1201 chars)
+  Added full file: Pressurized_heavy-water_reactor.txt (1393 chars)
+  Added full file: Heavy_water_reactor.txt (939 chars)
+  Added full file: Corium.txt (734 chars)
+  Added full file: Corium_(nuclear_reactor).txt (739 chars)
+Synthesizing final answer... (Context length: 36778 chars)
+
+Final Answer:
+<think>
+
+</think>
+
+Based on the provided research context, here is a comprehensive overview of **Nuclear Fusion Reactor Components**.
+
+It is important to distinguish between **Nuclear Fission Reactors** (which split heavy atoms like Uranium) and **Nuclear Fusion Reactors** (which combine light atoms like Hydrogen isotopes). While the provided text includes extensive details on fission components (fuel rods, control rods in graphite cores), the specific components unique to **fusion** power generation are detailed in the sources regarding magnetic confinement, inertial confinement, and breeding blankets.
+
+### 1. Fundamental Distinction: Fission vs. Fusion
+Before detailing fusion components, it is necessary to clarify the scope based on the provided texts.
+*   **Fission Reactors:** Utilize **low-enriched uranium** contained in thousands of individual **fuel pins** (as noted in *Nuclear_reactor_core.txt*). These reactors rely on a core containing structural components, moderators (to slow neutrons), and control mechanisms. Specific designs like the **RBMK** use a **graphite-moderated** core with individual fuel channels (technological pipes), while others use pressurized water.
+*   **Fusion Reactors:** Do not use solid fuel rods. Instead, they require fuel in a **plasma state** at extreme temperatures and pressures (*Fusion_power.txt*, *Nuclear_fusion.txt*). The components of a fusion reactor are designed to contain, heat, and process this plasma.
+
+### 2. Primary Containment Systems
+Fusion reactors are categorized by how they confine the high-energy plasma. The components differ significantly between the two main methods: **Magnetic Confinement Fusion (MCF)** and **Inertial Confinement Fusion (ICF)**.
+
+#### A. Magnetic Confinement Fusion (MCF) Components
+MCF devices, such as the **tokamak** (dominant design since the 1960s) and **stellarators**, use magnetic fields to contain the plasma (*Fusion_power.txt*).
+*   **The Vacuum Vessel:** A toroidal (doughnut-shaped) chamber made of specialized materials (often beryllium or tungsten) that maintains an ultra-high vacuum to prevent plasma-wall contact.
+*   **Magnetic Coils:** Powerful superconducting electromagnets are arranged to create complex magnetic fields that trap the plasma, preventing it from touching the physical walls of the reactor.
+*   **Divertor:** Located at the end of the magnetic field lines, this component extracts heat and particles (impurities) from the plasma to protect the rest of the vessel.
+*   **First Wall:** The innermost surface of the vacuum vessel that directly faces the plasma, designed to withstand intense heat and neutron bombardment.
+
+#### B. Inertial Confinement Fusion (ICF) Components
+ICF, developed primarily since the 1970s, compresses fuel pellets using high-energy lasers (*Fusion_power.txt*).
+*   **Target/Hohlraum:** Small spherical fuel pellets (containing Deuterium-Tritium) are mounted on a substrate. In some designs, a "hohlraum" (a metal can) is used to convert laser energy into X-rays to compress the target uniformly.
+*   **Laser Systems:** High-energy lasers (e.g., at the National Ignition Facility) focus beams onto the target to rapidly compress and heat the fuel, achieving the conditions for fusion (*Fusion_power.txt*).
+
+### 3. Fuel and Breeding Systems
+Unlike fission reactors that consume fuel, fusion reactors must continuously replenish their fuel or generate it on-site.
+
+*   **Fuel Pellets (ICF):** The fuel consists of **Deuterium (²H)** and **Tritium (³H)**, isotopes of hydrogen. Deuterium is abundant in seawater, but Tritium is scarce and radioactive with a half-life of about 12.3 years (*Deuterium–tritium_fusion.txt*).
+*   **Breeding Blanket:** A critical component for future commercial fusion reactors is the **lithium breeding blanket**. Since Tritium is scarce, future reactors plan to use blankets made of **lithium orthosilicate** or other lithium-bearing ceramics placed on the reactor walls (*Deuterium–tritium_fusion.txt*).
+    *   **Function:** The blanket captures the **energetic neutrons** produced by the fusion reaction (the D-T reaction produces one helium nucleus and one free neutron).
+    *   **Process:** When exposed to these high-energy neutrons, the Lithium in the blanket undergoes a reaction to produce new Tritium, ensuring a self-sustaining fuel cycle (*Deuterium–tritium_fusion.txt*).
+
+### 4. Structural and Thermal Components
+*   **Coolant Systems:** While fusion plasma itself is not cooled directly by a fluid (it is magnetically suspended or compressed), the surrounding components generate immense heat.
+    *   In **MCF**, a **Coolant Loop** is required to remove heat from the breeding blanket and the first wall, transferring it to turbines to generate electricity (*Nuclear_reactor_core.txt* notes heat transfer in general reactor cores).
+    *   In **ICF**, the target chamber and laser systems require complex cooling systems to dissipate the energy absorbed during each shot.
+*   **Neutron Shielding:** Fusion generates intense neutron radiation that gradually damages the inner walls of the reactor (*Fusion_power.txt*). Components such as **titanium** or **tungsten** are used for the first wall to withstand this radiation, which also causes the "embrittlement" of structural materials over time.
+
+### 5. Comparison with Fission Reactor Components
+The provided text explicitly differentiates the components of fission reactors from fusion:
+*   **Fission Core:** Contains solid **fuel rods** (low-enriched uranium), **control rods** (neutron absorbers), and **moderators** (like graphite or water) to regulate the chain reaction (*Nuclear_reactor_core.txt*, *RBMK.txt*).
+*   **Fusion Core:** Has no solid fuel rods or traditional control rods for sustaining a chain reaction. The "control" in fusion involves regulating the magnetic fields or laser intensity to maintain the plasma's temperature and confinement time, governed by the **Lawson criterion** (the triple product of temperature, density, and confinement time) (*Fusion_power.txt*).
+
+### Summary of Key Fusion Components
+| Component | Function | Source Context |
+| :--- | :--- | :--- |
+| **Vacuum Vessel** | Contains the plasma in a high-vacuum environment. | *Fusion_power.txt* |
+| **Magnetic Coils / Lasers** | Contain or compress the plasma respectively. | *Fusion_power.txt* |
+| **Breeding Blanket** | Generates Tritium from Lithium using neutron radiation. | *Deuterium–tritium_fusion.txt*, *Fusion_power.txt* |
+| **First Wall** | Protects the reactor from plasma heat and neutron damage. | *Fusion_power.txt* |
+| **Fuel (Deuterium/Tritium)** | The reactants undergoing fusion. | *Deuterium–tritium_fusion.txt* |
+
+**Conclusion:**
+Nuclear fusion reactors do not utilize the solid fuel pins and control rod assemblies found in fission reactors. Instead, their primary components are the **vacuum vessel**, **magnetic confinement coils** (or laser systems), and the **lithium breeding blanket**. These systems work together to create and sustain a plasma state where Deuterium and Tritium fuse, releasing energy and generating neutrons that are captured to breed more fuel, offering a potential path to clean energy with minimal high-level radioactive waste compared to fission.
+txt].
+*   **Current Projects:** The largest active projects include **ITER** in France (MCF) and **NIF** in the US (ICF) [Fusion_power.txt].
+
+### Conclusion
+Nuclear fusion reactors are complex machines designed to mimic the conditions of stars. Their core components—specifically the **plasma confinement system** (magnetic coils or lasers), the **breeding blanket** (lithium-based), and the **first wall**—are engineered to handle conditions far more extreme than those found in fission reactors. While fission relies on the controlled splitting of heavy atoms in solid rods, fusion relies on the precise containment and ignition of light atoms in a plasma state to release vast amounts of energy with minimal long-term waste.

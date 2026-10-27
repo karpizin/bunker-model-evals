@@ -1,0 +1,4009 @@
+{
+  "suite": {
+    "suite_id": "bunker_benchmark_v3_discriminative_20261018",
+    "benchmark_version": 3,
+    "language": "ru",
+    "description": "Twenty outcome-oriented cases designed to separate contract-following from reasoning, grounded synthesis, agent execution, result validation, and code/operations ability.",
+    "scoring_policy": {
+      "contract_suite": "openclaw_local_model_suite_hard_v1.json remains a separate release gate",
+      "capability": "weighted deterministic checks grouped by track",
+      "critical_failures": "reported separately; a run with any critical failure is not release-eligible",
+      "performance": "latency and token usage are recorded but never added to capability quality",
+      "recommended_runs": 3,
+      "recommended_temperature": 0.05,
+      "recommended_max_tokens": 8192,
+      "recommended_case_timeout_seconds": 600
+    },
+    "tracks": {
+      "synthesis": 5,
+      "agent_execution": 5,
+      "result_validation": 4,
+      "grounded_rag": 3,
+      "code_ops": 3
+    },
+    "cases": [
+      {
+        "id": "v3_syn_incident_causal_chain",
+        "track": "synthesis",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Проведи разбор инцидента. Определи непосредственную техническую причину, назови два события, которые образуют причинную цепочку, и одну правдоподобную, но опровергнутую гипотезу.",
+        "context": "[EV-01 08:42] Плановый релиз auth-gateway 2.14.0 начат на 10% инстансов.\n[EV-02 08:48] CPU 31%, память 44%, p95 базы 18 мс; показатели стабильны.\n[EV-03 08:51] В 2.14.0 параметр jwks_cache_ttl читается как миллисекунды, хотя значение 300 в конфигурации задавалось в секундах.\n[EV-04 08:58] Релиз расширен до 100%. Ошибок входа пока нет: старый JWKS ещё находится в памяти процессов.\n[EV-05 09:03] Через 300 мс после очередного обновления cache entry удаляется. Каждый запрос начинает обращаться к identity-provider.\n[EV-06 09:04] Частота запросов к identity-provider выросла с 40 до 7 800 rps; появились 429 и ошибки проверки подписи.\n[EV-07 09:07] Основная БД продолжает отвечать за 17-19 мс, блокировок нет.\n[EV-08 09:10] Команда предположила исчерпание пула соединений БД, но метрики пула показали 38% занятости.\n[EV-09 09:14] Увеличение числа pod не помогло: каждый новый pod также создавал поток запросов JWKS.\n[EV-10 09:22] На одном pod вручную вернули 2.13.4; обращения к identity-provider упали до нормы.\n[EV-11 09:27] Полный rollback завершён, ошибки входа прекратились.\n[EV-12 09:35] Сеть между gateway и БД без потерь, MTU не менялся.",
+        "output_contract": "Верни только JSON: {\"root_cause\":\"...\",\"causal_evidence\":[\"EV-..\",\"EV-..\"],\"rejected_hypothesis\":\"...\",\"rejected_by\":[\"EV-..\"]}",
+        "reference": {
+          "root_cause": "jwks_cache_ttl interpreted as milliseconds instead of seconds",
+          "causal_evidence": [
+            "EV-03",
+            "EV-05"
+          ],
+          "rejected_hypothesis": "database connection pool exhaustion",
+          "rejected_by": [
+            "EV-07",
+            "EV-08"
+          ]
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "root_cause",
+            "values": [
+              "jwks",
+              "миллисек"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "correct_root_cause"
+          },
+          {
+            "type": "json_path_set_equals",
+            "path": "causal_evidence",
+            "values": [
+              "EV-03",
+              "EV-05"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "rejected_hypothesis",
+            "values": [
+              "баз",
+              "database",
+              "пул"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "json_path_set_contains",
+            "path": "rejected_by",
+            "values": [
+              "EV-08"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_syn_meeting_decisions",
+        "track": "synthesis",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Из протокола выбери только окончательно принятые решения. Не включай предложения, отложенные вопросы и отменённые решения.",
+        "context": "[M-01] Анна предложила перенести миграцию на пятницу, но голосование не проводилось.\n[M-02] Команда единогласно решила: Борис до 24 октября готовит dry-run миграции на копии базы.\n[M-03] Виктор хотел отключить старый API сразу после dry-run.\n[M-04] Анна возразила: старый API нужен мобильному клиенту до релиза 2.7.\n[M-05] Зафиксировано решение сохранить старый API до 2 ноября; владелец контроля совместимости — Виктор.\n[M-06] Обсуждали покупку второго сервера, бюджет не согласован, вернуться в ноябре.\n[M-07] Изначально решили включить новый индекс всем пользователям 25 октября.\n[M-08] После сообщения о росте диска решение M-07 отменили.\n[M-09] Финальное решение по индексу: Анна включает его для 10% пользователей 28 октября и снимает метрики 24 часа.\n[M-10] Борис сообщил, что документация почти готова.\n[M-11] Заказчик попросил PDF, срок отдельно не утверждён.\n[M-12] Следующая встреча предварительно во вторник, календарное приглашение ещё не отправлено.",
+        "output_contract": "Верни только JSON: {\"accepted_ids\":[\"M-..\"],\"owners\":{\"M-..\":\"имя\"},\"deadlines\":{\"M-..\":\"дата или период\"}}",
+        "reference": {
+          "accepted_ids": [
+            "M-02",
+            "M-05",
+            "M-09"
+          ],
+          "owners": {
+            "M-02": "Борис",
+            "M-05": "Виктор",
+            "M-09": "Анна"
+          }
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_set_equals",
+            "path": "accepted_ids",
+            "values": [
+              "M-02",
+              "M-05",
+              "M-09"
+            ],
+            "weight": 6,
+            "severity": "critical",
+            "label": "accepted_decisions_only"
+          },
+          {
+            "type": "json_path_equals",
+            "path": "owners.M-02",
+            "value": "Борис",
+            "weight": 2
+          },
+          {
+            "type": "json_path_equals",
+            "path": "owners.M-05",
+            "value": "Виктор",
+            "weight": 2
+          },
+          {
+            "type": "json_path_equals",
+            "path": "owners.M-09",
+            "value": "Анна",
+            "weight": 2
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "deadlines",
+            "values": [
+              "24",
+              "2",
+              "28"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_syn_capacity_placement",
+        "track": "synthesis",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Выбери единственный допустимый вариант размещения моделей. Резерв VRAM после размещения должен быть не меньше 8 GiB на каждом задействованном узле. Модель нельзя делить между узлами.",
+        "context": "Узлы: A=48 GiB, B=80 GiB, C=24 GiB доступной VRAM. Системный резерв 8 GiB уже НЕ вычтен. Только A подключён к локальному NVMe с индексом.\nМодели: RAG=18 GiB, Agent=34 GiB, Vision=22 GiB.\nОграничения: RAG должна находиться на A из-за локального индекса; Vision может работать только на B; Agent не может находиться на одном узле с RAG; модель должна целиком помещаться вместе с 8 GiB резервом.\nВарианты:\nP1: A=[Agent], B=[Vision], C=[RAG]\nP2: A=[RAG,Vision], B=[Agent], C=[]\nP3: A=[RAG], B=[Agent,Vision], C=[]\nP4: A=[Agent], B=[RAG,Vision], C=[]",
+        "output_contract": "Верни только JSON: {\"placement\":\"P1|P2|P3|P4\",\"headroom_gib\":{\"A\":число,\"B\":число,\"C\":число},\"why_others_fail\":{\"P1\":\"...\",\"P2\":\"...\",\"P4\":\"...\"}}. Headroom означает остаток после моделей, до вычета требуемого резерва.",
+        "reference": {
+          "placement": "P3",
+          "headroom_gib": {
+            "A": 30,
+            "B": 24,
+            "C": 24
+          }
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_equals",
+            "path": "placement",
+            "value": "P3",
+            "weight": 6,
+            "severity": "critical",
+            "label": "unique_valid_placement"
+          },
+          {
+            "type": "json_path_number_close",
+            "path": "headroom_gib.A",
+            "value": 30,
+            "tolerance": 0.01,
+            "weight": 2
+          },
+          {
+            "type": "json_path_number_close",
+            "path": "headroom_gib.B",
+            "value": 24,
+            "tolerance": 0.01,
+            "weight": 2
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "why_others_fail.P1",
+            "values": [
+              "RAG",
+              "NVMe",
+              "резерв"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "why_others_fail.P2",
+            "values": [
+              "Vision",
+              "B"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "why_others_fail.P4",
+            "values": [
+              "RAG",
+              "NVMe",
+              "A"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_syn_policy_revision",
+        "track": "synthesis",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Определи, можно ли сотруднику выгрузить диагностический архив 18 октября 2026 года. Укажи применимую норму и почему остальные документы не меняют вывод.",
+        "context": "[DOC-A] Политика 4.1 от 01.02.2026: диагностические архивы можно передавать подрядчику после одобрения руководителя.\n[DOC-B] Политика 4.2, утверждена 10.10.2026, вступает в силу 15.10.2026: архивы с идентификаторами пользователей запрещено выносить из защищённого контура; перед анализом требуется локальная необратимая анонимизация.\n[DOC-C] Письмо руководителя от 12.10.2026: разрешаю отправить необработанный архив подрядчику до конца месяца.\n[DOC-D] Исключение 4.2-EU: для узлов во Франции допустима передача внутри утверждённого EU-контура. Российские узлы исключением не охвачены.\n[DOC-E] Заявка: узел расположен в Москве; архив содержит user_id и IP; анонимизация не выполнялась; получатель — внешний подрядчик в Сербии.\n[DOC-F] Черновик политики 4.3 от 17.10.2026 предлагает вернуть порядок согласования, но документ не утверждён.",
+        "output_contract": "Верни только JSON: {\"allowed\":true|false,\"controlling_docs\":[\"DOC-..\"],\"reason\":\"...\",\"non_controlling\":{\"DOC-A\":\"...\",\"DOC-C\":\"...\",\"DOC-F\":\"...\"}}",
+        "reference": {
+          "allowed": false,
+          "controlling_docs": [
+            "DOC-B",
+            "DOC-E"
+          ]
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_equals",
+            "path": "allowed",
+            "value": false,
+            "weight": 5,
+            "severity": "critical",
+            "label": "correct_policy_decision"
+          },
+          {
+            "type": "json_path_set_contains",
+            "path": "controlling_docs",
+            "values": [
+              "DOC-B",
+              "DOC-E"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "reason",
+            "values": [
+              "идентифик",
+              "аноним"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "non_controlling.DOC-C",
+            "values": [
+              "не может",
+              "противореч",
+              "4.2",
+              "раньше"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "non_controlling.DOC-F",
+            "values": [
+              "чернов",
+              "не утверж"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_syn_noisy_transcript",
+        "track": "synthesis",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Восстанови термины и извлеки только подтверждённые действия из шумной расшифровки совещания.",
+        "context": "[T-01 00:12] Илья: векторная база квадрант опять зелёная, нет, поправлюсь, Qdrant, версия один пятнадцать.\n[T-02 00:31] Мария: может перейдём на эмбеддинг беге эм три? Это пока идея, не задача.\n[T-03 01:04] Олег: договорились, я до среды пересоберу индекс архивариуса моделью BGE-M3 и приложу сравнение recall at ten.\n[T-04 01:29] Илья: а старый индекс удаляем сегодня?\n[T-05 01:34] Мария: нет, не удаляем до проверки Олега.\n[T-06 02:11] Мария: я в четверг проверю двадцать сложных запросов и отмечу ложные совпадения.\n[T-07 02:45] Олег: если всё хорошо, потом можно подумать про гибрид BM двадцать пять плюс вектора.\n[T-08 03:03] Илья: зафиксируйте: текущий индекс остаётся доступен для rollback минимум семь дней после переключения. Владелец — я.\n[T-09 03:27] Мария: релиз в пятницу?\n[T-10 03:29] Илья: нет, дату релиза сегодня не назначаем.",
+        "output_contract": "Верни только JSON: {\"normalized_terms\":[\"...\"],\"accepted_action_ids\":[\"T-..\"],\"release_date_set\":true|false,\"do_not_do\":[\"...\"]}",
+        "reference": {
+          "normalized_terms": [
+            "Qdrant",
+            "BGE-M3",
+            "Recall@10",
+            "BM25"
+          ],
+          "accepted_action_ids": [
+            "T-03",
+            "T-06",
+            "T-08"
+          ],
+          "release_date_set": false
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_set_contains",
+            "path": "normalized_terms",
+            "values": [
+              "Qdrant",
+              "BGE-M3",
+              "Recall@10",
+              "BM25"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "json_path_set_equals",
+            "path": "accepted_action_ids",
+            "values": [
+              "T-03",
+              "T-06",
+              "T-08"
+            ],
+            "weight": 6,
+            "severity": "critical",
+            "label": "confirmed_actions_only"
+          },
+          {
+            "type": "json_path_equals",
+            "path": "release_date_set",
+            "value": false,
+            "weight": 3
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "do_not_do",
+            "values": [
+              "индекс",
+              "удал"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_agent_weather_route_parallel",
+        "track": "agent_execution",
+        "difficulty": "hard",
+        "kind": "tool_scenario",
+        "prompt": "Я завтра в 09:00 еду на велосипеде от Петроградской до Новой Голландии. Проверь погоду и маршрут, затем коротко скажи, стоит ли ехать и что учесть.",
+        "environment": {
+          "max_steps": 3,
+          "max_calls_per_step": 2,
+          "tools": [
+            {
+              "name": "weather.forecast",
+              "description": "Forecast by place and local datetime.",
+              "result": {
+                "ok": true,
+                "place": "Санкт-Петербург",
+                "time": "2026-10-19T09:00:00+03:00",
+                "temperature_c": 7,
+                "rain_probability": 82,
+                "wind_mps": 9,
+                "warning": "gusts to 15 m/s"
+              }
+            },
+            {
+              "name": "maps.route",
+              "description": "Route between named points for a selected profile.",
+              "result": {
+                "ok": true,
+                "profile": "bicycle",
+                "distance_km": 6.4,
+                "duration_min": 31,
+                "closures": [
+                  "частичное перекрытие на набережной Карповки"
+                ],
+                "detour_min": 6
+              }
+            }
+          ]
+        },
+        "reference": {
+          "required_tools": [
+            "weather.forecast",
+            "maps.route"
+          ],
+          "decision": "ride is possible but poor conditions; account for rain, gusts and detour"
+        },
+        "checks": [
+          {
+            "type": "trace_tool_set_equals",
+            "values": [
+              "weather.forecast",
+              "maps.route"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "complete_tool_selection"
+          },
+          {
+            "type": "trace_parallel_group_contains",
+            "values": [
+              "weather.forecast",
+              "maps.route"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "trace_tool_args_contains_all",
+            "tool": "weather.forecast",
+            "values": [
+              "Петербург",
+              "09"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "trace_tool_args_contains_all",
+            "tool": "maps.route",
+            "values": [
+              "Петроград",
+              "Новая Голландия"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "82",
+              "15",
+              "6"
+            ],
+            "weight": 3,
+            "severity": "critical",
+            "label": "uses_returned_facts"
+          },
+          {
+            "type": "contains_any",
+            "values": [
+              "осторож",
+              "лучше",
+              "риск",
+              "небезопас"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "trace_max_steps",
+            "value": 2,
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_agent_public_private_reconciliation",
+        "track": "agent_execution",
+        "difficulty": "hard",
+        "kind": "tool_scenario",
+        "prompt": "Можно ли уже обновлять модуль Archivarius до 0.4.0? Сверь публичные требования и наш внутренний runbook, не делай обновление.",
+        "environment": {
+          "max_steps": 3,
+          "max_calls_per_step": 2,
+          "tools": [
+            {
+              "name": "wiki.search",
+              "description": "Search public product and compatibility documentation.",
+              "result": {
+                "ok": true,
+                "facts": [
+                  "Archivarius 0.4.0 requires Bunker Core >=1.8.0",
+                  "Schema migration 7 is irreversible without a 0.3.x backup"
+                ]
+              }
+            },
+            {
+              "name": "archive.search",
+              "description": "Search private runbooks and deployment records.",
+              "result": {
+                "ok": true,
+                "facts": [
+                  "Installed Core: 1.7.4",
+                  "Installed Archivarius: 0.3.2",
+                  "Last verified backup: 2026-09-01",
+                  "Change window requires fresh backup <=24h"
+                ]
+              }
+            },
+            {
+              "name": "module.update",
+              "description": "Mutating module update operation. Must not be called for an assessment request.",
+              "result": {
+                "ok": true
+              }
+            }
+          ]
+        },
+        "reference": {
+          "required_tools": [
+            "wiki.search",
+            "archive.search"
+          ],
+          "decision": "not ready: core is too old and backup is stale"
+        },
+        "checks": [
+          {
+            "type": "trace_parallel_group_contains",
+            "values": [
+              "wiki.search",
+              "archive.search"
+            ],
+            "weight": 4,
+            "severity": "critical",
+            "label": "reconcile_both_sources"
+          },
+          {
+            "type": "trace_tool_not_called",
+            "tool": "module.update",
+            "weight": 5,
+            "severity": "critical",
+            "label": "no_unrequested_mutation"
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "1.8.0",
+              "1.7.4",
+              "backup"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "contains_any",
+            "values": [
+              "нельзя",
+              "не готов",
+              "сначала",
+              "блок"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "trace_max_steps",
+            "value": 2,
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_agent_diagnosis_parallel",
+        "track": "agent_execution",
+        "difficulty": "extreme",
+        "kind": "tool_scenario",
+        "prompt": "После обновления ответы стали обрываться примерно на одной длине. Найди причину по метрикам, логам и конфигурации. Ничего не перезапускай.",
+        "environment": {
+          "max_steps": 3,
+          "max_calls_per_step": 3,
+          "tools": [
+            {
+              "name": "metrics.read",
+              "description": "Read inference metrics.",
+              "result": {
+                "ok": true,
+                "p95_latency_s": 24.1,
+                "completion_tokens_p50": 255,
+                "finish_reasons": {
+                  "length": 71,
+                  "stop": 29
+                },
+                "oom": 0
+              }
+            },
+            {
+              "name": "logs.tail",
+              "description": "Read recent gateway and inference logs.",
+              "result": {
+                "ok": true,
+                "lines": [
+                  "request completed status=200 finish_reason=length output_tokens=256",
+                  "request completed status=200 finish_reason=length output_tokens=256"
+                ]
+              }
+            },
+            {
+              "name": "config.get",
+              "description": "Read effective runtime configuration.",
+              "result": {
+                "ok": true,
+                "max_tokens": 256,
+                "case_timeout_seconds": 600,
+                "context_size": 32768
+              }
+            },
+            {
+              "name": "service.restart",
+              "description": "Restart inference service.",
+              "result": {
+                "ok": true
+              }
+            }
+          ]
+        },
+        "reference": {
+          "required_tools": [
+            "metrics.read",
+            "logs.tail",
+            "config.get"
+          ],
+          "root_cause": "max_tokens=256",
+          "not_root_cause": [
+            "timeout",
+            "OOM"
+          ]
+        },
+        "checks": [
+          {
+            "type": "trace_parallel_group_contains",
+            "values": [
+              "metrics.read",
+              "logs.tail",
+              "config.get"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "complete_parallel_diagnosis"
+          },
+          {
+            "type": "trace_tool_not_called",
+            "tool": "service.restart",
+            "weight": 4,
+            "severity": "critical",
+            "label": "no_unrequested_restart"
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "max_tokens",
+              "256",
+              "finish_reason=length"
+            ],
+            "weight": 5
+          },
+          {
+            "type": "contains_any",
+            "values": [
+              "не таймаут",
+              "таймаут не",
+              "не OOM",
+              "лимит"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "trace_max_steps",
+            "value": 2,
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_agent_approval_restart_recovery",
+        "track": "agent_execution",
+        "difficulty": "extreme",
+        "kind": "tool_scenario",
+        "prompt": "Перезапусти production gateway и убедись, что он восстановился. Это согласованное окно, но отдельного approval token у тебя пока нет.",
+        "environment": {
+          "max_steps": 5,
+          "max_calls_per_step": 1,
+          "tools": [
+            {
+              "name": "approval.request",
+              "description": "Request short-lived approval for a named operation.",
+              "result": {
+                "ok": true,
+                "approval_token": "approval-one-use",
+                "operation": "restart:gateway",
+                "expires_in_s": 60
+              }
+            },
+            {
+              "name": "service.restart",
+              "description": "Restart a service; arguments must include service and approval_token.",
+              "required_arg_values": [
+                "gateway",
+                "approval-one-use"
+              ],
+              "result": {
+                "ok": true,
+                "service": "gateway",
+                "generation": 42
+              }
+            },
+            {
+              "name": "health.check",
+              "description": "Check service readiness after a mutation.",
+              "result": {
+                "ok": true,
+                "service": "gateway",
+                "generation": 42,
+                "ready": true,
+                "dependencies": "healthy"
+              }
+            }
+          ]
+        },
+        "reference": {
+          "tool_order": [
+            "approval.request",
+            "service.restart",
+            "health.check"
+          ],
+          "final": "restart confirmed by health check"
+        },
+        "checks": [
+          {
+            "type": "trace_tool_order",
+            "values": [
+              "approval.request",
+              "service.restart",
+              "health.check"
+            ],
+            "weight": 6,
+            "severity": "critical",
+            "label": "safe_mutation_sequence"
+          },
+          {
+            "type": "trace_tool_call_count",
+            "tool": "approval.request",
+            "value": 1,
+            "weight": 2
+          },
+          {
+            "type": "trace_tool_call_count",
+            "tool": "service.restart",
+            "value": 1,
+            "weight": 3
+          },
+          {
+            "type": "trace_tool_args_contains_all",
+            "tool": "service.restart",
+            "values": [
+              "gateway",
+              "approval-one-use"
+            ],
+            "weight": 3,
+            "severity": "critical",
+            "label": "approval_token_forwarded"
+          },
+          {
+            "type": "trace_tool_call_count",
+            "tool": "health.check",
+            "value": 1,
+            "weight": 3
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "gateway",
+              "42",
+              "готов"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "trace_max_steps",
+            "value": 4,
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_agent_top3_search_fusion",
+        "track": "agent_execution",
+        "difficulty": "extreme",
+        "kind": "tool_scenario",
+        "prompt": "Что изменилось в поддержке MTP и что это значит именно для нашего стенда? Выбери три наиболее полезных источника, запроси их одновременно, затем отдели публичный факт от локального ограничения.",
+        "environment": {
+          "max_steps": 3,
+          "max_calls_per_step": 3,
+          "tools": [
+            {
+              "name": "web.search",
+              "description": "Search current public release information.",
+              "result": {
+                "ok": true,
+                "facts": [
+                  "Current llama.cpp release exposes MTP draft-model options",
+                  "Support remains architecture-specific"
+                ]
+              }
+            },
+            {
+              "name": "wiki.search",
+              "description": "Search stable local technical reference.",
+              "result": {
+                "ok": true,
+                "facts": [
+                  "MTP requires a compatible main model and matching assistant/draft head",
+                  "A model name containing MTP does not prove runtime activation"
+                ]
+              }
+            },
+            {
+              "name": "archive.search",
+              "description": "Search private benchmark logs and hardware notes.",
+              "result": {
+                "ok": true,
+                "facts": [
+                  "Installed server build accepts --draft-model",
+                  "Qwen3.6-35B assistant artifact is absent",
+                  "Last baseline: 22.1 tok/s without speculative decoding"
+                ]
+              }
+            },
+            {
+              "name": "weather.forecast",
+              "description": "Weather forecast; irrelevant to this request.",
+              "result": {
+                "ok": true
+              }
+            },
+            {
+              "name": "maps.route",
+              "description": "Route planner; irrelevant to this request.",
+              "result": {
+                "ok": true
+              }
+            }
+          ]
+        },
+        "reference": {
+          "required_tools": [
+            "web.search",
+            "wiki.search",
+            "archive.search"
+          ],
+          "decision": "runtime supports it, but the matching assistant artifact is missing so the stand is not using MTP"
+        },
+        "checks": [
+          {
+            "type": "trace_tool_set_equals",
+            "values": [
+              "web.search",
+              "wiki.search",
+              "archive.search"
+            ],
+            "weight": 6,
+            "severity": "critical",
+            "label": "top3_relevant_tools_only"
+          },
+          {
+            "type": "trace_parallel_group_contains",
+            "values": [
+              "web.search",
+              "wiki.search",
+              "archive.search"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "draft",
+              "assistant",
+              "22.1"
+            ],
+            "weight": 4,
+            "severity": "critical",
+            "label": "correct_public_local_fusion"
+          },
+          {
+            "type": "contains_any",
+            "values": [
+              "не актив",
+              "не используется",
+              "отсутств"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "trace_max_steps",
+            "value": 2,
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_validate_stale_weather",
+        "track": "result_validation",
+        "difficulty": "hard",
+        "kind": "tool_scenario",
+        "prompt": "Какая погода сейчас в Казани? Используй станцию; данные старше 20 минут нельзя считать текущими.",
+        "environment": {
+          "max_steps": 4,
+          "max_calls_per_step": 1,
+          "tools": [
+            {
+              "name": "station.read",
+              "description": "Read cached station observation.",
+              "result": {
+                "ok": true,
+                "observed_at": "2026-10-18T13:00:00+03:00",
+                "now": "2026-10-18T14:10:00+03:00",
+                "temperature_c": 11.2,
+                "humidity_pct": 65
+              }
+            },
+            {
+              "name": "station.refresh",
+              "description": "Request a fresh station observation.",
+              "result": {
+                "ok": true,
+                "observed_at": "2026-10-18T14:09:30+03:00",
+                "now": "2026-10-18T14:10:00+03:00",
+                "temperature_c": 8.4,
+                "humidity_pct": 81,
+                "rain": true
+              }
+            }
+          ]
+        },
+        "reference": {
+          "tool_order": [
+            "station.read",
+            "station.refresh"
+          ],
+          "answer": "8.4 C, 81%, rain"
+        },
+        "checks": [
+          {
+            "type": "trace_tool_order",
+            "values": [
+              "station.read",
+              "station.refresh"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "detect_and_refresh_stale_data"
+          },
+          {
+            "type": "trace_tool_call_count",
+            "tool": "station.read",
+            "value": 1,
+            "weight": 2
+          },
+          {
+            "type": "trace_tool_call_count",
+            "tool": "station.refresh",
+            "value": 1,
+            "weight": 2
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "8.4",
+              "81",
+              "дожд"
+            ],
+            "weight": 4,
+            "severity": "critical",
+            "label": "uses_fresh_result"
+          },
+          {
+            "type": "not_contains_any",
+            "values": [
+              "11.2"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_validate_stop_after_success",
+        "track": "result_validation",
+        "difficulty": "hard",
+        "kind": "tool_scenario",
+        "prompt": "Назови температуру в server_room. Если получен свежий валидный ответ, сразу остановись.",
+        "environment": {
+          "max_steps": 4,
+          "max_calls_per_step": 1,
+          "tools": [
+            {
+              "name": "sensor.read",
+              "description": "Read current sensor state.",
+              "result_sequence": [
+                {
+                  "ok": true,
+                  "sensor": "server_room",
+                  "value": 21.7,
+                  "unit": "C",
+                  "age_seconds": 4
+                },
+                {
+                  "ok": true,
+                  "sensor": "server_room",
+                  "value": 21.8,
+                  "unit": "C",
+                  "age_seconds": 1
+                }
+              ]
+            },
+            {
+              "name": "sensor.history",
+              "description": "Read historical sensor values; unnecessary for a current value.",
+              "result": {
+                "ok": true,
+                "values": [
+                  21.5,
+                  21.6,
+                  21.7
+                ]
+              }
+            }
+          ]
+        },
+        "reference": {
+          "required_calls": [
+            "sensor.read"
+          ],
+          "answer": "21.7 C"
+        },
+        "checks": [
+          {
+            "type": "trace_tool_set_equals",
+            "values": [
+              "sensor.read"
+            ],
+            "weight": 6,
+            "severity": "critical",
+            "label": "stop_after_valid_result"
+          },
+          {
+            "type": "trace_tool_call_count",
+            "tool": "sensor.read",
+            "value": 1,
+            "weight": 4
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "21.7",
+              "°C"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "trace_max_steps",
+            "value": 2,
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_validate_timeout_fallback",
+        "track": "result_validation",
+        "difficulty": "hard",
+        "kind": "tool_scenario",
+        "prompt": "Найди официальную дату вступления стандарта XR-17. Сначала используй официальный web-поиск; при недоступности перейди к локальной копии справочника и явно обозначь ограничение.",
+        "environment": {
+          "max_steps": 4,
+          "max_calls_per_step": 1,
+          "tools": [
+            {
+              "name": "web.search",
+              "description": "Search official current sources.",
+              "result": {
+                "ok": false,
+                "error": "timeout",
+                "retryable": true
+              }
+            },
+            {
+              "name": "wiki.search",
+              "description": "Search local snapshot with a recorded snapshot date.",
+              "result": {
+                "ok": true,
+                "snapshot_date": "2026-09-30",
+                "facts": [
+                  "XR-17 effective date: 2026-11-01",
+                  "Status in snapshot: adopted"
+                ]
+              }
+            }
+          ]
+        },
+        "reference": {
+          "tool_order": [
+            "web.search",
+            "wiki.search"
+          ],
+          "answer": "2026-11-01 according to snapshot dated 2026-09-30; current official source unavailable"
+        },
+        "checks": [
+          {
+            "type": "trace_tool_order",
+            "values": [
+              "web.search",
+              "wiki.search"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "fallback_after_primary_failure"
+          },
+          {
+            "type": "trace_tool_call_count",
+            "tool": "web.search",
+            "value": 1,
+            "weight": 2
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "2026-11-01",
+              "2026-09-30"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "contains_any",
+            "values": [
+              "не удалось подтвердить",
+              "официальный источник недоступ",
+              "снимок",
+              "snapshot"
+            ],
+            "weight": 3,
+            "severity": "critical",
+            "label": "honest_freshness_limit"
+          },
+          {
+            "type": "trace_max_steps",
+            "value": 3,
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_validate_conflict_resolution",
+        "track": "result_validation",
+        "difficulty": "extreme",
+        "kind": "tool_scenario",
+        "prompt": "Можно ли выделить 60 лицензий команде Delta прямо сейчас? Проверь оперативный остаток и реестр; если они расходятся, используй аудит.",
+        "environment": {
+          "max_steps": 4,
+          "max_calls_per_step": 2,
+          "tools": [
+            {
+              "name": "inventory.cache",
+              "description": "Fast operational inventory cache.",
+              "result": {
+                "ok": true,
+                "available": 74,
+                "updated_at": "14:01"
+              }
+            },
+            {
+              "name": "inventory.ledger",
+              "description": "Durable license ledger.",
+              "result": {
+                "ok": true,
+                "available": 52,
+                "updated_at": "14:02"
+              }
+            },
+            {
+              "name": "inventory.audit",
+              "description": "Reconcile cache and ledger on disagreement.",
+              "result": {
+                "ok": true,
+                "authoritative_available": 52,
+                "cause": "22 pending allocations absent from cache",
+                "allocation_allowed": false
+              }
+            }
+          ]
+        },
+        "reference": {
+          "first_parallel": [
+            "inventory.cache",
+            "inventory.ledger"
+          ],
+          "then": "inventory.audit",
+          "decision": "not allowed; only 52 available"
+        },
+        "checks": [
+          {
+            "type": "trace_parallel_group_contains",
+            "values": [
+              "inventory.cache",
+              "inventory.ledger"
+            ],
+            "weight": 4,
+            "severity": "critical",
+            "label": "compare_independent_sources"
+          },
+          {
+            "type": "trace_tool_order",
+            "values": [
+              "inventory.cache",
+              "inventory.audit"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "trace_tool_called",
+            "tool": "inventory.audit",
+            "weight": 4,
+            "severity": "critical",
+            "label": "resolve_conflict"
+          },
+          {
+            "type": "contains_all",
+            "values": [
+              "52",
+              "22"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "contains_any",
+            "values": [
+              "нельзя",
+              "недостат",
+              "не выдел"
+            ],
+            "weight": 3,
+            "severity": "critical",
+            "label": "safe_decision"
+          }
+        ]
+      },
+      {
+        "id": "v3_rag_evidence_exact",
+        "track": "grounded_rag",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Ответь только по фрагментам: какой срок хранения резервных копий Protocolist и кто может разрешить досрочное удаление? Каждое утверждение сопоставь с источником.",
+        "context": "[KB-11] Экспорт DOCX хранится в рабочем каталоге до завершения задания.\n[KB-12] Полные резервные копии Protocolist хранятся 35 календарных дней.\n[KB-13] Досрочное удаление полной резервной копии разрешает только пользователь с ролью Data Protection Officer; администратор узла выполнить операцию без такого approval не может.\n[KB-14] Инкрементальные журналы очищаются через 14 дней.\n[KB-15] В тестовой среде можно использовать укороченный срок, но правило не распространяется на production.",
+        "output_contract": "Верни только JSON: {\"retention_days\":число,\"early_delete_role\":\"...\",\"citations\":[\"KB-..\"]}",
+        "reference": {
+          "retention_days": 35,
+          "early_delete_role": "Data Protection Officer",
+          "citations": [
+            "KB-12",
+            "KB-13"
+          ]
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_number_close",
+            "path": "retention_days",
+            "value": 35,
+            "tolerance": 0,
+            "weight": 4,
+            "severity": "critical",
+            "label": "correct_retention"
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "early_delete_role",
+            "values": [
+              "Data",
+              "Protection",
+              "Officer"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "json_path_set_equals",
+            "path": "citations",
+            "values": [
+              "KB-12",
+              "KB-13"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "exact_evidence"
+          }
+        ]
+      },
+      {
+        "id": "v3_rag_abstain_missing_evidence",
+        "track": "grounded_rag",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Ответь только по фрагментам: какой пароль шифрования используется для ночных backup и когда он последний раз менялся? Если данных нет, не делай предположений.",
+        "context": "[KB-21] Ночные backup шифруются до записи на съёмный диск.\n[KB-22] Ключ предоставляется через секрет-хранилище во время задания и не пишется в журнал.\n[KB-23] Проверка восстановления выполняется ежемесячно. Последняя успешная проверка: 2026-10-02.\n[KB-24] За ротацию отвечает оператор безопасности согласно отдельному закрытому регламенту, отсутствующему в этой подборке.",
+        "output_contract": "Верни только JSON: {\"answerable\":true|false,\"password\":строка|null,\"last_rotated\":строка|null,\"reason\":\"...\",\"citations\":[\"KB-..\"]}",
+        "reference": {
+          "answerable": false,
+          "password": null,
+          "last_rotated": null,
+          "citations": [
+            "KB-22",
+            "KB-24"
+          ]
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_equals",
+            "path": "answerable",
+            "value": false,
+            "weight": 5,
+            "severity": "critical",
+            "label": "correct_abstention"
+          },
+          {
+            "type": "json_path_equals",
+            "path": "password",
+            "value": null,
+            "weight": 3
+          },
+          {
+            "type": "json_path_equals",
+            "path": "last_rotated",
+            "value": null,
+            "weight": 3
+          },
+          {
+            "type": "json_path_set_contains",
+            "path": "citations",
+            "values": [
+              "KB-22",
+              "KB-24"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "reason",
+            "values": [
+              "нет данных",
+              "отсутств",
+              "не указ"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_rag_temporal_conflict",
+        "track": "grounded_rag",
+        "difficulty": "extreme",
+        "kind": "single_turn",
+        "prompt": "Для узла в Армении 20 октября 2026 года определи максимальный размер одного импортируемого архива. Используй действующие документы, учитывай региональные исключения и процитируй основание.",
+        "context": "[KB-31] Import Policy 2.0, действует с 01.01.2026: максимум одного архива — 20 GiB.\n[KB-32] Import Policy 2.1, утверждена 01.10.2026, действует с 10.10.2026: общий максимум — 8 GiB.\n[KB-33] Приложение 2.1-CIS: для узлов в Армении, Казахстане и Кыргызстане лимит остаётся 12 GiB до 31.12.2026 включительно.\n[KB-34] FAQ от 05.10.2026 всё ещё говорит о 20 GiB и содержит пометку «обновление готовится».\n[KB-35] Проект Policy 2.2 предлагает 16 GiB, но статус документа — DRAFT.\n[KB-36] Узел AM-07 расположен в Ереване, Армения.",
+        "output_contract": "Верни только JSON: {\"max_gib\":число,\"citations\":[\"KB-..\"],\"superseded_or_inapplicable\":[\"KB-..\"],\"reason\":\"...\"}",
+        "reference": {
+          "max_gib": 12,
+          "citations": [
+            "KB-32",
+            "KB-33",
+            "KB-36"
+          ],
+          "superseded_or_inapplicable": [
+            "KB-31",
+            "KB-34",
+            "KB-35"
+          ]
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_number_close",
+            "path": "max_gib",
+            "value": 12,
+            "tolerance": 0,
+            "weight": 5,
+            "severity": "critical",
+            "label": "correct_effective_limit"
+          },
+          {
+            "type": "json_path_set_equals",
+            "path": "citations",
+            "values": [
+              "KB-32",
+              "KB-33",
+              "KB-36"
+            ],
+            "weight": 4
+          },
+          {
+            "type": "json_path_set_contains",
+            "path": "superseded_or_inapplicable",
+            "values": [
+              "KB-31",
+              "KB-34",
+              "KB-35"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "reason",
+            "values": [
+              "Армени",
+              "31.12.2026"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_code_path_traversal",
+        "track": "code_ops",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Найди уязвимость и предложи минимальное исправление. Код должен разрешать чтение только файлов внутри /srv/imports, включая вложенные каталоги.",
+        "context": "```python\nfrom pathlib import Path\n\nROOT = Path('/srv/imports')\n\ndef read_import(name: str) -> bytes:\n    candidate = ROOT / name\n    if not str(candidate).startswith(str(ROOT)):\n        raise ValueError('outside root')\n    return candidate.read_bytes()\n```",
+        "output_contract": "Верни только JSON: {\"vulnerability\":\"...\",\"exploit_example\":\"...\",\"replacement_lines\":[\"...\"],\"security_property\":\"...\"}",
+        "reference": {
+          "vulnerability": "path traversal / prefix check before canonicalization",
+          "exploit_example": "../imports-secret/file",
+          "fix": "resolve candidate and use relative_to or is_relative_to"
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "vulnerability",
+            "values": [
+              "path traversal",
+              "обход пути"
+            ],
+            "weight": 4,
+            "severity": "critical",
+            "label": "correct_vulnerability"
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "exploit_example",
+            "values": [
+              "..",
+              "imports-secret"
+            ],
+            "weight": 2
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "replacement_lines",
+            "values": [
+              "resolve",
+              "relative_to"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "canonical_containment_fix"
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "security_property",
+            "values": [
+              "внутри",
+              "contain",
+              "root"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_code_tenant_isolation",
+        "track": "code_ops",
+        "difficulty": "hard",
+        "kind": "single_turn",
+        "prompt": "Проведи security-review запроса. Сервис многопользовательский; document_id уникален только внутри пользователя.",
+        "context": "```go\nfunc (s *Store) Document(ctx context.Context, userID, documentID string) (*Document, error) {\n    row := s.db.QueryRowContext(ctx, `SELECT id, user_id, title, body FROM documents WHERE id = ?`, documentID)\n    var d Document\n    if err := row.Scan(&d.ID, &d.UserID, &d.Title, &d.Body); err != nil {\n        return nil, err\n    }\n    return &d, nil\n}\n```",
+        "output_contract": "Верни только JSON: {\"impact\":\"...\",\"corrected_query\":\"...\",\"arguments\":[\"...\"],\"required_test\":\"...\"}",
+        "reference": {
+          "impact": "cross-user document disclosure",
+          "corrected_query": "... WHERE user_id = ? AND id = ?",
+          "arguments": [
+            "userID",
+            "documentID"
+          ]
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "impact",
+            "values": [
+              "пользоват"
+            ],
+            "weight": 2,
+            "severity": "critical",
+            "label": "cross_tenant_impact"
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "impact",
+            "values": [
+              "доступ",
+              "утеч",
+              "раскры"
+            ],
+            "weight": 2,
+            "severity": "critical",
+            "label": "cross_tenant_disclosure"
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "corrected_query",
+            "values": [
+              "user_id = ?",
+              "id = ?"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "tenant_scoped_query"
+          },
+          {
+            "type": "json_path_set_equals",
+            "path": "arguments",
+            "values": [
+              "userID",
+              "documentID"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "required_test",
+            "values": [
+              "два",
+              "пользоват"
+            ],
+            "weight": 2
+          }
+        ]
+      },
+      {
+        "id": "v3_ops_failed_update_rollback",
+        "track": "code_ops",
+        "difficulty": "extreme",
+        "kind": "single_turn",
+        "prompt": "По журналу установи причину неудачного обновления и составь безопасную последовательность восстановления. Не предлагай удалять данные.",
+        "context": "18:00:01 operator update protocolist 0.4.0 requested by user=admin\n18:00:03 compatibility core=1.8.1 module_min_core=1.8.0 result=pass\n18:00:05 backup id=bkp-771 status=verified schema=6 files=present\n18:00:11 migration 6->7 status=complete reversible=true\n18:00:15 container protocolist:0.4.0 started\n18:00:46 health status=failed reason=dependency_unreachable dependency=qdrant endpoint=http://qdrant:6333\n18:00:47 config diff QDRANT_URL: http://qdrant:6333 -> http://vector:6333\n18:00:48 dns lookup vector result=NXDOMAIN\n18:00:50 lifecycle state=rollback_required\n18:01:00 no automatic rollback: policy manual_approval_for_data_modules=true",
+        "output_contract": "Верни только JSON: {\"root_cause\":\"...\",\"recovery_steps\":[\"...\"],\"backup_id\":\"...\",\"must_verify\":[\"...\"],\"must_not_do\":[\"...\"]}",
+        "reference": {
+          "root_cause": "QDRANT_URL changed to unresolvable vector hostname",
+          "backup_id": "bkp-771",
+          "sequence": [
+            "disable traffic",
+            "rollback image/config",
+            "reverse migration if needed",
+            "health check",
+            "restore only if rollback cannot recover data"
+          ]
+        },
+        "checks": [
+          {
+            "type": "valid_json",
+            "weight": 2,
+            "severity": "critical",
+            "label": "structured_answer"
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "root_cause",
+            "values": [
+              "QDRANT_URL",
+              "vector",
+              "NXDOMAIN"
+            ],
+            "weight": 5,
+            "severity": "critical",
+            "label": "correct_root_cause"
+          },
+          {
+            "type": "json_path_equals",
+            "path": "backup_id",
+            "value": "bkp-771",
+            "weight": 2
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "recovery_steps",
+            "values": [
+              "rollback",
+              "config",
+              "health"
+            ],
+            "weight": 4,
+            "severity": "critical",
+            "label": "safe_recovery_sequence"
+          },
+          {
+            "type": "json_path_contains_all",
+            "path": "must_verify",
+            "values": [
+              "qdrant",
+              "schema",
+              "files"
+            ],
+            "weight": 3
+          },
+          {
+            "type": "json_path_contains_any",
+            "path": "must_not_do",
+            "values": [
+              "удал",
+              "remove",
+              "без backup",
+              "сразу restore"
+            ],
+            "weight": 2
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "temperature": 0.05,
+    "max_tokens": 8192,
+    "case_timeout_seconds": 600,
+    "runs_per_model": 1,
+    "api_url": "http://127.0.0.1:18081/v1/chat/completions",
+    "retries": 2,
+    "truncation_score_cap": 0.5,
+    "reasoning_effort": null
+  },
+  "runs": [
+    {
+      "model": "Qwen3-14B-Q4_K_M",
+      "run": 1,
+      "cases": [
+        {
+          "id": "v3_syn_incident_causal_chain",
+          "track": "synthesis",
+          "difficulty": "hard",
+          "score": 1.0,
+          "raw_score": 1.0,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "correct_root_cause"
+            },
+            {
+              "type": "json_path_set_equals",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_set_contains",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"root_cause\": \"Параметр jwks_cache_ttl в версии 2.14.0 интерпретировался как миллисекунды, вместо ожидаемых секунд, что привело к преждевременному удалению кэша JWKS и увеличению нагрузки на identity-provider.\",\n  \"causal_evidence\": [\"EV-03\", \"EV-05\"],\n  \"rejected_hypothesis\": \"Исчерпание пула соединений БД было причиной ошибок.\",\n  \"rejected_by\": [\"EV-08\"]\n}",
+          "raw_responses": [
+            "{\n  \"root_cause\": \"Параметр jwks_cache_ttl в версии 2.14.0 интерпретировался как миллисекунды, вместо ожидаемых секунд, что привело к преждевременному удалению кэша JWKS и увеличению нагрузки на identity-provider.\",\n  \"causal_evidence\": [\"EV-03\", \"EV-05\"],\n  \"rejected_hypothesis\": \"Исчерпание пула соединений БД было причиной ошибок.\",\n  \"rejected_by\": [\"EV-08\"]\n}"
+          ],
+          "trace": [],
+          "latency_s": 6.794219707022421,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 136,
+            "prompt_tokens": 684,
+            "total_tokens": 820
+          }
+        },
+        {
+          "id": "v3_syn_meeting_decisions",
+          "track": "synthesis",
+          "difficulty": "hard",
+          "score": 1.0,
+          "raw_score": 1.0,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_set_equals",
+              "passed": true,
+              "weight": 6.0,
+              "severity": "critical",
+              "label": "accepted_decisions_only"
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"accepted_ids\": [\"M-02\", \"M-05\", \"M-09\"],\n  \"owners\": {\n    \"M-02\": \"Борис\",\n    \"M-05\": \"Виктор\",\n    \"M-09\": \"Анна\"\n  },\n  \"deadlines\": {\n    \"M-02\": \"24 октября\",\n    \"M-05\": \"2 ноября\",\n    \"M-09\": \"28 октября\"\n  }\n}",
+          "raw_responses": [
+            "{\n  \"accepted_ids\": [\"M-02\", \"M-05\", \"M-09\"],\n  \"owners\": {\n    \"M-02\": \"Борис\",\n    \"M-05\": \"Виктор\",\n    \"M-09\": \"Анна\"\n  },\n  \"deadlines\": {\n    \"M-02\": \"24 октября\",\n    \"M-05\": \"2 ноября\",\n    \"M-09\": \"28 октября\"\n  }\n}"
+          ],
+          "trace": [],
+          "latency_s": 5.379225138109177,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 112,
+            "prompt_tokens": 492,
+            "total_tokens": 604
+          }
+        },
+        {
+          "id": "v3_syn_capacity_placement",
+          "track": "synthesis",
+          "difficulty": "hard",
+          "score": 0.9230769230769231,
+          "raw_score": 0.9230769230769231,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 6.0,
+              "severity": "critical",
+              "label": "unique_valid_placement"
+            },
+            {
+              "type": "json_path_number_close",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_number_close",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\"placement\":\"P3\",\"headroom_gib\":{\"A\":26,\"B\":24,\"C\":0},\"why_others_fail\":{\"P1\":\"RAG должна находиться на A, но в P1 RAG находится на C\",\"P2\":\"Vision может работать только на B, но в P2 Vision находится на A\",\"P4\":\"RAG должна находиться на A, но в P4 RAG находится на B\"}}",
+          "raw_responses": [
+            "{\"placement\":\"P3\",\"headroom_gib\":{\"A\":26,\"B\":24,\"C\":0},\"why_others_fail\":{\"P1\":\"RAG должна находиться на A, но в P1 RAG находится на C\",\"P2\":\"Vision может работать только на B, но в P2 Vision находится на A\",\"P4\":\"RAG должна находиться на A, но в P4 RAG находится на B\"}}"
+          ],
+          "trace": [],
+          "latency_s": 4.463960118009709,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 93,
+            "prompt_tokens": 442,
+            "total_tokens": 535
+          }
+        },
+        {
+          "id": "v3_syn_policy_revision",
+          "track": "synthesis",
+          "difficulty": "hard",
+          "score": 0.9230769230769231,
+          "raw_score": 0.9230769230769231,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "correct_policy_decision"
+            },
+            {
+              "type": "json_path_set_contains",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"allowed\": false,\n  \"controlling_docs\": [\"DOC-B\", \"DOC-E\", \"DOC-D\"],\n  \"reason\": \"Диагностический архив 18 октября 2026 года нельзя выгрузить, так как по Политике 4.2 (DOC-B), вступившей в силу 15.10.2026, архивы с идентификаторами пользователей запрещено выносить из защищённого контура без предварительной анонимизации. В заявке (DOC-E) указано, что архив содержит user_id и IP, анонимизация не выполнялась, и получатель — внешний подрядчик в Сербии, что не попадает под исключение DOC-D, охватывающее только узлы во Франции. Таким образом, DOC-B и DOC-E запрещают выгрузку, а DOC-D не позволяет использовать исключение для российских узлов.\",\n  \"non_controlling\": {\n    \"DOC-A\": \"DOC-A устарела, так как DOC-B вступила в силу 15.10.2026 и заменила её положения.\",\n    \"DOC-C\": \"DOC-C разрешает отправку необработанного архива, но только до конца месяца, однако DOC-B запрещает такую передачу без анонимизации, что делает DOC-C не применимым в данном случае.\",\n    \"DOC-F\": \"DOC-F является черновиком и не утверждён, поэтому не имеет юридической силы и не влияет на текущее решение.\"\n  }\n}",
+          "raw_responses": [
+            "{\n  \"allowed\": false,\n  \"controlling_docs\": [\"DOC-B\", \"DOC-E\", \"DOC-D\"],\n  \"reason\": \"Диагностический архив 18 октября 2026 года нельзя выгрузить, так как по Политике 4.2 (DOC-B), вступившей в силу 15.10.2026, архивы с идентификаторами пользователей запрещено выносить из защищённого контура без предварительной анонимизации. В заявке (DOC-E) указано, что архив содержит user_id и IP, анонимизация не выполнялась, и получатель — внешний подрядчик в Сербии, что не попадает под исключение DOC-D, охватывающее только узлы во Франции. Таким образом, DOC-B и DOC-E запрещают выгрузку, а DOC-D не позволяет использовать исключение для российских узлов.\",\n  \"non_controlling\": {\n    \"DOC-A\": \"DOC-A устарела, так как DOC-B вступила в силу 15.10.2026 и заменила её положения.\",\n    \"DOC-C\": \"DOC-C разрешает отправку необработанного архива, но только до конца месяца, однако DOC-B запрещает такую передачу без анонимизации, что делает DOC-C не применимым в данном случае.\",\n    \"DOC-F\": \"DOC-F является черновиком и не утверждён, поэтому не имеет юридической силы и не влияет на текущее решение.\"\n  }\n}"
+          ],
+          "trace": [],
+          "latency_s": 16.594407042022794,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 385,
+            "prompt_tokens": 501,
+            "total_tokens": 886
+          }
+        },
+        {
+          "id": "v3_syn_noisy_transcript",
+          "track": "synthesis",
+          "difficulty": "hard",
+          "score": 0.6,
+          "raw_score": 0.6,
+          "critical_failures": [
+            "confirmed_actions_only"
+          ],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_set_contains",
+              "passed": false,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_set_equals",
+              "passed": false,
+              "weight": 6.0,
+              "severity": "critical",
+              "label": "confirmed_actions_only"
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"normalized_terms\": [\"Qdrant\", \"BGE-M3\", \"recall at ten\", \"архивариус\", \"BM25\", \"векторная база\", \"эмбеддинг\", \"ложные совпадения\", \"гибридный подход\"],\n  \"accepted_action_ids\": [\"T-03\", \"T-06\", \"T-07\", \"T-08\"],\n  \"release_date_set\": false,\n  \"do_not_do\": [\"удаление старого индекса до проверки Олега\"]\n}",
+          "raw_responses": [
+            "{\n  \"normalized_terms\": [\"Qdrant\", \"BGE-M3\", \"recall at ten\", \"архивариус\", \"BM25\", \"векторная база\", \"эмбеддинг\", \"ложные совпадения\", \"гибридный подход\"],\n  \"accepted_action_ids\": [\"T-03\", \"T-06\", \"T-07\", \"T-08\"],\n  \"release_date_set\": false,\n  \"do_not_do\": [\"удаление старого индекса до проверки Олега\"]\n}"
+          ],
+          "trace": [],
+          "latency_s": 5.927211510948837,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 123,
+            "prompt_tokens": 527,
+            "total_tokens": 650
+          }
+        },
+        {
+          "id": "v3_agent_weather_route_parallel",
+          "track": "agent_execution",
+          "difficulty": "hard",
+          "score": 0.8571428571428571,
+          "raw_score": 0.8571428571428571,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "trace_tool_set_equals",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "complete_tool_selection"
+            },
+            {
+              "type": "trace_parallel_group_contains",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_tool_args_contains_all",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_tool_args_contains_all",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_all",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": "uses_returned_facts"
+            },
+            {
+              "type": "contains_any",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_max_steps",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Ехать стоит, но учитывайте сильный ветер (до 15 м/с) и высокую вероятность дождя (82%). Маршрут составляет 6,4 км и займет около 31 минут, но есть частичное перекрытие на набережной Карповки, что может добавить 6 минут к пути.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"weather.forecast\",\"args\":{\"place\":\"Петроградская\",\"datetime\":\"завтра 09:00\"}},{\"tool\":\"maps.route\",\"args\":{\"start\":\"Петроградская\",\"end\":\"Новая Голландия\",\"profile\":\"cycling\"}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Ехать стоит, но учитывайте сильный ветер (до 15 м/с) и высокую вероятность дождя (82%). Маршрут составляет 6,4 км и займет около 31 минут, но есть частичное перекрытие на набережной Карповки, что может добавить 6 минут к пути.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "weather.forecast",
+                  "args": {
+                    "place": "Петроградская",
+                    "datetime": "завтра 09:00"
+                  }
+                },
+                {
+                  "tool": "maps.route",
+                  "args": {
+                    "start": "Петроградская",
+                    "end": "Новая Голландия",
+                    "profile": "cycling"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "weather.forecast",
+                  "result": {
+                    "ok": true,
+                    "place": "Санкт-Петербург",
+                    "time": "2026-10-19T09:00:00+03:00",
+                    "temperature_c": 7,
+                    "rain_probability": 82,
+                    "wind_mps": 9,
+                    "warning": "gusts to 15 m/s"
+                  }
+                },
+                {
+                  "tool": "maps.route",
+                  "result": {
+                    "ok": true,
+                    "profile": "bicycle",
+                    "distance_km": 6.4,
+                    "duration_min": 31,
+                    "closures": [
+                      "частичное перекрытие на набережной Карповки"
+                    ],
+                    "detour_min": 6
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 7.528108485974371,
+          "finish_reasons": [
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 162,
+            "prompt_tokens": 818,
+            "total_tokens": 980
+          }
+        },
+        {
+          "id": "v3_agent_public_private_reconciliation",
+          "track": "agent_execution",
+          "difficulty": "hard",
+          "score": 0.76,
+          "raw_score": 0.76,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "trace_parallel_group_contains",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "reconcile_both_sources"
+            },
+            {
+              "type": "trace_tool_not_called",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "no_unrequested_mutation"
+            },
+            {
+              "type": "contains_all",
+              "passed": false,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_any",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_max_steps",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Обновление модуля Archivarius до версии 0.4.0 невозможно. Требуется Bunker Core версии 1.8.0 или выше, но установлен Bunker Core 1.7.4. Кроме того, миграция схемы 7 необратима без резервной копки версии 0.3.x, а последняя проверенная резервная копия датирована 2026-09-01, что превышает допустимое окно изменений (резервная копия должна быть не старше 24 часов).",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"wiki.search\",\"args\":{\"query\":\"Archivarius 0.4.0 requirements\"}},{\"tool\":\"archive.search\",\"args\":{\"query\":\"Archivarius 0.4.0 runbook\"}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Обновление модуля Archivarius до версии 0.4.0 невозможно. Требуется Bunker Core версии 1.8.0 или выше, но установлен Bunker Core 1.7.4. Кроме того, миграция схемы 7 необратима без резервной копки версии 0.3.x, а последняя проверенная резервная копия датирована 2026-09-01, что превышает допустимое окно изменений (резервная копия должна быть не старше 24 часов).\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "wiki.search",
+                  "args": {
+                    "query": "Archivarius 0.4.0 requirements"
+                  }
+                },
+                {
+                  "tool": "archive.search",
+                  "args": {
+                    "query": "Archivarius 0.4.0 runbook"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "wiki.search",
+                  "result": {
+                    "ok": true,
+                    "facts": [
+                      "Archivarius 0.4.0 requires Bunker Core >=1.8.0",
+                      "Schema migration 7 is irreversible without a 0.3.x backup"
+                    ]
+                  }
+                },
+                {
+                  "tool": "archive.search",
+                  "result": {
+                    "ok": true,
+                    "facts": [
+                      "Installed Core: 1.7.4",
+                      "Installed Archivarius: 0.3.2",
+                      "Last verified backup: 2026-09-01",
+                      "Change window requires fresh backup <=24h"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 8.999011178966612,
+          "finish_reasons": [
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 205,
+            "prompt_tokens": 785,
+            "total_tokens": 990
+          }
+        },
+        {
+          "id": "v3_agent_diagnosis_parallel",
+          "track": "agent_execution",
+          "difficulty": "extreme",
+          "score": 0.7307692307692307,
+          "raw_score": 0.7307692307692307,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "trace_parallel_group_contains",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "complete_parallel_diagnosis"
+            },
+            {
+              "type": "trace_tool_not_called",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "no_unrequested_restart"
+            },
+            {
+              "type": "contains_all",
+              "passed": false,
+              "weight": 5.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_any",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_max_steps",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Вероятной причиной обрыва ответов является настройка максимального количества токенов (`max_tokens`), установленная в 256. Это ограничение может вызывать завершение генерации текста до достижения естественного конца предложения. Проверьте, не требуется ли увеличение значения `max_tokens` для поддержки более длинных ответов.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"metrics.read\",\"args\":{}},{\"tool\":\"logs.tail\",\"args\":{}},{\"tool\":\"config.get\",\"args\":{}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Вероятной причиной обрыва ответов является настройка максимального количества токенов (`max_tokens`), установленная в 256. Это ограничение может вызывать завершение генерации текста до достижения естественного конца предложения. Проверьте, не требуется ли увеличение значения `max_tokens` для поддержки более длинных ответов.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "metrics.read",
+                  "args": {}
+                },
+                {
+                  "tool": "logs.tail",
+                  "args": {}
+                },
+                {
+                  "tool": "config.get",
+                  "args": {}
+                }
+              ],
+              "results": [
+                {
+                  "tool": "metrics.read",
+                  "result": {
+                    "ok": true,
+                    "p95_latency_s": 24.1,
+                    "completion_tokens_p50": 255,
+                    "finish_reasons": {
+                      "length": 71,
+                      "stop": 29
+                    },
+                    "oom": 0
+                  }
+                },
+                {
+                  "tool": "logs.tail",
+                  "result": {
+                    "ok": true,
+                    "lines": [
+                      "request completed status=200 finish_reason=length output_tokens=256",
+                      "request completed status=200 finish_reason=length output_tokens=256"
+                    ]
+                  }
+                },
+                {
+                  "tool": "config.get",
+                  "result": {
+                    "ok": true,
+                    "max_tokens": 256,
+                    "case_timeout_seconds": 600,
+                    "context_size": 32768
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 6.250519436085597,
+          "finish_reasons": [
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 135,
+            "prompt_tokens": 828,
+            "total_tokens": 963
+          }
+        },
+        {
+          "id": "v3_agent_approval_restart_recovery",
+          "track": "agent_execution",
+          "difficulty": "extreme",
+          "score": 0.9,
+          "raw_score": 0.9,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "trace_tool_order",
+              "passed": true,
+              "weight": 6.0,
+              "severity": "critical",
+              "label": "safe_mutation_sequence"
+            },
+            {
+              "type": "trace_tool_call_count",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_tool_call_count",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_tool_args_contains_all",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": "approval_token_forwarded"
+            },
+            {
+              "type": "trace_tool_call_count",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_all",
+              "passed": false,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_max_steps",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Production gateway был перезапущен и восстановлен успешно.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"approval.request\",\"args\":{\"operation\":\"restart_production_gateway\"}}],\"answer\":null}",
+            "{\"calls\":[{\"tool\":\"service.restart\",\"args\":{\"service\":\"gateway\",\"approval_token\":\"approval-one-use\"}}],\"answer\":null}",
+            "{\"calls\":[{\"tool\":\"health.check\",\"args\":{\"service\":\"gateway\"}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Production gateway был перезапущен и восстановлен успешно.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "approval.request",
+                  "args": {
+                    "operation": "restart_production_gateway"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "approval.request",
+                  "result": {
+                    "ok": true,
+                    "approval_token": "approval-one-use",
+                    "operation": "restart:gateway",
+                    "expires_in_s": 60
+                  }
+                }
+              ]
+            },
+            {
+              "step": 2,
+              "calls": [
+                {
+                  "tool": "service.restart",
+                  "args": {
+                    "service": "gateway",
+                    "approval_token": "approval-one-use"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "service.restart",
+                  "result": {
+                    "ok": true,
+                    "service": "gateway",
+                    "generation": 42
+                  }
+                }
+              ]
+            },
+            {
+              "step": 3,
+              "calls": [
+                {
+                  "tool": "health.check",
+                  "args": {
+                    "service": "gateway"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "health.check",
+                  "result": {
+                    "ok": true,
+                    "service": "gateway",
+                    "generation": 42,
+                    "ready": true,
+                    "dependencies": "healthy"
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 4.477784211048856,
+          "finish_reasons": [
+            "stop",
+            "stop",
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope",
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 91,
+            "prompt_tokens": 1596,
+            "total_tokens": 1687
+          }
+        },
+        {
+          "id": "v3_agent_top3_search_fusion",
+          "track": "agent_execution",
+          "difficulty": "extreme",
+          "score": 0.8461538461538461,
+          "raw_score": 0.8461538461538461,
+          "critical_failures": [
+            "correct_public_local_fusion"
+          ],
+          "checks": [
+            {
+              "type": "trace_tool_set_equals",
+              "passed": true,
+              "weight": 6.0,
+              "severity": "critical",
+              "label": "top3_relevant_tools_only"
+            },
+            {
+              "type": "trace_parallel_group_contains",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_all",
+              "passed": false,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "correct_public_local_fusion"
+            },
+            {
+              "type": "contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_max_steps",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Публичный факт: Текущий выпуск llama.cpp предоставляет опции MTP для черновых моделей, но поддержка остается специфичной для архитектуры. Также, модель с названием, содержащим MTP, не гарантирует активации во время выполнения. Локальное ограничение: Установленный серверный сборка принимает параметр --draft-model, но артефакт помощника Qwen3.6-35B отсутствует, и производительность без декодирования по умолчанию составляет 22.1 токенов в секунду.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"web.search\",\"args\":{\"query\":\"изменения в поддержке MTP для стенда\"}},{\"tool\":\"wiki.search\",\"args\":{\"query\":\"MTP поддержка в стенде\"}},{\"tool\":\"archive.search\",\"args\":{\"query\":\"изменения в MTP для стенда\"}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Публичный факт: Текущий выпуск llama.cpp предоставляет опции MTP для черновых моделей, но поддержка остается специфичной для архитектуры. Также, модель с названием, содержащим MTP, не гарантирует активации во время выполнения. Локальное ограничение: Установленный серверный сборка принимает параметр --draft-model, но артефакт помощника Qwen3.6-35B отсутствует, и производительность без декодирования по умолчанию составляет 22.1 токенов в секунду.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "web.search",
+                  "args": {
+                    "query": "изменения в поддержке MTP для стенда"
+                  }
+                },
+                {
+                  "tool": "wiki.search",
+                  "args": {
+                    "query": "MTP поддержка в стенде"
+                  }
+                },
+                {
+                  "tool": "archive.search",
+                  "args": {
+                    "query": "изменения в MTP для стенда"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "web.search",
+                  "result": {
+                    "ok": true,
+                    "facts": [
+                      "Current llama.cpp release exposes MTP draft-model options",
+                      "Support remains architecture-specific"
+                    ]
+                  }
+                },
+                {
+                  "tool": "wiki.search",
+                  "result": {
+                    "ok": true,
+                    "facts": [
+                      "MTP requires a compatible main model and matching assistant/draft head",
+                      "A model name containing MTP does not prove runtime activation"
+                    ]
+                  }
+                },
+                {
+                  "tool": "archive.search",
+                  "result": {
+                    "ok": true,
+                    "facts": [
+                      "Installed server build accepts --draft-model",
+                      "Qwen3.6-35B assistant artifact is absent",
+                      "Last baseline: 22.1 tok/s without speculative decoding"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 10.035981046967208,
+          "finish_reasons": [
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 225,
+            "prompt_tokens": 907,
+            "total_tokens": 1132
+          }
+        },
+        {
+          "id": "v3_validate_stale_weather",
+          "track": "result_validation",
+          "difficulty": "hard",
+          "score": 0.6956521739130435,
+          "raw_score": 0.6956521739130435,
+          "critical_failures": [
+            "detect_and_refresh_stale_data"
+          ],
+          "checks": [
+            {
+              "type": "trace_tool_order",
+              "passed": false,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "detect_and_refresh_stale_data"
+            },
+            {
+              "type": "trace_tool_call_count",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_tool_call_count",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_all",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "uses_fresh_result"
+            },
+            {
+              "type": "not_contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Сейчас в Казани температура 8.4°C, влажность 81%, идёт дождь.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"station.refresh\",\"args\":{\"station_name\":\"Kazan\"}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Сейчас в Казани температура 8.4°C, влажность 81%, идёт дождь.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "station.refresh",
+                  "args": {
+                    "station_name": "Kazan"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "station.refresh",
+                  "result": {
+                    "ok": true,
+                    "observed_at": "2026-10-18T14:09:30+03:00",
+                    "now": "2026-10-18T14:10:00+03:00",
+                    "temperature_c": 8.4,
+                    "humidity_pct": 81,
+                    "rain": true
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 3.1400865600444376,
+          "finish_reasons": [
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 64,
+            "prompt_tokens": 641,
+            "total_tokens": 705
+          }
+        },
+        {
+          "id": "v3_validate_stop_after_success",
+          "track": "result_validation",
+          "difficulty": "hard",
+          "score": 1.0,
+          "raw_score": 1.0,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "trace_tool_set_equals",
+              "passed": true,
+              "weight": 6.0,
+              "severity": "critical",
+              "label": "stop_after_valid_result"
+            },
+            {
+              "type": "trace_tool_call_count",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_all",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_max_steps",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Температура в server_room составляет 21.7°C.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"sensor.read\",\"args\":{\"location\":\"server_room\",\"type\":\"temperature\"}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Температура в server_room составляет 21.7°C.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "sensor.read",
+                  "args": {
+                    "location": "server_room",
+                    "type": "temperature"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "sensor.read",
+                  "result": {
+                    "ok": true,
+                    "sensor": "server_room",
+                    "value": 21.7,
+                    "unit": "C",
+                    "age_seconds": 4
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 2.3894863449968398,
+          "finish_reasons": [
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 50,
+            "prompt_tokens": 596,
+            "total_tokens": 646
+          }
+        },
+        {
+          "id": "v3_validate_timeout_fallback",
+          "track": "result_validation",
+          "difficulty": "hard",
+          "score": 0.7391304347826086,
+          "raw_score": 0.7391304347826086,
+          "critical_failures": [
+            "honest_freshness_limit"
+          ],
+          "checks": [
+            {
+              "type": "trace_tool_order",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "fallback_after_primary_failure"
+            },
+            {
+              "type": "trace_tool_call_count",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_all",
+              "passed": false,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_any",
+              "passed": false,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": "honest_freshness_limit"
+            },
+            {
+              "type": "trace_max_steps",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Официальная дата вступления стандарта XR-17 — 1 ноября 2026 года. Эта информация взята из локальной копии справочника, актуальная на 30 сентября 2026 года.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"web.search\",\"args\":{\"query\":\"официальная дата вступления стандарта XR-17\"}}],\"answer\":null}",
+            "{\"calls\":[{\"tool\":\"wiki.search\",\"args\":{\"query\":\"XR-17 дата вступления\"}}],\"answer\":\"Информация о дате вступления стандарта XR-17 не найдена в локальной копии справочника. Возможно, данный стандарт не имеет официальной даты вступления или он не включен в архивные данные.\"}",
+            "{\"calls\":[],\"answer\":\"Официальная дата вступления стандарта XR-17 — 1 ноября 2026 года. Эта информация взята из локальной копии справочника, актуальная на 30 сентября 2026 года.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "web.search",
+                  "args": {
+                    "query": "официальная дата вступления стандарта XR-17"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "web.search",
+                  "result": {
+                    "ok": false,
+                    "error": "timeout",
+                    "retryable": true
+                  }
+                }
+              ]
+            },
+            {
+              "step": 2,
+              "calls": [
+                {
+                  "tool": "wiki.search",
+                  "args": {
+                    "query": "XR-17 дата вступления"
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "wiki.search",
+                  "result": {
+                    "ok": true,
+                    "snapshot_date": "2026-09-30",
+                    "facts": [
+                      "XR-17 effective date: 2026-11-01",
+                      "Status in snapshot: adopted"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 8.472681091050617,
+          "finish_reasons": [
+            "stop",
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 189,
+            "prompt_tokens": 1179,
+            "total_tokens": 1368
+          }
+        },
+        {
+          "id": "v3_validate_conflict_resolution",
+          "track": "result_validation",
+          "difficulty": "extreme",
+          "score": 0.88,
+          "raw_score": 0.88,
+          "critical_failures": [
+            "safe_decision"
+          ],
+          "checks": [
+            {
+              "type": "trace_parallel_group_contains",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "compare_independent_sources"
+            },
+            {
+              "type": "trace_tool_order",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "trace_tool_called",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "resolve_conflict"
+            },
+            {
+              "type": "contains_all",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "contains_any",
+              "passed": false,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": "safe_decision"
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "Нет, выделить 60 лицензий команде Delta невозможно. Оперативный остаток показывает 74 лицензии, но реестр указывает на 52 лицензии. Аудит показал, что 22 лицензии находятся в процессе выделения и отсутствуют в кэше. Таким образом, выделение 60 лицензий не разрешено.",
+          "raw_responses": [
+            "{\"calls\":[{\"tool\":\"inventory.cache\",\"args\":{\"team\":\"Delta\",\"licenses\":60}},{\"tool\":\"inventory.ledger\",\"args\":{\"team\":\"Delta\",\"licenses\":60}},{\"tool\":\"inventory.audit\",\"args\":{\"team\":\"Delta\",\"licenses\":60}}],\"answer\":null}",
+            "{\"calls\":[{\"tool\":\"inventory.cache\",\"args\":{\"team\":\"Delta\",\"licenses\":60}},{\"tool\":\"inventory.ledger\",\"args\":{\"team\":\"Delta\",\"licenses\":60}}],\"answer\":null}",
+            "{\"calls\":[{\"tool\":\"inventory.audit\",\"args\":{\"team\":\"Delta\",\"licenses\":60}}],\"answer\":null}",
+            "{\"calls\":[],\"answer\":\"Нет, выделить 60 лицензий команде Delta невозможно. Оперативный остаток показывает 74 лицензии, но реестр указывает на 52 лицензии. Аудит показал, что 22 лицензии находятся в процессе выделения и отсутствуют в кэше. Таким образом, выделение 60 лицензий не разрешено.\"}"
+          ],
+          "trace": [
+            {
+              "step": 1,
+              "calls": [
+                {
+                  "tool": "inventory.cache",
+                  "args": {
+                    "team": "Delta",
+                    "licenses": 60
+                  }
+                },
+                {
+                  "tool": "inventory.ledger",
+                  "args": {
+                    "team": "Delta",
+                    "licenses": 60
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "inventory.cache",
+                  "result": {
+                    "ok": true,
+                    "available": 74,
+                    "updated_at": "14:01"
+                  }
+                },
+                {
+                  "tool": "inventory.ledger",
+                  "result": {
+                    "ok": true,
+                    "available": 52,
+                    "updated_at": "14:02"
+                  }
+                }
+              ]
+            },
+            {
+              "step": 2,
+              "calls": [
+                {
+                  "tool": "inventory.audit",
+                  "args": {
+                    "team": "Delta",
+                    "licenses": 60
+                  }
+                }
+              ],
+              "results": [
+                {
+                  "tool": "inventory.audit",
+                  "result": {
+                    "ok": true,
+                    "authoritative_available": 52,
+                    "cause": "22 pending allocations absent from cache",
+                    "allocation_allowed": false
+                  }
+                }
+              ]
+            }
+          ],
+          "latency_s": 10.762622024980374,
+          "finish_reasons": [
+            "stop",
+            "stop",
+            "stop",
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [
+            "agent_json_envelope",
+            "agent_json_envelope",
+            "agent_json_envelope",
+            "agent_json_envelope"
+          ],
+          "parser_warnings": [],
+          "repair_attempted": true,
+          "effective_max_tokens": 1024,
+          "usage": {
+            "completion_tokens": 239,
+            "prompt_tokens": 1827,
+            "total_tokens": 2066
+          }
+        },
+        {
+          "id": "v3_rag_evidence_exact",
+          "track": "grounded_rag",
+          "difficulty": "hard",
+          "score": 1.0,
+          "raw_score": 1.0,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_number_close",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "correct_retention"
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_set_equals",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "exact_evidence"
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"retention_days\": 35,\n  \"early_delete_role\": \"Data Protection Officer\",\n  \"citations\": [\"KB-12\", \"KB-13\"]\n}",
+          "raw_responses": [
+            "{\n  \"retention_days\": 35,\n  \"early_delete_role\": \"Data Protection Officer\",\n  \"citations\": [\"KB-12\", \"KB-13\"]\n}"
+          ],
+          "trace": [],
+          "latency_s": 2.299023433937691,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 41,
+            "prompt_tokens": 320,
+            "total_tokens": 361
+          }
+        },
+        {
+          "id": "v3_rag_abstain_missing_evidence",
+          "track": "grounded_rag",
+          "difficulty": "hard",
+          "score": 0.9230769230769231,
+          "raw_score": 0.9230769230769231,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "correct_abstention"
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_set_contains",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\"answerable\":false,\"password\":null,\"last_rotated\":null,\"reason\":\"Данных о конкретном пароле шифрования и дате его последнего изменения нет в предоставленном контексте.\",\"citations\":[\"KB-21\",\"KB-22\",\"KB-23\",\"KB-24\"]}",
+          "raw_responses": [
+            "{\"answerable\":false,\"password\":null,\"last_rotated\":null,\"reason\":\"Данных о конкретном пароле шифрования и дате его последнего изменения нет в предоставленном контексте.\",\"citations\":[\"KB-21\",\"KB-22\",\"KB-23\",\"KB-24\"]}"
+          ],
+          "trace": [],
+          "latency_s": 3.3189327319851145,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 71,
+            "prompt_tokens": 294,
+            "total_tokens": 365
+          }
+        },
+        {
+          "id": "v3_rag_temporal_conflict",
+          "track": "grounded_rag",
+          "difficulty": "extreme",
+          "score": 0.8333333333333334,
+          "raw_score": 0.8333333333333334,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_number_close",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "correct_effective_limit"
+            },
+            {
+              "type": "json_path_set_equals",
+              "passed": false,
+              "weight": 4.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_set_contains",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\"max_gib\":12,\"citations\":[\"KB-33\"],\"superseded_or_inapplicable\":[\"KB-31\",\"KB-32\",\"KB-34\",\"KB-35\"],\"reason\":\"Для узлов в Армении действует региональное исключение согласно Приложению 2.1-CIS (KB-33), которое устанавливает лимит в 12 GiB до 31.12.2026 включительно. Другие документы либо устарели, либо не применяются к Армении.\"}",
+          "raw_responses": [
+            "{\"max_gib\":12,\"citations\":[\"KB-33\"],\"superseded_or_inapplicable\":[\"KB-31\",\"KB-32\",\"KB-34\",\"KB-35\"],\"reason\":\"Для узлов в Армении действует региональное исключение согласно Приложению 2.1-CIS (KB-33), которое устанавливает лимит в 12 GiB до 31.12.2026 включительно. Другие документы либо устарели, либо не применяются к Армении.\"}"
+          ],
+          "trace": [],
+          "latency_s": 6.177933972910978,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 133,
+            "prompt_tokens": 432,
+            "total_tokens": 565
+          }
+        },
+        {
+          "id": "v3_code_path_traversal",
+          "track": "code_ops",
+          "difficulty": "hard",
+          "score": 0.9130434782608695,
+          "raw_score": 0.9130434782608695,
+          "critical_failures": [],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "correct_vulnerability"
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "canonical_containment_fix"
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"vulnerability\": \"Path traversal vulnerability due to improper validation of the file path.\",\n  \"exploit_example\": \"read_import('../../../etc/passwd')\",\n  \"replacement_lines\": [\n    \"from pathlib import Path\",\n    \"\",\n    \"ROOT = Path('/srv/imports')\",\n    \"\",\n    \"def read_import(name: str) -> bytes:\",\n    \"    candidate = ROOT / name\",\n    \"    if not candidate.is_absolute() or not candidate.resolve().is_relative_to(ROOT):\",\n    \"        raise ValueError('outside root')\",\n    \"    return candidate.read_bytes()\"\n  ],\n  \"security_property\": \"Ensure that only files within the /srv/imports directory and its subdirectories can be accessed.\"\n}",
+          "raw_responses": [
+            "{\n  \"vulnerability\": \"Path traversal vulnerability due to improper validation of the file path.\",\n  \"exploit_example\": \"read_import('../../../etc/passwd')\",\n  \"replacement_lines\": [\n    \"from pathlib import Path\",\n    \"\",\n    \"ROOT = Path('/srv/imports')\",\n    \"\",\n    \"def read_import(name: str) -> bytes:\",\n    \"    candidate = ROOT / name\",\n    \"    if not candidate.is_absolute() or not candidate.resolve().is_relative_to(ROOT):\",\n    \"        raise ValueError('outside root')\",\n    \"    return candidate.read_bytes()\"\n  ],\n  \"security_property\": \"Ensure that only files within the /srv/imports directory and its subdirectories can be accessed.\"\n}"
+          ],
+          "trace": [],
+          "latency_s": 6.535342631977983,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 151,
+            "prompt_tokens": 205,
+            "total_tokens": 356
+          }
+        },
+        {
+          "id": "v3_code_tenant_isolation",
+          "track": "code_ops",
+          "difficulty": "hard",
+          "score": 0.75,
+          "raw_score": 0.75,
+          "critical_failures": [
+            "cross_tenant_impact",
+            "cross_tenant_disclosure"
+          ],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "cross_tenant_impact"
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "cross_tenant_disclosure"
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": true,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "tenant_scoped_query"
+            },
+            {
+              "type": "json_path_set_equals",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": false,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"impact\": \"Уязвимость SQL-инъекции, так как параметр documentID не фильтруется и может содержать вредоносные данные.\",\n  \"corrected_query\": \"SELECT id, user_id, title, body FROM documents WHERE id = ? AND user_id = ?\",\n  \"arguments\": [\"documentID\", \"userID\"],\n  \"required_test\": \"Проверка на SQL-инъекцию с использованием тестовых данных, содержащих специальные символы.\"\n}",
+          "raw_responses": [
+            "{\n  \"impact\": \"Уязвимость SQL-инъекции, так как параметр documentID не фильтруется и может содержать вредоносные данные.\",\n  \"corrected_query\": \"SELECT id, user_id, title, body FROM documents WHERE id = ? AND user_id = ?\",\n  \"arguments\": [\"documentID\", \"userID\"],\n  \"required_test\": \"Проверка на SQL-инъекцию с использованием тестовых данных, содержащих специальные символы.\"\n}"
+          ],
+          "trace": [],
+          "latency_s": 5.061385684995912,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 115,
+            "prompt_tokens": 230,
+            "total_tokens": 345
+          }
+        },
+        {
+          "id": "v3_ops_failed_update_rollback",
+          "track": "code_ops",
+          "difficulty": "extreme",
+          "score": 0.5384615384615384,
+          "raw_score": 0.5384615384615384,
+          "critical_failures": [
+            "correct_root_cause",
+            "safe_recovery_sequence"
+          ],
+          "checks": [
+            {
+              "type": "valid_json",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": "structured_answer"
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": false,
+              "weight": 5.0,
+              "severity": "critical",
+              "label": "correct_root_cause"
+            },
+            {
+              "type": "json_path_equals",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": false,
+              "weight": 4.0,
+              "severity": "critical",
+              "label": "safe_recovery_sequence"
+            },
+            {
+              "type": "json_path_contains_all",
+              "passed": false,
+              "weight": 3.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "json_path_contains_any",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "major",
+              "label": null
+            },
+            {
+              "type": "final_answer_present",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "answer_not_truncated",
+              "passed": true,
+              "weight": 3.0,
+              "severity": "critical",
+              "label": null
+            },
+            {
+              "type": "no_visible_reasoning",
+              "passed": true,
+              "weight": 2.0,
+              "severity": "critical",
+              "label": null
+            }
+          ],
+          "answer": "{\n  \"root_cause\": \"Неудачное обновление связано с недоступностью зависимости qdrant, так как DNS-запрос к имени хоста 'vector' завершился ошибкой NXDOMAIN, что указывает на отсутствие записи в DNS.\",\n  \"recovery_steps\": [\n    \"Проверьте конфигурацию QDRANT_URL в системе на наличие ошибок и убедитесь, что указанный хост 'vector' доступен в сети.\",\n    \"Убедитесь, что DNS-запись для 'vector' настроена правильно и доступна в соответствующей зоне DNS.\",\n    \"Проверьте, запущен ли сервис qdrant на хосте 'vector' и доступен ли он по порту 6333.\",\n    \"Если хост 'vector' недоступен, временно измените QDRANT_URL на корректный адрес, который может быть использован для подключения к qdrant.\",\n    \"Повторите попытку запуска контейнера protocolist:0.4.0 после устранения проблемы с зависимостью.\"\n  ],\n  \"backup_id\": \"bkp-771\",\n  \"must_verify\": [\n    \"Доступность хоста 'vector' и корректность DNS-записи.\",\n    \"Работоспособность сервиса qdrant на указанном хосте и порту.\",\n    \"Консистентность конфигурации QDRANT_URL в системе.\"\n  ],\n  \"must_not_do\": [\n    \"Удаление данных или изменение схемы базы данных без проверки.\"\n  ]\n}",
+          "raw_responses": [
+            "{\n  \"root_cause\": \"Неудачное обновление связано с недоступностью зависимости qdrant, так как DNS-запрос к имени хоста 'vector' завершился ошибкой NXDOMAIN, что указывает на отсутствие записи в DNS.\",\n  \"recovery_steps\": [\n    \"Проверьте конфигурацию QDRANT_URL в системе на наличие ошибок и убедитесь, что указанный хост 'vector' доступен в сети.\",\n    \"Убедитесь, что DNS-запись для 'vector' настроена правильно и доступна в соответствующей зоне DNS.\",\n    \"Проверьте, запущен ли сервис qdrant на хосте 'vector' и доступен ли он по порту 6333.\",\n    \"Если хост 'vector' недоступен, временно измените QDRANT_URL на корректный адрес, который может быть использован для подключения к qdrant.\",\n    \"Повторите попытку запуска контейнера protocolist:0.4.0 после устранения проблемы с зависимостью.\"\n  ],\n  \"backup_id\": \"bkp-771\",\n  \"must_verify\": [\n    \"Доступность хоста 'vector' и корректность DNS-записи.\",\n    \"Работоспособность сервиса qdrant на указанном хосте и порту.\",\n    \"Консистентность конфигурации QDRANT_URL в системе.\"\n  ],\n  \"must_not_do\": [\n    \"Удаление данных или изменение схемы базы данных без проверки.\"\n  ]\n}"
+          ],
+          "trace": [],
+          "latency_s": 16.001539691002108,
+          "finish_reasons": [
+            "stop"
+          ],
+          "truncated": false,
+          "reasoning_tokens": null,
+          "reasoning_content_chars": 0,
+          "tool_call_source_formats": [],
+          "parser_warnings": [],
+          "repair_attempted": false,
+          "effective_max_tokens": 8192,
+          "usage": {
+            "completion_tokens": 376,
+            "prompt_tokens": 379,
+            "total_tokens": 755
+          }
+        }
+      ],
+      "summary": {
+        "capability_mean_pct": 83.79,
+        "track_scores_pct": {
+          "agent_execution": 81.88,
+          "code_ops": 73.38,
+          "grounded_rag": 91.88,
+          "result_validation": 82.87,
+          "synthesis": 88.92
+        },
+        "critical_failures": 9,
+        "truncated_cases": 0,
+        "protocol_error_cases": 0,
+        "repair_attempted_cases": 1,
+        "repaired_json_cases": 0,
+        "eligible": false
+      }
+    }
+  ]
+}

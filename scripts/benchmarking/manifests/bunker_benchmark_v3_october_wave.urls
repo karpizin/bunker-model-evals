@@ -1,0 +1,17 @@
+# Bunker Benchmark v3 October 2026 follow-up wave.
+#
+# Keep downloads sequential on the AMD395 host. The selected quants match the
+# existing v3 comparison policy: Q5 for the compact 4B model and Q4_K_M for
+# medium dense/MoE candidates.
+
+https://huggingface.co/bartowski/Spark-X2.6-4B-GGUF/resolve/main/Spark-X2.6-4B-Q5_K_M.gguf?download=true
+  dir=./models/spark-x2.6-4b
+  out=Spark-X2.6-4B-Q5_K_M.gguf
+
+https://huggingface.co/ggml-org/Flint-GGUF/resolve/main/Flint-Q4_K_M.gguf?download=true
+  dir=./models/flint
+  out=Flint-Q4_K_M.gguf
+
+https://huggingface.co/bartowski/Nanbeige_Nanbeige4.3-33B-GGUF/resolve/main/Nanbeige_Nanbeige4.3-33B-Q4_K_M.gguf?download=true
+  dir=./models/nanbeige4.3-33b
+  out=Nanbeige_Nanbeige4.3-33B-Q4_K_M.gguf

@@ -1,0 +1,19 @@
+{
+  "publication_id": "bunker-v3-public-results-20261027",
+  "published_at": "2026-10-27T15:10:00+03:00",
+  "expected_cases_per_run": 20,
+  "exclusions": [
+    {
+      "path_contains": "bunker-v3-q8-leaders-20261027/v3-medium-large-gemma-4-31b-it-q8-0-20261027-q8-v31",
+      "reason": "Superseded: the sparse aria2 artifact exposed its final logical size before all data blocks were complete. Use the complete-redownload cohort."
+    },
+    {
+      "path_contains": "bunker-v3-q8-leaders-20261027/v3-medium-large-gemma-4-e4b-it-q6-k-20261027-q8-v31",
+      "reason": "Superseded by the verified complete-redownload control. Retained only as excluded audit evidence."
+    },
+    {
+      "path_contains": "bunker-v3-october-wave-20261026/v3-medium-large-spark-x2-6-4b-q5-k-m-20261026/",
+      "reason": "Pre-pinned-runtime diagnostic. The fd8f845 cohort is the comparable published Spark result."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "rubric_id": "bunker_benchmark_v3_1_semantic_concepts_20261027",
+  "base_suite_id": "bunker_benchmark_v3_discriminative_20261018",
+  "evaluation_version": "3.1",
+  "description": "Deterministic semantic-concept replacements for brittle literal text checks. Exact JSON, evidence IDs, numeric values, tool traces, ordering, approval and safety checks remain unchanged.",
+  "cases": {
+    "v3_syn_incident_causal_chain": [
+      {"index": 2, "check": {"type": "json_path_concepts_all", "path": "root_cause", "concepts": [["jwks"], ["миллисек", "millisec"]], "weight": 5, "severity": "critical", "label": "correct_root_cause"}},
+      {"index": 4, "check": {"type": "json_path_concepts_any", "path": "rejected_hypothesis", "concepts": [["баз", "database", "бд", "db"], ["пул", "pool"]], "weight": 3}}
+    ],
+    "v3_syn_policy_revision": [
+      {"index": 4, "check": {"type": "json_path_concepts_all", "path": "reason", "concepts": [["идентифик", "identifier", "user_id", "ip"], ["аноним", "anonym"]], "weight": 3}},
+      {"index": 5, "check": {"type": "json_path_concepts_any", "path": "non_controlling.DOC-C", "concepts": [["не может", "cannot", "не отмен", "does not override"], ["противореч", "conflict"], ["4.2"], ["раньше", "earlier", "до вступления"]], "weight": 2}},
+      {"index": 6, "check": {"type": "json_path_concepts_any", "path": "non_controlling.DOC-F", "concepts": [["чернов", "draft"], ["не утверж", "not approved", "not adopted", "не действует"]], "weight": 2}}
+    ],
+    "v3_syn_noisy_transcript": [
+      {"index": 5, "check": {"type": "json_path_concepts_all", "path": "do_not_do", "concepts": [["индекс", "index"], ["удал", "delet", "remove"]], "weight": 2}}
+    ],
+    "v3_agent_weather_route_parallel": [
+      {"index": 6, "check": {"type": "concepts_any", "concepts": [["осторож", "caution"], ["лучше", "better"], ["риск", "risk"], ["небезопас", "unsafe"], ["не рекоменд", "not recommend"], ["воздерж", "avoid"]], "weight": 2}}
+    ],
+    "v3_agent_public_private_reconciliation": [
+      {"index": 3, "check": {"type": "concepts_all", "concepts": [["1.8.0"], ["1.7.4"], ["backup", "резервн", "бэкап"]], "weight": 4}},
+      {"index": 4, "check": {"type": "concepts_any", "concepts": [["нельзя", "cannot", "must not"], ["не готов", "not ready"], ["сначала", "first"], ["блок", "block"], ["обновлять рано", "too early"]], "weight": 2}}
+    ],
+    "v3_agent_diagnosis_parallel": [
+      {"index": 3, "check": {"type": "concepts_all", "concepts": [["max_tokens", "лимит токен", "token limit"], ["256"], ["finish_reason=length", "finish_reason length", "причина завершения length", "обрыв по длине", "length"]], "weight": 5}},
+      {"index": 4, "check": {"type": "concepts_any", "concepts": [["не таймаут", "таймаут не", "not timeout"], ["не oom", "not oom", "oom отсутств"], ["лимит", "limit"]], "weight": 2}}
+    ],
+    "v3_agent_approval_restart_recovery": [
+      {"index": 6, "check": {"type": "concepts_all", "concepts": [["gateway"], ["42"], ["готов", "ready", "healthy", "работает", "восстанов"]], "weight": 3}}
+    ],
+    "v3_agent_top3_search_fusion": [
+      {"index": 3, "check": {"type": "concepts_all", "concepts": [["draft", "чернов", "помощник"], ["assistant", "ассистент", "артефакт", "голов"], ["22.1"]], "weight": 4, "severity": "critical", "label": "correct_public_local_fusion"}},
+      {"index": 4, "check": {"type": "concepts_any", "concepts": [["не актив", "not active"], ["не используется", "not used", "not using"], ["отсутств", "missing", "нет артефакт"]], "weight": 2}}
+    ],
+    "v3_validate_stale_weather": [
+      {"index": 4, "check": {"type": "concepts_all", "concepts": [["8.4"], ["81"], ["дожд", "rain"]], "weight": 4, "severity": "critical", "label": "uses_fresh_result"}}
+    ],
+    "v3_validate_stop_after_success": [
+      {"index": 3, "check": {"type": "concepts_all", "concepts": [["21.7"], ["°c", " c", "градус", "цельс"]], "weight": 3}}
+    ],
+    "v3_validate_timeout_fallback": [
+      {"index": 4, "check": {"type": "concepts_any", "concepts": [["не удалось подтвердить", "could not confirm", "cannot confirm", "не подтвержд"], ["официальный источник недоступ", "official source unavailable", "web-поиск недоступ", "web search unavailable"], ["снимок", "snapshot", "локальн"], ["устар", "stale"]], "weight": 3, "severity": "critical", "label": "honest_freshness_limit"}}
+    ],
+    "v3_validate_conflict_resolution": [
+      {"index": 5, "check": {"type": "concepts_any", "concepts": [["нельзя", "cannot", "not possible"], ["недостат", "insufficient", "not enough"], ["не выдел", "do not allocate", "must not allocate"]], "weight": 3, "severity": "critical", "label": "safe_decision"}}
+    ],
+    "v3_rag_evidence_exact": [
+      {"index": 3, "check": {"type": "json_path_concepts_any", "path": "early_delete_role", "concepts": [["data protection officer", "dpo", "сотрудник по защите данных", "специалист по защите данных", "уполномоченный по защите данных"]], "weight": 4}}
+    ],
+    "v3_rag_abstain_missing_evidence": [
+      {"index": 6, "check": {"type": "json_path_concepts_any", "path": "reason", "concepts": [["нет данных", "no data"], ["отсутств", "absent", "missing"], ["не указ", "not specified", "not provided"], ["неизвест", "unknown"]], "weight": 2}}
+    ],
+    "v3_rag_temporal_conflict": [
+      {"index": 5, "check": {"type": "json_path_concepts_all", "path": "reason", "concepts": [["армени", "armenia"], ["31.12.2026", "2026-12-31"]], "weight": 2}}
+    ],
+    "v3_code_path_traversal": [
+      {"index": 2, "check": {"type": "json_path_concepts_any", "path": "vulnerability", "concepts": [["path traversal", "обход пути", "directory traversal"], ["symlink", "символическ"], ["небезопасн", "unsafe", "prefix"]], "weight": 4, "severity": "critical", "label": "correct_vulnerability"}},
+      {"index": 4, "check": {"type": "json_path_concepts_all", "path": "replacement_lines", "concepts": [["resolve"], ["relative_to", "is_relative_to", "commonpath", "startswith(str(root) + os.sep", "startswith(str(root) + '/')"]], "weight": 5, "severity": "critical", "label": "canonical_containment_fix"}},
+      {"index": 5, "check": {"type": "json_path_concepts_any", "path": "security_property", "concepts": [["внутри", "inside", "within"], ["contain"], ["root", "корнев"]], "weight": 2}}
+    ],
+    "v3_code_tenant_isolation": [
+      {"index": 2, "check": {"type": "json_path_concepts_any", "path": "impact", "concepts": [["пользоват", "user"], ["tenant", "арендатор"], ["cross-user", "cross-tenant", "между пользовател"]], "weight": 2, "severity": "critical", "label": "cross_tenant_impact"}},
+      {"index": 3, "check": {"type": "json_path_concepts_any", "path": "impact", "concepts": [["доступ", "access"], ["утеч", "leak"], ["раскры", "disclos"], ["чуж", "another user"]], "weight": 2, "severity": "critical", "label": "cross_tenant_disclosure"}},
+      {"index": 6, "check": {"type": "json_path_concepts_all", "path": "required_test", "concepts": [["два", "two", "2"], ["пользоват", "user", "tenant"]], "weight": 2}}
+    ],
+    "v3_ops_failed_update_rollback": [
+      {"index": 2, "check": {"type": "json_path_concepts_all", "path": "root_cause", "concepts": [["qdrant_url", "qdrant url", "конфигурац", "config"], ["vector"], ["nxdomain", "не разреш", "не резолв", "dns"]], "weight": 5, "severity": "critical", "label": "correct_root_cause"}},
+      {"index": 4, "check": {"type": "json_path_concepts_all", "path": "recovery_steps", "concepts": [["rollback", "откат", "предыдущей верси", "предыдущую верси", "previous version"], ["config", "конфиг", "qdrant_url"], ["health", "готовност", "работоспособ", "проверить состояние"]], "weight": 4, "severity": "critical", "label": "safe_recovery_sequence"}},
+      {"index": 5, "check": {"type": "json_path_concepts_all", "path": "must_verify", "concepts": [["qdrant", "vector"], ["schema", "схем", "миграц", "version 6", "version 7"], ["files", "файл", "данн", "backup", "резервн", "целостност"]], "weight": 3}},
+      {"index": 6, "check": {"type": "json_path_concepts_any", "path": "must_not_do", "concepts": [["удал", "delet", "remove"], ["без backup", "without backup", "без резерв"], ["сразу restore", "immediate restore", "не восстанавливать сразу"]], "weight": 2}}
+    ]
+  }
+}

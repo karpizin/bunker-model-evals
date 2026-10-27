@@ -1,0 +1,323 @@
+{
+  "machine": {
+    "host": "Bunkers-Mac-mini",
+    "date": "2026-04-11",
+    "hardware": "Mac mini Apple M4",
+    "memory": "16 GB unified memory",
+    "tool": "llama-cli",
+    "notes": "Three-prompt smoke test in Russian. Quality is approximate and intended for demo-machine model selection."
+  },
+  "prompts": {
+    "json": "Верни строго JSON без пояснений: {\"sum\":5,\"city\":\"Paris\"}. Ничего кроме JSON.",
+    "rag": "Объясни разницу между RAG и fine-tuning ровно в 2 коротких пунктах. Каждый пункт не длиннее 12 слов. Ответ по-русски.",
+    "demo": "У нас Mac mini с 16 GB unified memory. Что для локального демо надежнее: 30B MoE или 8B dense? Ответь по-русски ровно двумя предложениями."
+  },
+  "results": [
+    {
+      "model": "GigaChat3.1-10B-A1.8B-q6_K.gguf",
+      "size_gb": 8.8,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. RAG — это добавление внешней базы знаний к модели, а fine-tuning — дообучение на новых данных.\n2. RAG — динамическое извлечение информации, fine-tuning — статическая адаптация модели."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на Mac mini с 16 ГБ unified memory 8B dense будет надежнее, так как требует меньше памяти и вычислительных ресурсов, обеспечивая стабильную работу без необходимости в оптимизации или дополнительных графических ускорителях. 30B MoE может не поместиться в доступную память или работать нестабильно из-за ограничений аппаратного обеспечения."
+        }
+      }
+    },
+    {
+      "model": "Ministral-3-14B-Instruct-2512-Q4_K_M.gguf",
+      "size_gb": 8.2,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "```json\n{\"sum\":5,\"city\":\"Paris\"}\n```"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. **Fine-tuning**: Переобучение модели на существующих данных для улучшения её точности.\n\n2. **RAG**: Комбинирует данные из внешних источников с моделью в реальном времени."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на **Mac mini с 16 ГБ памяти** надежнее выбрать модель **8B dense** — она требует меньше ресурсов и стабильнее работает без оптимизаций. Модель **30B MoE** (Mixture of Experts) хоть и мощнее, но сложнее в развертывании и может потребовать дополнительных настроек для стабильной работы на ограниченных аппаратных средствах."
+        }
+      }
+    },
+    {
+      "model": "Ministral-3-8B-Instruct-2512-Q5_K_M.gguf",
+      "size_gb": 6.1,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "```json\n{\n  \"sum\": 5,\n  \"city\": \"Paris\"\n}\n```"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. **Fine-tuning**: изменяет веса модели на обучающих данных для конкретной задачи.\n\n2. **RAG**: использует внешние данные для дополнения ответов без изменения модели."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на Mac mini с 16 ГБ памяти **8B dense** будет более надежным выбором, так как MoE-модели (30B) потребляют значительно больше ресурсов и могут вызвать перегрузку. Однако, если модель 8B плохо подходит по качеству, лучше использовать MoE с ограничением контекста или оптимизацией под память."
+        }
+      }
+    },
+    {
+      "model": "Mistral-Nemo-2407-12B-Thinking-Claude-Gemini-GPT5.2-Uncensored-HERETIC.Q2_K.gguf",
+      "size_gb": 4.8,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "<think>**Considering the User's Request**\n\nI'm focused on the user's request for a clear explanation in Russian. The goal is to keep it concise and informative, adhering to the specified word count. I'm prioritizing clarity and simplicity to ensure easy understanding.\n\n\n**Refining the Response**\n\nI'm now fully immersed in the process of crafting a response that meets the user's specific criteria. The focus is on ensuring that the explanation is concise yet informative, adhering to the strict word limit of 12 words per point. I'm prioritizing clarity and simplicity to ensure easy"
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "<think>**Defining Memory Limits**\n\nI'm currently focused on understanding the user's hardware constraints. Specifically, I'm trying to determine the available memory on their Mac Mini. The initial goal is to establish the system's practical limits before proceeding with any further analysis.\n\n\n**Evaluating Memory Scenarios**\n\nI'm now deep into evaluating the memory implications of different model sizes. The core focus is understanding how each option impacts the system's overall performance. I'm comparing the potential outcomes of using 30B Moe versus 8B dense to see which offers better stability and efficiency.\n\n\n**"
+        }
+      }
+    },
+    {
+      "model": "Mistral-Nemo-2407-12B-Thinking-Claude-Gemini-GPT5.2-Uncensored-HERETIC.Q4_K_M.gguf",
+      "size_gb": 7.5,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "<think>**Analyzing the Request**\n\nI've been dissecting the user's request, focusing on the core objective: to return a JSON string. The specific content is secondary. I'm now zeroing in on the most efficient way to generate the JSON output, ensuring it's clean and unadorned, as specified.\n\n\n**Formulating the Response**\n\nI've successfully generated the JSON string, as per the user's strict instructions. I've confirmed that the output is exactly `{\"sum\":5,\"city\":\"Paris\"}`, with no extraneous characters or explanations. I'm satisfied"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "<think>**Defining the Core Differences**\n\nI'm focused on the fundamental distinction between RAG (Retrieval-Augmented Generation) and fine-tuning. My goal is to articulate the core differences concisely, using clear and precise language. I'm aiming for a direct comparison that highlights the unique characteristics of each approach.\n\n\n**Structuring the Explanation**\n\nI've broken down the explanation into two key points, each under 12 words. The first point emphasizes the core function of RAG, highlighting its ability to integrate external data sources dynamically. The second point underscores fine-t"
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "На Mac mini с 16 ГБ ОЗУ для локального демо предпочтительнее 8B dense, так как он требует меньше памяти и более стабилен при работе с ограниченными ресурсами."
+        }
+      }
+    },
+    {
+      "model": "Qwen3-30B-A3B.Q2_K.gguf",
+      "size_gb": 11.3,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. RAG использует внешние данные, fine-tuning меняет модель.  \n2. RAG не меняет модель, fine-tuning её обучает."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "30B MoE требует больше ресурсов и может быть менее стабильным на Mac mini с 16 GB оперативной памяти. Лучше выбрать 8B dense для более надежной работы."
+        }
+      }
+    },
+    {
+      "model": "Qwen3.5-4B-UD-Q5_K_XL.gguf",
+      "size_gb": 3.3,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "RAG ищет ответы в базе данных без изменения модели.\nFine-tuning обучает модель на новых данных для изменения её поведения."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на Mac mini с 16 ГБ памяти модель 8B dense является более надежным выбором, так как она гарантированно помещается в оперативную память без необходимости использования квантования или выгрузки на диск. Модель 30B MoE может работать только при использовании квантования низкого качества или выгрузке части весов на диск, что существенно замедлит скорость отклика и ухудшит качество генерации."
+        }
+      }
+    },
+    {
+      "model": "Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q6_K.gguf",
+      "size_gb": 7.4,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. RAG добавляет внешние данные без изменения модели.\n2. Fine-tuning адаптирует веса модели под новые задачи."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на Mac mini с 16 ГБ памяти модель 8B dense будет надежнее, так как она гарантированно влезет в оперативную память с запасом для системы, в то время как 30B MoE может потребовать использования медленной оперативной памяти или даже внешнего SSD, что сильно снизит скорость. Выбор 8B dense обеспечит стабильную работу и приемлемый отклик без риска вылетов или чрезмерных задержек."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-26B-A4B-it-UD-IQ1_M.gguf",
+      "size_gb": 9.9,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. **RAG** — поиск актуальной информации в базе данных и передача её модели.\n2. **Fine-tuning** — дообучение весов модели на специфических данных для изменения поведения."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на 16 GB памяти надежнее использовать 8B dense, так как модель гарантированно поместится в объем памяти без критической потери скорости. Модель 30B MoE, несмотря на архитектуру, скорее всего, потребует сильного квантования или вызовет ошибки нехватки памяти (OOM), что сделает демонстрацию нестабильной."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-26B-A4B-it-UD-IQ2_M.gguf",
+      "size_gb": 10.0,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. **RAG** — это поиск актуальной информации в базе данных и передача её модели.\n2. **Fine-tuning** — это дообучение весов модели на специфических данных для изменения поведения."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на 16 GB памяти надежнее использовать 8B dense, так как модель гарантированно поместится в объем оперативной памяти без критических тормозов. Модель 30B MoE, несмотря на архитектуру, скорее всего, потребует сильного квантования или вызовет swap, что сделает демонстрацию крайне нестабильной."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-26B-A4B-it-UD-IQ3_S.gguf",
+      "size_gb": 11.2,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-31B-it-UD-IQ2_M.gguf",
+      "size_gb": 10.8,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-31B-it-UD-IQ2_XXS.gguf",
+      "size_gb": 8.5,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "```json\n{\"sum\":5,\"city\":\"Paris\"}\n```"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "1. Fine-tuning: меняет веса модели, обучая её на конкретных данных.\n2. RAG: ищет данные в базе и подает их в контекст."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо надежнее использовать 8B dense, так как она требует меньше памяти и работает стабильнее. Модели MoE с 30B параметрами будут перегружать 16 GB памяти, что приведет к медленной работе или вылетам."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-31B-it-UD-Q2_K_XL.gguf",
+      "size_gb": 11.8,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Error: Compute error."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-E4B-it-IQ4_XS.gguf",
+      "size_gb": 4.7,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "**RAG:** Добавляет внешние знания для ответов.\n**Fine-tuning:** Изменяет модель, обучая её новому стилю."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на Mac mini с 16 ГБ унифицированной памяти, **8B dense** модель будет значительно надежнее и быстрее работать, так как она требует меньше оперативной памяти. Модели MoE, даже меньшие, могут превысить лимит памяти при загрузке и инференсе, что приведет к сбоям или очень медленной работе."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-E4B-it-Q4_K_M.gguf",
+      "size_gb": 5.0,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "**RAG:** Добавляет внешние знания для ответов.\n**Fine-tuning:** Изменяет модель, чтобы она лучше следовала стилю."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на Mac mini с 16 ГБ унифицированной памяти, **8B dense** модель, скорее всего, будет более надежной и стабильной в работе. Модели MoE, даже небольшие, могут требовать больше оперативной памяти для активаций и весов, что может вызвать проблемы с выгрузкой или замедлением на данной конфигурации."
+        }
+      }
+    },
+    {
+      "model": "gemma-4-E4B-it-Q6_K.gguf",
+      "size_gb": 7.1,
+      "tests": {
+        "json": {
+          "rc": 0,
+          "answer": "{\"sum\":5,\"city\":\"Paris\"}"
+        },
+        "rag": {
+          "rc": 0,
+          "answer": "**RAG:** Добавляет внешние знания к модели для ответов.\n**Fine-tuning:** Изменяет саму модель под конкретную задачу."
+        },
+        "demo": {
+          "rc": 0,
+          "answer": "Для локального демо на Mac mini с 16 ГБ унифицированной памяти, **8B dense** модель будет значительно надежнее и быстрее работать. Модели MoE, даже небольшие, требуют большего объема памяти для активаций и весов, что может привести к замедлениям или нехватке ресурсов."
+        }
+      }
+    }
+  ]
+}
