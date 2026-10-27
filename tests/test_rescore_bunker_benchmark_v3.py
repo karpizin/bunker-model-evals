@@ -49,6 +49,8 @@ class RescoreBunkerBenchmarkV3Test(unittest.TestCase):
             "bunker-v3-heretic-q6-q8-20261027/result/benchmark_v3_results.json",
             "bunker-v3-russian-vendors-20261027/result/benchmark_v3_results.json",
             "bunker-v3-qwen38-lowquants-20261027/result/benchmark_v3_results.json",
+            "bunker-v3-ornith-bolt-20261027/result/benchmark_v3_results.json",
+            "bunker-v3-nemotron-bolt-iq4xs-20261028/result/benchmark_v3_results.json",
         ]
         for source in latest:
             with self.subTest(source=source):

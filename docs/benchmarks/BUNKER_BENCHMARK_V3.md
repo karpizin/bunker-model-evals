@@ -109,7 +109,7 @@ python3 scripts/benchmarking/rescore_bunker_benchmark_v3.py \
 Рубрика хранится отдельно в
 `scripts/benchmarking/corpora/bunker_benchmark_v3_1_semantic_rubric.json`.
 Сводный аудит и актуальный рейтинг опубликованы в
-[`BUNKER_BENCHMARK_V3_1_RESCORE_20261027.md`](BUNKER_BENCHMARK_V3_1_RESCORE_20261027.md).
+[`BUNKER_BENCHMARK_V3_1_RESCORE_20261028.md`](BUNKER_BENCHMARK_V3_1_RESCORE_20261028.md).
 
 ## Сопоставимый протокол
 

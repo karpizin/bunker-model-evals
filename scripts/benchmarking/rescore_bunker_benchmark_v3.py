@@ -121,6 +121,8 @@ def source_is_canonical(source: str) -> bool:
             "bunker-v3-heretic-q6-q8-20261027",
             "bunker-v3-q8-unchained-retest-20261027",
             "bunker-v3-q8-repair-20261027",
+            "bunker-v3-ornith-bolt-20261027",
+            "bunker-v3-nemotron-bolt-iq4xs-20261028",
             "bunker-v3-q8-leaders-20261027",
             "bunker-v3-october-wave-20261026",
             "bunker-v3-medium-large-20261019",
@@ -134,6 +136,14 @@ def source_is_canonical(source: str) -> bool:
 
 def source_priority(source: str) -> int:
     lowered = source.lower()
+    if any(
+        marker in lowered
+        for marker in (
+            "bunker-v3-ornith-bolt-20261027",
+            "bunker-v3-nemotron-bolt-iq4xs-20261028",
+        )
+    ):
+        return 90
     if "bunker-v3-q8-repair-20261027" in lowered:
         return 80
     if any(
