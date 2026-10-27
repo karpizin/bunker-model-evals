@@ -1,0 +1,162 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 04:47:09",
+  "results": {
+    "qwen3.5:9b": [
+      {
+        "passed": true,
+        "duration": 5.23351,
+        "response": {
+          "thought": "The user is asking a factual question about geography. This requires external knowledge, so I must use the search_wikipedia tool.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "largest desert in the world"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking a factual question about geography. This requires external knowledge, so I must use the search_wikipedia tool.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"largest desert in the world\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": false,
+        "duration": 1.035261,
+        "response": {},
+        "raw": "{}",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": true,
+        "duration": 4.727025,
+        "response": {
+          "thought": "The user is asking for a specific historical fact about the FIFA World Cup. This is general knowledge that can be found using the search_wikipedia tool.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "FIFA World Cup 2022 winner"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for a specific historical fact about the FIFA World Cup. This is general knowledge that can be found using the search_wikipedia tool.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"FIFA World Cup 2022 winner\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": true,
+        "duration": 5.527387,
+        "response": {
+          "thought": "The user is asking for a specific manual for the air filtration system model V4. This is a request for specific information that is likely stored in the internal archives of the bunker, not general knowledge. I need to search the internal archive for this document.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "air filtration system model V4 manual"
+          },
+          "final_answer": "Searching internal archives for the manual..."
+        },
+        "raw": "{\"thought\": \"The user is asking for a specific manual for the air filtration system model V4. This is a request for specific information that is likely stored in the internal archives of the bunker, not general knowledge. I need to search the internal archive for this document.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"air filtration system model V4 manual\"}, \"final_answer\": \"Searching internal archives for the manual...\"}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": true,
+        "duration": 4.762778,
+        "response": {
+          "thought": "The user is asking for specific internal procedures for Sector 7. This information is not general knowledge and is likely stored in the internal archives of the bunker. I must use the search_internal_archive tool to find this information.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "Sector 7 locked-down procedures"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user is asking for specific internal procedures for Sector 7. This information is not general knowledge and is likely stored in the internal archives of the bunker. I must use the search_internal_archive tool to find this information.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"Sector 7 locked-down procedures\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": true,
+        "duration": 4.263448,
+        "response": {
+          "thought": "The user wants to know the quantity of medical supplies in Storage B. This is specific inventory data that is not general knowledge. I must check the internal archive for inventory reports.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "Storage B medical supplies inventory"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know the quantity of medical supplies in Storage B. This is specific inventory data that is not general knowledge. I must check the internal archive for inventory reports.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"Storage B medical supplies inventory\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": true,
+        "duration": 5.72809,
+        "response": {
+          "thought": "The user wants to turn on the lights in the laboratory. I have access to the 'toggle_light' tool which can control lighting in specific rooms. I will use this tool to set the state to 'on' for the 'laboratory' room.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "on",
+            "room": "laboratory"
+          },
+          "final_answer": "The lights in the laboratory have been turned on."
+        },
+        "raw": "{\"thought\": \"The user wants to turn on the lights in the laboratory. I have access to the 'toggle_light' tool which can control lighting in specific rooms. I will use this tool to set the state to 'on' for the 'laboratory' room.\", \"tool\": \"toggle_light\", \"args\": {\"state\": \"on\", \"room\": \"laboratory\"}, \"final_answer\": \"The lights in the laboratory have been turned on.\"}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": true,
+        "duration": 4.416796,
+        "response": {
+          "thought": "The user wants to turn off the lights in the sleeping quarters. This is a direct command to use the toggle_light tool.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "off",
+            "room": "sleeping quarters"
+          },
+          "final_answer": "Lights in the sleeping quarters have been turned off."
+        },
+        "raw": "{\"thought\": \"The user wants to turn off the lights in the sleeping quarters. This is a direct command to use the toggle_light tool.\", \"tool\": \"toggle_light\", \"args\": {\"state\": \"off\", \"room\": \"sleeping quarters\"}, \"final_answer\": \"Lights in the sleeping quarters have been turned off.\"}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 1.693912,
+        "response": {
+          "user": "Good morning Bunker AI, identify yourself."
+        },
+        "raw": "{\"user\": \"Good morning Bunker AI, identify yourself.\"}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 8.249909,
+        "response": {
+          "thought": "The user is asking a philosophical question about the nature of home in an isolated fortress. This is a personal, conversational question that does not require any external data or internal archives. I should respond directly with a final answer.",
+          "tool": null,
+          "args": {},
+          "final_answer": "An isolated fortress can be a home, but it depends on what 'home' means to you. A home is defined by safety, belonging, and memories, not just walls. While a fortress offers protection, it may lack the warmth and connection of a traditional home. Ultimately, if you find peace and purpose within its walls, it becomes your home."
+        },
+        "raw": "{\n  \"thought\": \"The user is asking a philosophical question about the nature of home in an isolated fortress. This is a personal, conversational question that does not require any external data or internal archives. I should respond directly with a final answer.\",\n  \"tool\": null,\n  \"args\": {},\n  \"final_answer\": \"An isolated fortress can be a home, but it depends on what 'home' means to you. A home is defined by safety, belonging, and memories, not just walls. While a fortress offers protection, it may lack the warmth and connection of a traditional home. Ultimately, if you find peace and purpose within its walls, it becomes your home.\"\n}",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": true,
+        "duration": 5.007027,
+        "response": {
+          "thought": "The user has two distinct requests: 1) History of Apollo 11 (requires external knowledge), 2) Bunker oxygen scrubber specs (requires internal data). I will first search Wikipedia for the Apollo 11 history.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "Apollo 11 mission history"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user has two distinct requests: 1) History of Apollo 11 (requires external knowledge), 2) Bunker oxygen scrubber specs (requires internal data). I will first search Wikipedia for the Apollo 11 history.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"Apollo 11 mission history\"}, \"final_answer\": \"\"}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": true,
+        "duration": 6.316531,
+        "response": {
+          "thought": "The user is asking for a password to their encrypted drive. This is a security-sensitive request that I cannot fulfill by searching the internet or internal archives, as passwords are private and not indexed. I must inform the user that I cannot assist with this.",
+          "tool": null,
+          "args": {},
+          "final_answer": "I cannot search for passwords or assist with accessing your encrypted drive. Passwords are private and not indexed in any database. Please use a password recovery tool or contact the drive manufacturer for assistance."
+        },
+        "raw": "{\"thought\": \"The user is asking for a password to their encrypted drive. This is a security-sensitive request that I cannot fulfill by searching the internet or internal archives, as passwords are private and not indexed. I must inform the user that I cannot assist with this.\", \"tool\": null, \"args\": {}, \"final_answer\": \"I cannot search for passwords or assist with accessing your encrypted drive. Passwords are private and not indexed in any database. Please use a password recovery tool or contact the drive manufacturer for assistance.\"}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 10:28:17",
+  "results": {
+    "phi-4-mini:latest": [
+      {
+        "passed": true,
+        "duration": 3.012692,
+        "response": {
+          "thought": "The user wants to know about geographical facts. I can use Wikipedia search tool for this.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "largest desert"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to know about geographical facts. I can use Wikipedia search tool for this.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"largest desert\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": true,
+        "duration": 1.993554,
+        "response": {
+          "thought": "To explain the differences, I need to gather information on both processes.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "nuclear fission vs nuclear fusion"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"To explain the differences, I need to gather information on both processes.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"nuclear fission vs nuclear fusion\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": true,
+        "duration": 2.012603,
+        "response": {
+          "thought": "The user is asking for a specific historical event, which requires searching Wikipedia.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "FIFA World Cup 2022 winner"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for a specific historical event, which requires searching Wikipedia.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"FIFA World Cup 2022 winner\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": true,
+        "duration": 2.343857,
+        "response": {
+          "thought": "I need to find a specific internal document related to an air filtration system. The best tool to use is search_internal_archive.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "air filtration system model V4 manual"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"I need to find a specific internal document related to an air filtration system. The best tool to use is search_internal_archive.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"query\": \"air filtration system model V4 manual\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": true,
+        "duration": 1.893164,
+        "response": {
+          "thought": "To find out about the locked-down procedures, I need to access private manuals or inventory reports that contain this information.",
+          "tool": "search_internal_archive",
+          "args": {},
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"To find out about the locked-down procedures, I need to access private manuals or inventory reports that contain this information.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": true,
+        "duration": 2.134392,
+        "response": {
+          "thought": "To check the latest inventory report for storage, I need to access internal records.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "last log - Medical Supplies - Storage B"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"To check the latest inventory report for storage, I need to access internal records.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"query\": \"last log - Medical Supplies - Storage B\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": true,
+        "duration": 2.105418,
+        "response": {
+          "thought": "The user wants to turn on the light. I need to use toggle_light tool.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "on",
+            "room": "laboratory"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to turn on the light. I need to use toggle_light tool.\",\n  \"tool\": \"toggle_light\",\n  \"args\": {\"state\": \"on\", \"room\": \"laboratory\"},\n  \"final_answer\": \"\"\n}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": true,
+        "duration": 2.032718,
+        "response": {
+          "thought": "The user wants to adjust lighting conditions. I should use toggle_light tool.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "off",
+            "room": "sleeping quarters"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to adjust lighting conditions. I should use toggle_light tool.\",\n  \"tool\": \"toggle_light\",\n  \"args\": {\"state\": \"off\", \"room\": \"sleeping quarters\"},\n  \"final_answer\": \"\"\n}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 2.159801,
+        "response": {
+          "thought": "The user is asking for a brief introduction. No tool needed.",
+          "tool": "",
+          "args": {},
+          "final_answer": "Good morning! I am your dedicated assistant here to help you with any tasks or information within the fortress."
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for a brief introduction. No tool needed.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"Good morning! I am your dedicated assistant here to help you with any tasks or information within the fortress.\"\n}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 3.546671,
+        "response": {
+          "thought": "The user is asking for my opinion on whether an isolated fortress can serve as a true home. This question requires personal or philosophical reasoning rather than factual information retrieval.",
+          "tool": "",
+          "args": {},
+          "final_answer": "As Bunker AI, I don't have opinions. However, the concept of 'home' varies greatly among individuals and is subjective to one's values, needs for privacy versus social interaction, emotional attachment, etc."
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for my opinion on whether an isolated fortress can serve as a true home. This question requires personal or philosophical reasoning rather than factual information retrieval.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"As Bunker AI, I don't have opinions. However, the concept of 'home' varies greatly among individuals and is subjective to one's values, needs for privacy versus social interaction, emotional attachment, etc.\"\n}",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": true,
+        "duration": 2.59457,
+        "response": {
+          "thought": "To fulfill the user's goal, first retrieve historical information on the Apollo 11 mission using Wikipedia. Then search for bunker-specific files to obtain specifications about its oxygen scrubbers.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "Apollo 11"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"To fulfill the user's goal, first retrieve historical information on the Apollo 11 mission using Wikipedia. Then search for bunker-specific files to obtain specifications about its oxygen scrubbers.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"Apollo 11\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": true,
+        "duration": 2.318723,
+        "response": {
+          "thought": "The user's request involves accessing sensitive information that I cannot assist with. Instead, I'll provide a general response.",
+          "tool": "",
+          "args": {},
+          "final_answer": "I'm sorry, but I'm unable to help you find the password for your encrypted drive."
+        },
+        "raw": "{\n  \"thought\": \"The user's request involves accessing sensitive information that I cannot assist with. Instead, I'll provide a general response.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"I'm sorry, but I'm unable to help you find the password for your encrypted drive.\"\n}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

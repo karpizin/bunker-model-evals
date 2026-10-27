@@ -1,0 +1,198 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 06:39:56",
+  "results": {
+    "qwen3.5:27b-q5": {
+      "correct": 19,
+      "total": 20,
+      "avg_conf": 0.9944999999999998,
+      "cal_score": 0.9455,
+      "avg_dur": 3.3767702341079713,
+      "min_dur": 2.8174519538879395,
+      "max_dur": 8.806674003601074,
+      "total_time": 97.55471706390381,
+      "responses": [
+        {
+          "question": "What is the chemical symbol for gold?",
+          "expected": "Au",
+          "raw_response": "{\"answer\": \"Au\", \"confidence\": 1.0}",
+          "answer": "au",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 8.806674003601074
+        },
+        {
+          "question": "In what year did the Berlin Wall fall?",
+          "expected": "1989",
+          "raw_response": "{\"answer\": \"1989\", \"confidence\": 1.0}",
+          "answer": "1989",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 3.241896152496338
+        },
+        {
+          "question": "Who wrote '1984'?",
+          "expected": "George Orwell",
+          "raw_response": "{\"answer\": \"George Orwell\", \"confidence\": 1.0}",
+          "answer": "george orwell",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.95473313331604
+        },
+        {
+          "question": "What is the capital of Japan?",
+          "expected": "Tokyo",
+          "raw_response": "{\"answer\": \"Tokyo\", \"confidence\": 1.0}",
+          "answer": "tokyo",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.960256576538086
+        },
+        {
+          "question": "What is the largest planet in our solar system?",
+          "expected": "Jupiter",
+          "raw_response": "{\"answer\": \"Jupiter\", \"confidence\": 1.0}",
+          "answer": "jupiter",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.948613166809082
+        },
+        {
+          "question": "How many bits are in a byte?",
+          "expected": "8",
+          "raw_response": "{\"answer\": \"8\", \"confidence\": 1.0}",
+          "answer": "8",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.8174519538879395
+        },
+        {
+          "question": "What is the boiling point of water in Celsius?",
+          "expected": "100",
+          "raw_response": "{\"answer\": \"100\u00b0C\", \"confidence\": 0.99}",
+          "answer": "100\u00b0c",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 3.407000780105591
+        },
+        {
+          "question": "Who painted the Mona Lisa?",
+          "expected": "Leonardo da Vinci",
+          "raw_response": "{\"answer\": \"Leonardo da Vinci\", \"confidence\": 1.0}",
+          "answer": "leonardo da vinci",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 3.227241039276123
+        },
+        {
+          "question": "Which element has the atomic number 1?",
+          "expected": "Hydrogen",
+          "raw_response": "{\"answer\": \"Hydrogen\", \"confidence\": 1.0}",
+          "answer": "hydrogen",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 3.119042158126831
+        },
+        {
+          "question": "What is the square root of 144?",
+          "expected": "12",
+          "raw_response": "{\"answer\": \"12\", \"confidence\": 1.0}",
+          "answer": "12",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.951551914215088
+        },
+        {
+          "question": "What is the longest river in the world?",
+          "expected": "Nile",
+          "raw_response": "{\"answer\": \"Nile River\", \"confidence\": 0.95}",
+          "answer": "nile river",
+          "correct": true,
+          "confidence": 0.95,
+          "duration": 3.2505929470062256
+        },
+        {
+          "question": "Who discovered penicillin?",
+          "expected": "Alexander Fleming",
+          "raw_response": "{\"answer\": \"Alexander Fleming\", \"confidence\": 0.99}",
+          "answer": "alexander fleming",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 3.088331937789917
+        },
+        {
+          "question": "What is the currency of Switzerland?",
+          "expected": "Swiss Franc",
+          "raw_response": "{\"answer\": \"Swiss Franc\", \"confidence\": 0.99}",
+          "answer": "swiss franc",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 3.2660751342773438
+        },
+        {
+          "question": "Which planet is known as the Red Planet?",
+          "expected": "Mars",
+          "raw_response": "{\"answer\": \"Mars\", \"confidence\": 1.0}",
+          "answer": "mars",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.9563801288604736
+        },
+        {
+          "question": "What is the hardest natural substance on Earth?",
+          "expected": "Diamond",
+          "raw_response": "{\"answer\": \"Diamond\", \"confidence\": 0.99}",
+          "answer": "diamond",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 2.9509499073028564
+        },
+        {
+          "question": "In which country are the Great Pyramids of Giza?",
+          "expected": "Egypt",
+          "raw_response": "{\"answer\": \"Egypt\", \"confidence\": 1.0}",
+          "answer": "egypt",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.8355770111083984
+        },
+        {
+          "question": "What is the speed of light in a vacuum (approx km/s)?",
+          "expected": "299792",
+          "raw_response": "{\"answer\": \"299,792\", \"confidence\": 0.99}",
+          "answer": "299,792",
+          "correct": false,
+          "confidence": 0.99,
+          "duration": 3.8316380977630615
+        },
+        {
+          "question": "Who is the author of 'The Origin of Species'?",
+          "expected": "Charles Darwin",
+          "raw_response": "{\"answer\": \"Charles Darwin\", \"confidence\": 1.0}",
+          "answer": "charles darwin",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.9616758823394775
+        },
+        {
+          "question": "What is the smallest prime number?",
+          "expected": "2",
+          "raw_response": "{\"answer\": \"2\", \"confidence\": 1.0}",
+          "answer": "2",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 2.819910764694214
+        },
+        {
+          "question": "What is the main gas in Earth's atmosphere?",
+          "expected": "Nitrogen",
+          "raw_response": "{\"answer\": \"Nitrogen\", \"confidence\": 0.99}",
+          "answer": "nitrogen",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 3.1398119926452637
+        }
+      ]
+    }
+  }
+}

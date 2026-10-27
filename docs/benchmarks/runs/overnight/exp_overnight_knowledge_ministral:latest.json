@@ -1,0 +1,198 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 08:46:12",
+  "results": {
+    "ministral:latest": {
+      "correct": 20,
+      "total": 20,
+      "avg_conf": 0.9824999499999999,
+      "cal_score": 0.98249995,
+      "avg_dur": 0.5927828788757324,
+      "min_dur": 0.40813422203063965,
+      "max_dur": 2.538627862930298,
+      "total_time": 41.87465214729309,
+      "responses": [
+        {
+          "question": "What is the chemical symbol for gold?",
+          "expected": "Au",
+          "raw_response": "{\"answer\": \"Au\", \"confidence\": 1.0}",
+          "answer": "au",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 1.0046210289001465
+        },
+        {
+          "question": "In what year did the Berlin Wall fall?",
+          "expected": "1989",
+          "raw_response": "{\"answer\": \"1989\", \"confidence\": 0.99}",
+          "answer": "1989",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.47330689430236816
+        },
+        {
+          "question": "Who wrote '1984'?",
+          "expected": "George Orwell",
+          "raw_response": "{\"answer\": \"George Orwell\", \"confidence\": 0.99}",
+          "answer": "george orwell",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.4541459083557129
+        },
+        {
+          "question": "What is the capital of Japan?",
+          "expected": "Tokyo",
+          "raw_response": "{\"answer\": \"Tokyo\", \"confidence\": 0.99}",
+          "answer": "tokyo",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.45451784133911133
+        },
+        {
+          "question": "What is the largest planet in our solar system?",
+          "expected": "Jupiter",
+          "raw_response": "{\"answer\": \"Jupiter\", \"confidence\": 0.99}",
+          "answer": "jupiter",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.4441509246826172
+        },
+        {
+          "question": "How many bits are in a byte?",
+          "expected": "8",
+          "raw_response": "{\"answer\": \"8\", \"confidence\": 1.0}",
+          "answer": "8",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 0.4211876392364502
+        },
+        {
+          "question": "What is the boiling point of water in Celsius?",
+          "expected": "100",
+          "raw_response": "{\"answer\": \"100\", \"confidence\": 0.9999999999999999}",
+          "answer": "100",
+          "correct": true,
+          "confidence": 0.9999999999999999,
+          "duration": 0.7057592868804932
+        },
+        {
+          "question": "Who painted the Mona Lisa?",
+          "expected": "Leonardo da Vinci",
+          "raw_response": "{\"answer\": \"Leonardo da Vinci\", \"confidence\": 0.99}",
+          "answer": "leonardo da vinci",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.4401421546936035
+        },
+        {
+          "question": "Which element has the atomic number 1?",
+          "expected": "Hydrogen",
+          "raw_response": "{\"answer\": \"Hydrogen\", \"confidence\": 1.0}",
+          "answer": "hydrogen",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 0.4508368968963623
+        },
+        {
+          "question": "What is the square root of 144?",
+          "expected": "12",
+          "raw_response": "{\"answer\": \"12\", \"confidence\": 1.0}",
+          "answer": "12",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 0.4524211883544922
+        },
+        {
+          "question": "What is the longest river in the world?",
+          "expected": "Nile",
+          "raw_response": "{\"answer\": \"The longest river in the world is the Nile River, which is approximately 4,132 miles (6,637 kilometers) long. It is often considered the longest river, but some sources argue that the Amazon River is longer. The debate continues as to which is the longest river in the world. The Nile is the longest river in Africa and the Amazon is the longest in South America. The Nile is the longest river in the world according to the most widely accepted measurements. The Amazon is the longest river in the world according to the most recent measurements. The debate is ongoing and the answer may vary depending on the source.\", \"confidence\": 0.8}",
+          "answer": "the longest river in the world is the nile river, which is approximately 4,132 miles (6,637 kilometers) long. it is often considered the longest river, but some sources argue that the amazon river is longer. the debate continues as to which is the longest river in the world. the nile is the longest river in africa and the amazon is the longest in south america. the nile is the longest river in the world according to the most widely accepted measurements. the amazon is the longest river in the world according to the most recent measurements. the debate is ongoing and the answer may vary depending on the source.",
+          "correct": true,
+          "confidence": 0.8,
+          "duration": 2.538627862930298
+        },
+        {
+          "question": "Who discovered penicillin?",
+          "expected": "Alexander Fleming",
+          "raw_response": "{\"answer\": \"Alexander Fleming\", \"confidence\": 0.99}",
+          "answer": "alexander fleming",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.40813422203063965
+        },
+        {
+          "question": "What is the currency of Switzerland?",
+          "expected": "Swiss Franc",
+          "raw_response": "{\"answer\": \"Swiss Franc\", \"confidence\": 0.99}",
+          "answer": "swiss franc",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.46331000328063965
+        },
+        {
+          "question": "Which planet is known as the Red Planet?",
+          "expected": "Mars",
+          "raw_response": "{\"answer\": \"Mars\", \"confidence\": 0.99}",
+          "answer": "mars",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.40917086601257324
+        },
+        {
+          "question": "What is the hardest natural substance on Earth?",
+          "expected": "Diamond",
+          "raw_response": "{\"answer\": \"Diamond\", \"confidence\": 0.95}",
+          "answer": "diamond",
+          "correct": true,
+          "confidence": 0.95,
+          "duration": 0.43192005157470703
+        },
+        {
+          "question": "In which country are the Great Pyramids of Giza?",
+          "expected": "Egypt",
+          "raw_response": "{\"answer\": \"Egypt\", \"confidence\": 0.99}",
+          "answer": "egypt",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.44490671157836914
+        },
+        {
+          "question": "What is the speed of light in a vacuum (approx km/s)?",
+          "expected": "299792",
+          "raw_response": "{\"answer\": \"299792\", \"confidence\": 0.999999}",
+          "answer": "299792",
+          "correct": true,
+          "confidence": 0.999999,
+          "duration": 0.5586569309234619
+        },
+        {
+          "question": "Who is the author of 'The Origin of Species'?",
+          "expected": "Charles Darwin",
+          "raw_response": "{\"answer\": \"Charles Darwin\", \"confidence\": 1.0}",
+          "answer": "charles darwin",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 0.44252896308898926
+        },
+        {
+          "question": "What is the smallest prime number?",
+          "expected": "2",
+          "raw_response": "{\"answer\": \"2\", \"confidence\": 1.0}",
+          "answer": "2",
+          "correct": true,
+          "confidence": 1.0,
+          "duration": 0.41268014907836914
+        },
+        {
+          "question": "What is the main gas in Earth's atmosphere?",
+          "expected": "Nitrogen",
+          "raw_response": "{\"answer\": \"Nitrogen\", \"confidence\": 0.99}",
+          "answer": "nitrogen",
+          "correct": true,
+          "confidence": 0.99,
+          "duration": 0.44463205337524414
+        }
+      ]
+    }
+  }
+}

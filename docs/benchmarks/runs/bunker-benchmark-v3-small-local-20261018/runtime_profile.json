@@ -1,0 +1,47 @@
+{
+  "completed_at": "2026-10-19",
+  "hardware": {
+    "cpu": "AMD Ryzen AI Max+ 395",
+    "gpu": "Radeon 8060S",
+    "gpu_memory_allocation_gib": 96
+  },
+  "runtime": {
+    "engine": "llama.cpp",
+    "version": "0.7.0-dev",
+    "commit": "b76b133",
+    "backend": "Vulkan",
+    "device": "Vulkan0",
+    "gpu_layers": "all",
+    "context_size": 32768,
+    "parallel_slots": 1
+  },
+  "benchmark": {
+    "temperature": 0.05,
+    "max_tokens": 8192,
+    "case_timeout_seconds": 600,
+    "runs_per_model": 1,
+    "cases": 20
+  },
+  "mtp": {
+    "spec_type": "draft-mtp",
+    "draft_n_min": 1,
+    "draft_n_max": 4,
+    "draft_p_min": 0.75,
+    "models": {
+      "Qwopus3.5-9B-Coder-MTP-Q4_K_M": {
+        "weighted_acceptance_pct": 97.9,
+        "sampled_generation_tps_mean": 69.11
+      },
+      "Qwen3.5-9B-DeepSeek-V4-Flash-MTP-Q4_K_M": {
+        "weighted_acceptance_pct": 96.37,
+        "sampled_generation_tps_mean": 57.58
+      }
+    }
+  },
+  "integrity": {
+    "production_inference_port": 11435,
+    "benchmark_port": 18081,
+    "production_inference_interrupted": false,
+    "cpu_diagnostic_runs_excluded": true
+  }
+}

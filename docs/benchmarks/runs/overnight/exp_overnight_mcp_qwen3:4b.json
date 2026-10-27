@@ -1,0 +1,26 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 12:19:56",
+  "results": {
+    "qwen3:4b": [
+      {
+        "passed": false,
+        "error": "Ollama Timeout/Error",
+        "duration": 0,
+        "case": "MCP: Knowledge Retrieval"
+      },
+      {
+        "passed": false,
+        "error": "Ollama Timeout/Error",
+        "duration": 0,
+        "case": "MCP: IoT Action"
+      },
+      {
+        "passed": false,
+        "error": "Ollama Timeout/Error",
+        "duration": 0,
+        "case": "MCP: Data Synthesis"
+      }
+    ]
+  }
+}

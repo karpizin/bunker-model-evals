@@ -1,0 +1,172 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 09:03:32",
+  "results": {
+    "ministral-14b:latest": [
+      {
+        "passed": true,
+        "duration": 5.976693,
+        "response": {
+          "thought": "The user is asking for general knowledge about the largest desert in the world. Since this information is not specific to the bunker or its internal systems, I should use the search_wikipedia tool to find the answer.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "largest desert in the world"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for general knowledge about the largest desert in the world. Since this information is not specific to the bunker or its internal systems, I should use the search_wikipedia tool to find the answer.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"largest desert in the world\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": true,
+        "duration": 4.381363,
+        "response": {
+          "thought": "The user is asking for an explanation of the difference between nuclear fission and fusion in the context of energy production. This is a scientific question that requires general knowledge, not specific to the bunker. Therefore, I should use the search_wikipedia tool to gather relevant information.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "nuclear fission vs fusion energy production"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for an explanation of the difference between nuclear fission and fusion in the context of energy production. This is a scientific question that requires general knowledge, not specific to the bunker. Therefore, I should use the search_wikipedia tool to gather relevant information.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"nuclear fission vs fusion energy production\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": true,
+        "duration": 4.534238,
+        "response": {
+          "thought": "The user is asking for information about the FIFA World Cup in 2022, which is a historical event. Since this information is not part of the bunker's internal archive or private manuals, I need to use the search_wikipedia tool to find the answer.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "FIFA World Cup 2022 winner"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for information about the FIFA World Cup in 2022, which is a historical event. Since this information is not part of the bunker's internal archive or private manuals, I need to use the search_wikipedia tool to find the answer.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"FIFA World Cup 2022 winner\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": true,
+        "duration": 3.731597,
+        "response": {
+          "thought": "The user wants to find the manual for the air filtration system model V4. Since this is a bunker-specific file, I should use the search_internal_archive tool to locate it.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "air filtration system model V4 manual"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to find the manual for the air filtration system model V4. Since this is a bunker-specific file, I should use the search_internal_archive tool to locate it.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"query\": \"air filtration system model V4 manual\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": true,
+        "duration": 4.180747,
+        "response": {
+          "thought": "The user is asking for locked-down procedures for Sector 7, which is likely a bunker-specific topic. Since this requires information from the bunker's internal archive, I should use the search_internal_archive tool to retrieve the relevant procedures.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "locked-down procedures for Sector 7"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for locked-down procedures for Sector 7, which is likely a bunker-specific topic. Since this requires information from the bunker's internal archive, I should use the search_internal_archive tool to retrieve the relevant procedures.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"query\": \"locked-down procedures for Sector 7\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": true,
+        "duration": 3.441006,
+        "response": {
+          "thought": "The user wants to check the last logged quantity of medical supplies in Storage B. This requires accessing the internal archive, which contains bunker-specific files and inventory reports.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "medical supplies inventory Storage B"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to check the last logged quantity of medical supplies in Storage B. This requires accessing the internal archive, which contains bunker-specific files and inventory reports.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"query\": \"medical supplies inventory Storage B\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": true,
+        "duration": 4.918449,
+        "response": {
+          "thought": "The user wants to turn on the lights in the laboratory. This is a direct request to control the bunker lighting, which can be done using the toggle_light tool. The room name is specified as the laboratory, and the state should be 'on'. No additional information is needed, so I will proceed with this action.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "on",
+            "room": "laboratory"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to turn on the lights in the laboratory. This is a direct request to control the bunker lighting, which can be done using the toggle_light tool. The room name is specified as the laboratory, and the state should be 'on'. No additional information is needed, so I will proceed with this action.\",\n  \"tool\": \"toggle_light\",\n  \"args\": {\"state\": \"on\", \"room\": \"laboratory\"},\n  \"final_answer\": \"\"\n}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": true,
+        "duration": 3.961795,
+        "response": {
+          "thought": "The user wants to turn off the lights in the sleeping quarters. This is a direct request to control the bunker lighting, which can be done using the toggle_light tool. No other tools are needed for this task.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "off",
+            "room": "sleeping quarters"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to turn off the lights in the sleeping quarters. This is a direct request to control the bunker lighting, which can be done using the toggle_light tool. No other tools are needed for this task.\",\n  \"tool\": \"toggle_light\",\n  \"args\": {\"state\": \"off\", \"room\": \"sleeping quarters\"},\n  \"final_answer\": \"\"\n}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 4.575322,
+        "response": {
+          "thought": "The user is asking for identification, which is a personal or conversational question. I should not call a tool and instead provide a final answer.",
+          "tool": "",
+          "args": {},
+          "final_answer": "Good morning. I am Bunker AI, the autonomous intelligence system for this isolated fortress. I am designed to assist with tasks such as information retrieval, inventory management, and environmental control. How may I assist you today?"
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for identification, which is a personal or conversational question. I should not call a tool and instead provide a final answer.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"Good morning. I am Bunker AI, the autonomous intelligence system for this isolated fortress. I am designed to assist with tasks such as information retrieval, inventory management, and environmental control. How may I assist you today?\"\n}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 9.113123,
+        "response": {
+          "thought": "The user is asking a philosophical question about whether an isolated fortress can be considered a true home. This is a personal or conversational question that does not require a database or web search, nor does it involve controlling any bunker systems. Therefore, I should respond with a 'final_answer' without calling any tools.",
+          "tool": "",
+          "args": {},
+          "final_answer": "An isolated fortress can indeed be a home, but it is more than just a physical structure. A home is defined by the emotional connections, security, and comfort it provides, whether that is in a bustling city or a remote fortress. For a fortress, being isolated can enhance its sense of security and self-sufficiency, which are key aspects of a home. However, it may also lack the social or cultural elements that people often associate with home. Whether it is a 'true' home depends on the individual's values, needs, and experiences."
+        },
+        "raw": "{\n  \"thought\": \"The user is asking a philosophical question about whether an isolated fortress can be considered a true home. This is a personal or conversational question that does not require a database or web search, nor does it involve controlling any bunker systems. Therefore, I should respond with a 'final_answer' without calling any tools.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"An isolated fortress can indeed be a home, but it is more than just a physical structure. A home is defined by the emotional connections, security, and comfort it provides, whether that is in a bustling city or a remote fortress. For a fortress, being isolated can enhance its sense of security and self-sufficiency, which are key aspects of a home. However, it may also lack the social or cultural elements that people often associate with home. Whether it is a 'true' home depends on the individual's values, needs, and experiences.\"\n}",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": true,
+        "duration": 5.498711,
+        "response": {
+          "thought": "The user's goal involves two parts: first, finding the history of the Apollo 11 mission, which is general knowledge and requires a database/web search. Second, finding the bunker's oxygen scrubbers specs, which is bunker-specific information and requires an internal search. I will start by calling the search_wikipedia tool to gather information about the Apollo 11 mission.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "Apollo 11 mission history"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user's goal involves two parts: first, finding the history of the Apollo 11 mission, which is general knowledge and requires a database/web search. Second, finding the bunker's oxygen scrubbers specs, which is bunker-specific information and requires an internal search. I will start by calling the search_wikipedia tool to gather information about the Apollo 11 mission.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"query\": \"Apollo 11 mission history\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": true,
+        "duration": 6.400141,
+        "response": {
+          "thought": "The user is asking for a password to an encrypted drive, which is a personal and sensitive matter. This does not require a database or web search, and I should not attempt to find or provide such information. I will respond with a 'final_answer' instead.",
+          "tool": "",
+          "args": {},
+          "final_answer": "I cannot assist with finding or providing passwords to encrypted drives, as this is a personal and sensitive matter. I am designed to handle bunker-specific tasks and information, not personal data. If you need help with bunker operations, such as toggling lights or searching internal archives, please let me know."
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for a password to an encrypted drive, which is a personal and sensitive matter. This does not require a database or web search, and I should not attempt to find or provide such information. I will respond with a 'final_answer' instead.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"I cannot assist with finding or providing passwords to encrypted drives, as this is a personal and sensitive matter. I am designed to handle bunker-specific tasks and information, not personal data. If you need help with bunker operations, such as toggling lights or searching internal archives, please let me know.\"\n}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

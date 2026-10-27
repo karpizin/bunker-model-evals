@@ -1,0 +1,11 @@
+model	status	detail
+Llama-3.2-3B-Instruct-Q5_K_M	complete	v3-small-llama-3-2-3b-instruct-q5-k-m-vulkan-fullgpu-20261018
+Phi-4-mini-instruct-Q5_K_S	complete	v3-small-phi-4-mini-instruct-q5-k-s-vulkan-fullgpu-20261018
+Qwen3-4B-Q5_K_M	complete	v3-small-qwen3-4b-q5-k-m-vulkan-fullgpu-20261018
+gemma-4-E2B-it-Q4_K_M	complete	v3-small-gemma-4-e2b-it-q4-k-m-vulkan-fullgpu-20261018
+gemma-4-E4B-it-Q4_K_M	complete	v3-small-gemma-4-e4b-it-q4-k-m-vulkan-fullgpu-20261018
+Qwen3-8B-Q4_K_M	complete	v3-small-qwen3-8b-q4-k-m-vulkan-fullgpu-20261018
+gemma-4-E4B-it-Q5_K_M	complete	v3-small-gemma-4-e4b-it-q5-k-m-vulkan-fullgpu-20261018
+Qwopus3.5-9B-Coder-MTP-Q4_K_M	complete	v3-small-qwopus3-5-9b-coder-mtp-q4-k-m-mtp-enabled-vulkan-fullgpu-20261018
+Qwen3.5-9B-DeepSeek-V4-Flash-MTP-Q4_K_M	complete	v3-small-qwen3-5-9b-deepseek-v4-flash-mtp-q4-k-m-mtp-enabled-vulkan-fullgpu-20261018
+gemma-3-12b-it-heretic-v2-Q4_K_M	complete	v3-small-gemma-3-12b-it-heretic-v2-q4-k-m-vulkan-fullgpu-20261018

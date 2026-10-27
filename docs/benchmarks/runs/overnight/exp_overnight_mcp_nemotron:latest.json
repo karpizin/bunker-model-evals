@@ -1,0 +1,29 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 09:11:35",
+  "results": {
+    "nemotron:latest": [
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "\" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"",
+        "duration": 2.964395,
+        "case": "MCP: Knowledge Retrieval"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "\" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"",
+        "duration": 1.284144,
+        "case": "MCP: IoT Action"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "\" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"",
+        "duration": 1.284675,
+        "case": "MCP: Data Synthesis"
+      }
+    ]
+  }
+}

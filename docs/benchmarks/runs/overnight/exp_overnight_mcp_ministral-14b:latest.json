@@ -1,0 +1,88 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 09:01:58",
+  "results": {
+    "ministral-14b:latest": [
+      {
+        "passed": true,
+        "has_noise": true,
+        "duration": 6.789834,
+        "checks": {
+          "jsonrpc": true,
+          "method": true,
+          "tool": true,
+          "args": true,
+          "clean": false
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "method": "tools/call",
+          "params": {
+            "name": "retrieve_blueprint",
+            "arguments": {
+              "level": 4,
+              "system": "air_filtration"
+            }
+          },
+          "id": 1
+        },
+        "raw": "<think>Requesting blueprint for level 4 air filtration system.</think>{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"params\": {\"name\": \"retrieve_blueprint\", \"arguments\": {\"level\": 4, \"system\": \"air_filtration\"}}, \"id\": 1}",
+        "case": "MCP: Knowledge Retrieval"
+      },
+      {
+        "passed": true,
+        "has_noise": true,
+        "duration": 3.822794,
+        "checks": {
+          "jsonrpc": true,
+          "method": true,
+          "tool": true,
+          "args": true,
+          "clean": false
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "method": "tools/call",
+          "params": {
+            "name": "set_valve_state",
+            "arguments": {
+              "sector": 7,
+              "valve_type": "emergency_vent",
+              "state": "open"
+            }
+          },
+          "id": 1
+        },
+        "raw": "<think>Opening emergency vent in sector 7.</think>{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"params\": {\"name\": \"set_valve_state\", \"arguments\": {\"sector\": 7, \"valve_type\": \"emergency_vent\", \"state\": \"open\"}}, \"id\": 1}",
+        "case": "MCP: IoT Action"
+      },
+      {
+        "passed": true,
+        "has_noise": true,
+        "duration": 3.981266,
+        "checks": {
+          "jsonrpc": true,
+          "method": true,
+          "tool": true,
+          "args": true,
+          "clean": false
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "method": "tools/call",
+          "params": {
+            "name": "get_sensor_history",
+            "arguments": {
+              "sensor": "temperature",
+              "location": "server_room",
+              "duration_hours": 24
+            }
+          },
+          "id": 1
+        },
+        "raw": "<think>Requesting sensor history for temperature in the server room for 24 hours.</think>{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"params\": {\"name\": \"get_sensor_history\", \"arguments\": {\"sensor\": \"temperature\", \"location\": \"server_room\", \"duration_hours\": 24}}, \"id\": 1}",
+        "case": "MCP: Data Synthesis"
+      }
+    ]
+  }
+}

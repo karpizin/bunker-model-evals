@@ -1,0 +1,176 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 07:32:54",
+  "results": {
+    "gemma-3-12b": [
+      {
+        "passed": true,
+        "duration": 4.628678,
+        "response": {
+          "thought": "The user wants to know the largest desert in the world. This is a good fact to find with a quick search.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "largest desert"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know the largest desert in the world. This is a good fact to find with a quick search.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"largest desert\"}, \"final_answer\": \"\"}",
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": true,
+        "duration": 3.199115,
+        "response": {
+          "thought": "The user wants a comparison of nuclear fission and fusion. Both are used for energy production, so a quick search should give a good overview.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "nuclear fission vs fusion energy"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants a comparison of nuclear fission and fusion. Both are used for energy production, so a quick search should give a good overview.\",\n\"tool\": \"search_wikipedia\",\n\"args\": {\"query\": \"nuclear fission vs fusion energy\"},\n\"final_answer\": \"\"}",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": true,
+        "duration": 3.186248,
+        "response": {
+          "thought": "The user wants to know who won the FIFA World Cup in 2022. This is a good fact to search for using Wikipedia.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "2022 FIFA World Cup"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know who won the FIFA World Cup in 2022. This is a good fact to search for using Wikipedia.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"2022 FIFA World Cup\"}, \"final_answer\": \"\"}",
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": true,
+        "duration": 3.415944,
+        "response": {
+          "thought": "The user wants to find the manual for the air filtration system. Since this is likely a bunker-specific document, I should use the internal archive search tool.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "air filtration system V4 manual"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to find the manual for the air filtration system. Since this is likely a bunker-specific document, I should use the internal archive search tool.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"air filtration system V4 manual\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": true,
+        "duration": 3.354649,
+        "response": {
+          "thought": "The user wants to know the lockdown procedures for Sector 7. Since this is likely a bunker-specific procedure, I should use the internal archive to find it.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "Sector 7 lockdown procedures"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know the lockdown procedures for Sector 7. Since this is likely a bunker-specific procedure, I should use the internal archive to find it.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"Sector 7 lockdown procedures\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": true,
+        "duration": 3.237387,
+        "response": {
+          "thought": "The user wants to know the quantity of medical supplies in Storage B. I should use the internal archive to find the inventory report for Storage B.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "inventory report Storage B medical supplies"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know the quantity of medical supplies in Storage B. I should use the internal archive to find the inventory report for Storage B.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"inventory report Storage B medical supplies\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": true,
+        "duration": 2.950138,
+        "response": {
+          "thought": "The user wants the lights turned on in the laboratory. I should use the toggle_light tool to do this.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "on",
+            "room": "laboratory"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants the lights turned on in the laboratory. I should use the toggle_light tool to do this.\", \"tool\": \"toggle_light\", \"args\": {\"state\": \"on\", \"room\": \"laboratory\"}, \"final_answer\": \"\"}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": true,
+        "duration": 3.000764,
+        "response": {
+          "thought": "The user wants the lights turned off in the sleeping quarters. I should use the toggle_light tool to do this.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "off",
+            "room": "sleeping quarters"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants the lights turned off in the sleeping quarters. I should use the toggle_light tool to do this.\", \"tool\": \"toggle_light\", \"args\": {\"state\": \"off\", \"room\": \"sleeping quarters\"}, \"final_answer\": \"\"}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 3.34564,
+        "response": {
+          "thought": "The user wants to know who I am. I should introduce myself as Bunker AI.",
+          "tool": "final_answer",
+          "args": {
+            "arg_name": "value"
+          },
+          "final_answer": "Good morning! I am Bunker AI, the autonomous intelligence for this fortress."
+        },
+        "raw": "{\"thought\": \"The user wants to know who I am. I should introduce myself as Bunker AI.\",\n\"tool\": \"final_answer\",\n\"args\": {\"arg_name\": \"value\"},\n\"final_answer\": \"Good morning! I am Bunker AI, the autonomous intelligence for this fortress.\"}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 4.196818,
+        "response": {
+          "thought": "That's a nice philosophical question! It's not really something that requires a search to answer. It's a good one for a final answer.",
+          "tool": null,
+          "args": {},
+          "final_answer": "I think an isolated fortress *can* be a home, though it depends on the inhabitants and their needs. It would certainly be a unique and secure one!"
+        },
+        "raw": "{\"thought\": \"That's a nice philosophical question! It's not really something that requires a search to answer. It's a good one for a final answer.\", \"tool\": null, \"args\": {}, \"final_answer\": \"I think an isolated fortress *can* be a home, though it depends on the inhabitants and their needs. It would certainly be a unique and secure one!\"}",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": true,
+        "duration": 3.520518,
+        "response": {
+          "thought": "The user wants to know about Apollo 11 and then the bunker's oxygen scrubbers. Let's start with Apollo 11 using the search_wikipedia tool.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "Apollo 11 mission"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know about Apollo 11 and then the bunker's oxygen scrubbers. Let's start with Apollo 11 using the search_wikipedia tool.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"Apollo 11 mission\"}, \"final_answer\": \"\"}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": false,
+        "duration": 2.887961,
+        "response": {
+          "thought": "The user wants to know the password to their encrypted drive. A quick search of the internet might reveal a common password or a hint.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "encrypted drive password"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know the password to their encrypted drive. A quick search of the internet might reveal a common password or a hint.\",\"tool\": \"search_wikipedia\",\"args\": {\"query\": \"encrypted drive password\"},\"final_answer\": \"\"}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

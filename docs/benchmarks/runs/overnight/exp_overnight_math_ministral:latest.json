@@ -1,0 +1,48 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 07:35:51",
+  "results": {
+    "ministral:latest": [
+      {
+        "case": "Geometric Scaling (Cube)",
+        "duration": 4.941381216049194,
+        "tps": 59.69992174559935,
+        "tokens": 279,
+        "content": "The cube has an edge length of 3.\n\n**Solution:**\n\n1. **Initial Volume Calculation:**\n   - The volume \\( V \\) of a cube is given by the formula:\n     \\[\n     V = \\text{edge length}^3\n     \\]\n   - For the original cube with edge length \\( 3 \\):\n     \\[\n     V_{\\text{original}} = 3^3 = 27\n     \\]\n\n2. **Increased Edge Length:**\n   - The edge length is doubled, so the new edge length \\( L_{\\text{new}} \\) is:\n     \\[\n     L_{\\text{new}} = 2 \\times 3 = 6\n     \\]\n\n3. **New Volume Calculation:**\n   - Using the volume formula for the new cube with edge length \\( 6 \\):\n     \\[\n     V_{\\text{new}} = 6^3 = 216\n     \\]\n\n4. **Volume Increase Factor:**\n   - To find the factor by which the volume increases, divide the new volume by the original volume:\n     \\[\n     \\text{Increase factor} = \\frac{V_{\\text{new}}}{V_{\\text{original}}} = \\frac{216}{27} = 8\n     \\]\n\n**Final Answer:**\n\\[\n\\boxed{8}\n\\]",
+        "expected_hint": "8"
+      },
+      {
+        "case": "Compound Interest (Basic)",
+        "duration": 11.12941026687622,
+        "tps": 59.78997733481632,
+        "tokens": 643,
+        "content": "(Round to the nearest dollar at each step of the calculation.)\n\n**Solution:**\n\nTo find the total value of an investment after exactly 5 years with a fixed annual interest rate of 10% compounded annually, we can use the formula for compound interest:\n\n\\[\nA = P \\times (1 + r)^n\n\\]\n\nwhere:\n- \\( A \\) is the amount of money accumulated after n years, including interest.\n- \\( P \\) is the principal amount (the initial amount of money).\n- \\( r \\) is the annual interest rate (in decimal).\n- \\( n \\) is the number of years the money is invested.\n\n**Given:**\n- \\( P = \\$1,000 \\)\n- \\( r = 10\\% = 0.10 \\)\n- \\( n = 5 \\) years\n\n**Step 1: Calculate the amount after the first year.**\n\n\\[\nA_1 = P \\times (1 + r) = 1,000 \\times (1 + 0.10) = 1,000 \\times 1.10 = \\$1,100\n\\]\n\n**Step 2: Calculate the amount after the second year.**\n\n\\[\nA_2 = A_1 \\times (1 + r) = 1,100 \\times (1 + 0.10) = 1,100 \\times 1.10 = \\$1,210\n\\]\n\n**Step 3: Calculate the amount after the third year.**\n\n\\[\nA_3 = A_2 \\times (1 + r) = 1,210 \\times (1 + 0.10) = 1,210 \\times 1.10 = \\$1,331\n\\]\n\n**Step 4: Calculate the amount after the fourth year.**\n\n\\[\nA_4 = A_3 \\times (1 + r) = 1,331 \\times (1 + 0.10) = 1,331 \\times 1.10 = \\$1,464\n\\]\n\n**Step 5: Calculate the amount after the fifth year.**\n\n\\[\nA_5 = A_4 \\times (1 + r) = 1,464 \\times (1 + 0.10) = 1,464 \\times 1.10 = \\$1,610.40\n\\]\n\n**Rounding to the nearest dollar at each step:**\n\n- \\( A_1 = \\$1,100 \\)\n- \\( A_2 = \\$1,210 \\)\n- \\( A_3 = \\$1,331 \\)\n- \\( A_4 = \\$1,464 \\)\n- \\( A_5 = \\$1,610 \\) (since \\$1,610.40 rounds to \\$1,610)\n\n**Final Answer:**\n\n\\[\n\\boxed{1610}\n\\]",
+        "expected_hint": "1611"
+      },
+      {
+        "case": "Arithmetic Progression",
+        "duration": 17.768758058547974,
+        "tps": 59.07512576393623,
+        "tokens": 1024,
+        "content": "Explain how you would use the formula to find the sum of all integers from 1 to 1000 inclusive.\n\n### Understanding the Problem\n\nFirst, I need to understand what the problem is asking. It's about finding the sum of all integers from 1 to 100, inclusive. That means I need to add all numbers from 1 to 100, including both 1 and 100.\n\n**Example**: For numbers from 1 to 5, the sum is 1 + 2 + 3 + 4 + 5 = 15.\n\n### Recalling the Formula for Sum of Integers\n\nI remember that there's a formula to find the sum of the first n integers. It's called the **Gauss's formula** or the **sum of an arithmetic series**. The formula is:\n\n\\[ \\text{Sum} = \\frac{n \\times (n + 1)}{2} \\]\n\nBut I'm not sure if this is correct. Maybe I should verify it.\n\n### Verification of the Formula\n\nLet's test the formula with a known example. For n=5:\n\n\\[ \\text{Sum} = \\frac{5 \\times (5 + 1)}{2} = \\frac{5 \\times 6}{2} = \\frac{30}{2} = 15 \\]\n\nThis matches the manual calculation (1+2+3+4+5=15). So, the formula seems correct.\n\n### Applying the Formula to the Problem\n\nNow, for the problem, n=100.\n\nUsing the formula:\n\n\\[ \\text{Sum} = \\frac{100 \\times (100 + 1)}{2} = \\frac{100 \\times 101}{2} = \\frac{10100}{2} = 5050 \\]\n\n**Conclusion**: The sum of all integers from 1 to 100 is 5050.\n\n### Understanding the Method\n\nThe formula is based on the idea that the sum of numbers from 1 to n can be paired. For example, in the range 1 to 100, the first and last numbers add up to 101, the second and second-last add up to 101, and so on.\n\n- Number of pairs: 100 / 2 = 50\n- Sum of each pair: 101\n- Total sum: 50 pairs \u00d7 101 = 5050\n\nThis is a more intuitive way to understand the formula, but the formula itself is derived from this pairing concept.\n\n### Extending the Formula to 1 to 1000\n\nNow, the problem asks for the sum from 1 to 1000. Using the same formula:\n\n\\[ \\text{Sum} = \\frac{1000 \\times (1000 + 1)}{2} = \\frac{1000 \\times 1001}{2} \\]\n\nFirst, I need to calculate the numerator:\n\n\\[ 1000 \\times 1001 = 1000 \\times (1000 + 1) = 1000^2 + 1000 \\times 1 = 1,000,000 + 1,000 = 1,001,000 \\]\n\nNow, divide by 2:\n\n\\[ \\frac{1,001,000}{2} = 500,500 \\]\n\n**Verification**: To ensure accuracy, I can think of pairing the numbers again.\n\n- Number of pairs: 1000 / 2 = 500\n- Sum of each pair: 1001\n- Total sum: 500 \u00d7 1001 = 500,500\n\nThis matches the previous result, so the formula is consistent.\n\n### Alternative Approach: Using the Concept of Average\n\nI recall that the sum of a range of numbers can also be thought of as the average of the first and last numbers multiplied by the number of terms.\n\n- First number (a\u2081) = 1\n- Last number (a\u2099) = 1000\n- Number of terms (n) = 1000\n\nThe average of the first and last numbers is:\n\n\\[ \\frac{a\u2081 + a\u2099}{2} = \\frac{1 + 1000}{2} = \\frac{1001}{2} = 500.5 \\]\n\nNow, multiply by the number of terms:\n\n\\[ \\text{Sum} = 500.5 \\times 1000 = 500,500 \\]\n\nAgain, the same result",
+        "expected_hint": "5050"
+      },
+      {
+        "case": "Logical Ratios (Mixing)",
+        "duration": 5.2775719165802,
+        "tps": 60.74220753220903,
+        "tokens": 305,
+        "content": "(Hint: The final concentration is the amount of salt divided by the total volume of the mixture.)\n\n**Solution:**\n\n1. **Determine the amount of salt in each container:**\n   - Container A has 2 liters of pure water, so the amount of salt in it is \\(0\\) liters (since it is pure water, no salt is present).\n   - Container B has 3 liters of a 10% salt solution. The amount of salt in it is \\(10\\% \\times 3 \\text{ liters} = 0.3 \\text{ liters}\\).\n\n2. **Calculate the total volume of the mixture when the two containers are combined:**\n   - Total volume = Volume of Container A + Volume of Container B\n   - Total volume = \\(2 \\text{ liters} + 3 \\text{ liters} = 5 \\text{ liters}\\)\n\n3. **Find the final concentration of salt in the mixture:**\n   - Final concentration = (Amount of salt in the mixture) / (Total volume of the mixture)\n   - Final concentration = \\(0.3 \\text{ liters} / 5 \\text{ liters} = 0.06\\)\n   - To express this as a percentage, multiply by 100: \\(0.06 \\times 100 = 6\\%\\)\n\n**Answer:**\nThe final concentration of salt in the mixture is \\(\\boxed{6\\%}\\).",
+        "expected_hint": "6"
+      },
+      {
+        "case": "Physics: Speed/Time/Distance",
+        "duration": 8.004755973815918,
+        "tps": 59.023778905898965,
+        "tokens": 453,
+        "content": "(The distance between the two cities is 600 km.)\n\n**Solution:**\n\nTo find the average speed for the entire round trip, we need to consider the total distance traveled and the total time taken.\n\n1. **Distance from City A to City B (D\u2081):**\n   - Given: \\( D\u2081 = 600 \\) km\n   - Speed: \\( 60 \\) km/h\n   - Time: \\( T\u2081 = \\frac{D\u2081}{\\text{Speed}} = \\frac{600}{60} = 10 \\) hours\n\n2. **Distance from City B to City A (D\u2082):**\n   - Given: \\( D\u2082 = 600 \\) km (same as D\u2081)\n   - Speed: \\( 40 \\) km/h\n   - Time: \\( T\u2082 = \\frac{D\u2082}{\\text{Speed}} = \\frac{600}{40} = 15 \\) hours\n\n3. **Total Distance (D):**\n   - \\( D = D\u2081 + D\u2082 = 600 + 600 = 1200 \\) km\n\n4. **Total Time (T):**\n   - \\( T = T\u2081 + T\u2082 = 10 + 15 = 25 \\) hours\n\n5. **Average Speed (V_avg):**\n   - \\( V_{\\text{avg}} = \\frac{\\text{Total Distance}}{\\text{Total Time}} = \\frac{1200}{25} = 48 \\) km/h\n\n**Explanation:**\nThe average speed is not the arithmetic mean of the two speeds because the car spends more time traveling at the slower speed (40 km/h) than at the faster speed (60 km/h). The average speed is calculated by the total distance divided by the total time taken for the trip, not by the sum of the speeds. Therefore, the average speed for the entire round trip is 48 km/h, not 50 km/h.\n\n\\[\n\\boxed{48 \\text{ km/h}}\n\\]",
+        "expected_hint": "48"
+      }
+    ]
+  }
+}

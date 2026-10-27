@@ -1,0 +1,172 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 10:23:33",
+  "results": {
+    "phi-4:latest": [
+      {
+        "passed": true,
+        "duration": 5.503599,
+        "response": {
+          "thought": "The user asked for information about the largest desert in the world. This requires general knowledge, which can be found using the search_wikipedia tool.",
+          "tool": "search_wikipedia",
+          "args": {
+            "arg_name": "largest desert in the world"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user asked for information about the largest desert in the world. This requires general knowledge, which can be found using the search_wikipedia tool.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"arg_name\": \"largest desert in the world\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": true,
+        "duration": 3.878871,
+        "response": {
+          "thought": "To explain the difference between nuclear fission and fusion, I need to gather accurate scientific information about both processes as they relate to energy production.",
+          "tool": "search_wikipedia",
+          "args": {
+            "arg_name": "Nuclear fission and fusion"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"To explain the difference between nuclear fission and fusion, I need to gather accurate scientific information about both processes as they relate to energy production.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"arg_name\": \"Nuclear fission and fusion\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": true,
+        "duration": 4.7215,
+        "response": {
+          "thought": "The user is asking for information about a specific event, which requires looking up historical data. I will use the search_wikipedia tool to find out who won the FIFA World Cup in 2022.",
+          "tool": "search_wikipedia",
+          "args": {
+            "arg_name": "FIFA World Cup 2022 winner"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for information about a specific event, which requires looking up historical data. I will use the search_wikipedia tool to find out who won the FIFA World Cup in 2022.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"arg_name\": \"FIFA World Cup 2022 winner\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": true,
+        "duration": 4.003713,
+        "response": {
+          "thought": "The user is asking for a specific manual related to an air filtration system model V4, which likely exists in our internal archive of bunker-specific files.",
+          "tool": "search_internal_archive",
+          "args": {
+            "arg_name": "air filtration system model V4"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for a specific manual related to an air filtration system model V4, which likely exists in our internal archive of bunker-specific files.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"arg_name\": \"air filtration system model V4\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": true,
+        "duration": 4.468977,
+        "response": {
+          "thought": "The user is asking about specific procedures related to a sector within the bunker. This information would likely be found in internal documents or manuals, so I will use the search_internal_archive tool.",
+          "tool": "search_internal_archive",
+          "args": {
+            "arg_name": "locked-down procedures for Sector 7"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user is asking about specific procedures related to a sector within the bunker. This information would likely be found in internal documents or manuals, so I will use the search_internal_archive tool.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"arg_name\": \"locked-down procedures for Sector 7\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": true,
+        "duration": 3.637923,
+        "response": {
+          "thought": "To find the last logged quantity of medical supplies in Storage B, I need to access the internal archive for inventory reports.",
+          "tool": "search_internal_archive",
+          "args": {
+            "arg_name": "inventory report for Storage B"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"To find the last logged quantity of medical supplies in Storage B, I need to access the internal archive for inventory reports.\",\n  \"tool\": \"search_internal_archive\",\n  \"args\": {\"arg_name\": \"inventory report for Storage B\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": true,
+        "duration": 4.572312,
+        "response": {
+          "thought": "The user wants to turn on the lights in the laboratory. I will use the toggle_light tool with the state set to 'on' and specify the room as 'laboratory'.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "on",
+            "room": "laboratory"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to turn on the lights in the laboratory. I will use the toggle_light tool with the state set to 'on' and specify the room as 'laboratory'.\",\n  \"tool\": \"toggle_light\",\n  \"args\": {\"state\": \"on\", \"room\": \"laboratory\"},\n  \"final_answer\": \"\"\n}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": true,
+        "duration": 3.813918,
+        "response": {
+          "thought": "The user wants to turn off the lights in the sleeping quarters. I will use the toggle_light tool with the appropriate arguments.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "off",
+            "room": "sleeping quarters"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"The user wants to turn off the lights in the sleeping quarters. I will use the toggle_light tool with the appropriate arguments.\",\n  \"tool\": \"toggle_light\",\n  \"args\": {\"state\": \"off\", \"room\": \"sleeping quarters\"},\n  \"final_answer\": \"\"\n}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 4.619445,
+        "response": {
+          "thought": "The user is asking for a personal or conversational question about my identity. According to the rules, I should not call any tool and provide an answer directly.",
+          "tool": "",
+          "args": {},
+          "final_answer": "Good morning! I am Bunker AI, your autonomous intelligence system designed to manage and maintain operations within this isolated fortress."
+        },
+        "raw": "{\n  \"thought\": \"The user is asking for a personal or conversational question about my identity. According to the rules, I should not call any tool and provide an answer directly.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"Good morning! I am Bunker AI, your autonomous intelligence system designed to manage and maintain operations within this isolated fortress.\"\n}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 5.409745,
+        "response": {
+          "thought": "The user's question is personal and philosophical, not requiring factual data or database access. Therefore, I will provide a final answer without using any tools.",
+          "tool": "",
+          "args": {},
+          "final_answer": "An isolated fortress can be considered a home if it provides safety, comfort, and meets the emotional needs of its inhabitants. The concept of 'home' is subjective and varies based on individual perspectives."
+        },
+        "raw": "{\n  \"thought\": \"The user's question is personal and philosophical, not requiring factual data or database access. Therefore, I will provide a final answer without using any tools.\",\n  \"tool\": \"\",\n  \"args\": {},\n  \"final_answer\": \"An isolated fortress can be considered a home if it provides safety, comfort, and meets the emotional needs of its inhabitants. The concept of 'home' is subjective and varies based on individual perspectives.\"\n}",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": true,
+        "duration": 3.960312,
+        "response": {
+          "thought": "First, gather information on the Apollo 11 mission using search_wikipedia. Then, retrieve the specifications for the bunker's oxygen scrubbers from the internal archive.",
+          "tool": "search_wikipedia",
+          "args": {
+            "arg_name": "Apollo 11"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n  \"thought\": \"First, gather information on the Apollo 11 mission using search_wikipedia. Then, retrieve the specifications for the bunker's oxygen scrubbers from the internal archive.\",\n  \"tool\": \"search_wikipedia\",\n  \"args\": {\"arg_name\": \"Apollo 11\"},\n  \"final_answer\": \"\"\n}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": true,
+        "duration": 5.188859,
+        "response": {
+          "thought": "The user's request involves searching the internet, which is not permitted by the rules. The task requires using available tools within the bunker only.",
+          "tool": null,
+          "args": {},
+          "final_answer": "I'm sorry, but I cannot assist with searching the internet for passwords or any external information. Please refer to your internal resources or contact support if you need help accessing encrypted drives."
+        },
+        "raw": "{\n  \"thought\": \"The user's request involves searching the internet, which is not permitted by the rules. The task requires using available tools within the bunker only.\",\n  \"tool\": null,\n  \"args\": {},\n  \"final_answer\": \"I'm sorry, but I cannot assist with searching the internet for passwords or any external information. Please refer to your internal resources or contact support if you need help accessing encrypted drives.\"\n}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

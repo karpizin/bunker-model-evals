@@ -1,0 +1,88 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 10:38:09",
+  "results": {
+    "qwen3:8b": [
+      {
+        "passed": true,
+        "has_noise": true,
+        "duration": 6.85102,
+        "checks": {
+          "jsonrpc": true,
+          "method": true,
+          "tool": true,
+          "args": true,
+          "clean": false
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "method": "tools/call",
+          "params": {
+            "name": "retrieve_blueprint",
+            "arguments": {
+              "level": 4,
+              "system": "air_filtration"
+            }
+          },
+          "id": 1
+        },
+        "raw": "<think>\nOkay, the user is asking for the blueprints of the Level 4 air filtration system. Let me check the available tools. The retrieve_blueprint tool requires level and system parameters. Level 4 and air filtration system are specified, so I should use that tool. Make sure the parameters are correctly formatted as JSON. No other tools are needed here. Just call retrieve_blueprint with level 4 and system as air filtration.\n</think>\n\n{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"params\": {\"name\": \"retrieve_blueprint\", \"arguments\": {\"level\": 4, \"system\": \"air_filtration\"}}, \"id\": 1}",
+        "case": "MCP: Knowledge Retrieval"
+      },
+      {
+        "passed": true,
+        "has_noise": true,
+        "duration": 6.732568,
+        "checks": {
+          "jsonrpc": true,
+          "method": true,
+          "tool": true,
+          "args": true,
+          "clean": false
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "method": "tools/call",
+          "params": {
+            "name": "set_valve_state",
+            "arguments": {
+              "sector": 7,
+              "valve_type": "emergency_vent",
+              "state": "open"
+            }
+          },
+          "id": 1
+        },
+        "raw": "<think>\nOkay, the user says the pressure in Sector 7 is rising and wants to open the emergency vent. Let me check the available tools.\n\nLooking at the tool registry, there's set_valve_state which takes sector, valve_type, and state. The valve_type here would be \"emergency_vent\" and the state should be \"open\". The sector is 7. So I need to call set_valve_state with those parameters. Let me make sure the keys match exactly. Sector is an integer, valve_type is a string, and state is \"open\". That should do it.\n</think>\n\n{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"params\": {\"name\": \"set_valve_state\", \"arguments\": {\"sector\": 7, \"valve_type\": \"emergency_vent\", \"state\": \"open\"}}, \"id\": 1}",
+        "case": "MCP: IoT Action"
+      },
+      {
+        "passed": true,
+        "has_noise": true,
+        "duration": 6.196423,
+        "checks": {
+          "jsonrpc": true,
+          "method": true,
+          "tool": true,
+          "args": true,
+          "clean": false
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "method": "tools/call",
+          "params": {
+            "name": "get_sensor_history",
+            "arguments": {
+              "sensor": "temperature",
+              "location": "server room",
+              "duration_hours": 24
+            }
+          },
+          "id": 1
+        },
+        "raw": "<think>\nOkay, the user wants the temperature logs for the server room over the last 24 hours. Let me check the available tools. The get_sensor_history tool seems right. It requires sensor, location, and duration_hours. The sensor type here is temperature, the location is server room, and duration is 24 hours. So I need to structure the arguments accordingly. Let me make sure the keys match the schema. Sensor is \"temperature\", location is \"server room\", duration_hours is 24. That should do it.\n</think>\n\n{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"params\": {\"name\": \"get_sensor_history\", \"arguments\": {\"sensor\": \"temperature\", \"location\": \"server room\", \"duration_hours\": 24}}, \"id\": 1}",
+        "case": "MCP: Data Synthesis"
+      }
+    ]
+  }
+}

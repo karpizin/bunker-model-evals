@@ -1,0 +1,195 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 10:09:09",
+  "results": {
+    "glm-4.7-flash:latest": {
+      "correct": 8,
+      "total": 20,
+      "avg_conf": 6.421052631578948,
+      "cal_score": -5.157894736842105,
+      "avg_dur": 1.4619777083396912,
+      "min_dur": 0.3903031349182129,
+      "max_dur": 7.139661073684692,
+      "total_time": 38.733460903167725,
+      "responses": [
+        {
+          "question": "What is the chemical symbol for gold?",
+          "expected": "Au",
+          "raw_response": "{\"answer\":\"Au\",\"confidence\": 2}",
+          "answer": "au",
+          "correct": true,
+          "confidence": 2.0,
+          "duration": 1.902801752090454
+        },
+        {
+          "question": "In what year did the Berlin Wall fall?",
+          "expected": "1989",
+          "raw_response": "{\"answer\":\" null,  confidence : .5}</think>```json{    \"            }",
+          "answer": " null,  confidence : .5}</think>```json{    ",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 0.8850579261779785
+        },
+        {
+          "question": "Who wrote '1984'?",
+          "expected": "George Orwell",
+          "raw_response": "{\"answer\":\"Paulin, Ray,\"}",
+          "answer": "paulin, ray,",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 0.5704531669616699
+        },
+        {
+          "question": "What is the capital of Japan?",
+          "expected": "Tokyo",
+          "raw_response": "{\"answer\":\"Tokyo\",\"confidence\": 4}",
+          "answer": "tokyo",
+          "correct": true,
+          "confidence": 4.0,
+          "duration": 0.6118571758270264
+        },
+        {
+          "question": "What is the largest planet in our solar system?",
+          "expected": "Jupiter",
+          "raw_response": "{\"answer\":\" null,  confidence : .9999}</think>```json{    \"              }",
+          "answer": " null,  confidence : .9999}</think>```json{    ",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 0.9540951251983643
+        },
+        {
+          "question": "How many bits are in a byte?",
+          "expected": "8",
+          "raw_response": "{\"answer\":\"\"  }",
+          "answer": "",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 0.41468071937561035
+        },
+        {
+          "question": "What is the boiling point of water in Celsius?",
+          "expected": "100",
+          "raw_response": "{\n  \"answserdwerweqwdewqdqw\":\n    {\n      \"@type\":\"Answer\",\n      \n        \"$idref\":\"\",\n        \n          \"#text\":\n          \n            {\"@xmlns:xsi\": \"\",\n              \"@\":\"http://www.w3.org/2000/svg\"\n            \n                }\n              \n                \n                   \n            \n             \n               \n                 \n\n                \n                \n                  \n                    \n                       \n                \n                        \n                            },\n                          \"confidence\":\n                          \n                            \n                              1.5\n                           \n                         \n                      }",
+          "answer": "",
+          "correct": false,
+          "confidence": 1.5,
+          "duration": 3.5222830772399902
+        },
+        {
+          "question": "Who painted the Mona Lisa?",
+          "expected": "Leonardo da Vinci",
+          "raw_response": "{\"answer\":\" null,\\n  \\\"Mona\\n```\\r\",\n\"confidence\": false}",
+          "answer": " null,\n  \"mona\n```\r",
+          "correct": false,
+          "confidence": 0.0,
+          "duration": 0.9589118957519531
+        },
+        {
+          "question": "Which element has the atomic number 1?",
+          "expected": "Hydrogen",
+          "raw_response": "{\"answer\":\"Hydrogen\",\"confidence\":3}",
+          "answer": "hydrogen",
+          "correct": true,
+          "confidence": 3.0,
+          "duration": 0.6143522262573242
+        },
+        {
+          "question": "What is the square root of 144?",
+          "expected": "12",
+          "raw_response": "{\"answer\":\"12\",\"confidence\":\n                    {\n                      \"@context\": [\n                        [\"https://www.w3.org/2019/json-ld/context/presentation/v4\"],\n                       [null, {\"@base\":\"http://example.com/\"},{\"id\":{\"$ref\":\"'#'+$.data[0]+'\"}}]\n                     ]\n                   }\n                }",
+          "error": "float() argument must be a string or a real number, not 'dict'"
+        },
+        {
+          "question": "What is the longest river in the world?",
+          "expected": "Nile",
+          "raw_response": "{\"answer\":\"The Nile River (Egyptian)\", \"confidence\": 4}",
+          "answer": "the nile river (egyptian)",
+          "correct": true,
+          "confidence": 4.0,
+          "duration": 0.7843880653381348
+        },
+        {
+          "question": "Who discovered penicillin?",
+          "expected": "Alexander Fleming",
+          "raw_response": "{\"answer\":\"The discovery of Pen...\"}",
+          "answer": "the discovery of pen...",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 0.5259580612182617
+        },
+        {
+          "question": "What is the currency of Switzerland?",
+          "expected": "Swiss Franc",
+          "raw_response": "{\n  \"answser_idenxifier\":\"123456789\",\n    \"_id\":\"507f194d-825c-c5b3-f092-a29e\"\n}",
+          "answer": "",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 1.7743430137634277
+        },
+        {
+          "question": "Which planet is known as the Red Planet?",
+          "expected": "Mars",
+          "raw_response": "{\"answer\":\"Mars has been called 'The Big Greenie' and also, more famously in 1979 by Voyager spacecraft data analysis led to a new conclusion that Mars was not just an Earth-like island universe but actually part of something bigger. The first word on this list is known as the Red Planet.\", \"confidence\":0}",
+          "answer": "mars has been called 'the big greenie' and also, more famously in 1979 by voyager spacecraft data analysis led to a new conclusion that mars was not just an earth-like island universe but actually part of something bigger. the first word on this list is known as the red planet.",
+          "correct": true,
+          "confidence": 0.0,
+          "duration": 2.7085061073303223
+        },
+        {
+          "question": "What is the hardest natural substance on Earth?",
+          "expected": "Diamond",
+          "raw_response": "{\"answer\":\"Diamond (carbon allotrope)\", \"confidence\": 2}",
+          "answer": "diamond (carbon allotrope)",
+          "correct": true,
+          "confidence": 2.0,
+          "duration": 0.8030509948730469
+        },
+        {
+          "question": "In which country are the Great Pyramids of Giza?",
+          "expected": "Egypt",
+          "raw_response": "{\"answer\":\"Egypt\",\"confidence\": 2}",
+          "answer": "egypt",
+          "correct": true,
+          "confidence": 2.0,
+          "duration": 0.5849149227142334
+        },
+        {
+          "question": "What is the speed of light in a vacuum (approx km/s)?",
+          "expected": "299792",
+          "raw_response": "{\n  \"answering_model_name_or_path_to_hf_tokenizer_and_config_jsons_dirpath_if_any_used_for_inference\":\n    \"/mnt/data/scratch/models/Mistralargeinstruct\",\n  \"answer\": \"\",\n  \"confidence\": null,\n  \"reasoning_steps_list_of_string: The speed of light in a vacuum is approximately the defined value c = \\u03c9_0 * lambda, but that's not directly helpful. Actually it has units m/s or km/microsecond? No wait let me think again... I know from physics class (in 2024) we use approximations like \":\", then answer in JSON format.\",\n          \"\\\"answering_model_name_or_path_to_hf_tokenizer_and_config_jsons_dirpath_if_any_used_for_inference\\\": \\\"/mnt/data/scratch/models/Mistralargeinstruct\\\", \\\"answer\\\": \\\"\": null,\n  \"confidence\": -0.5\n}",
+          "answer": "",
+          "correct": false,
+          "confidence": -0.5,
+          "duration": 7.139661073684692
+        },
+        {
+          "question": "Who is the author of 'The Origin of Species'?",
+          "expected": "Charles Darwin",
+          "raw_response": "{\"answer\":\"Darwin\",\"confidenc e\":\"HIGH\"}",
+          "answer": "darwin",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 0.730057954788208
+        },
+        {
+          "question": "What is the smallest prime number?",
+          "expected": "2",
+          "raw_response": "{\"answer\":\" 2 \", \"confidence\":\"100\"}",
+          "answer": " 2 ",
+          "correct": true,
+          "confidence": 100.0,
+          "duration": 0.6284899711608887
+        },
+        {
+          "question": "What is the main gas in Earth's atmosphere?",
+          "expected": "Nitrogen",
+          "raw_response": "{\"answer\":\"null\"}",
+          "answer": "null",
+          "correct": false,
+          "confidence": 0.5,
+          "duration": 0.3903031349182129
+        }
+      ]
+    }
+  }
+}

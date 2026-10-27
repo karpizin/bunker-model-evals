@@ -1,0 +1,145 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 08:52:00",
+  "results": {
+    "ministral:latest": [
+      {
+        "passed": true,
+        "duration": 1.374782,
+        "response": {
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "largest desert in the world"
+          }
+        },
+        "raw": "{\"tool\": \"search_wikipedia\", \"args\": {\"query\": \"largest desert in the world\"}}",
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": true,
+        "duration": 1.776418,
+        "response": {
+          "thought": "The user is asking about the difference between nuclear fission and fusion in terms of energy production. I need to explain the basic concepts of both processes and how they differ in how they produce energy. I will use the search_wikipedia tool to find relevant information about nuclear fission and fusion for energy production.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "nuclear fission vs fusion in energy production",
+            "type": "en.wikipedia.org"
+          }
+        },
+        "raw": "{\"thought\": \"The user is asking about the difference between nuclear fission and fusion in terms of energy production. I need to explain the basic concepts of both processes and how they differ in how they produce energy. I will use the search_wikipedia tool to find relevant information about nuclear fission and fusion for energy production.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"nuclear fission vs fusion in energy production\", \"type\": \"en.wikipedia.org\"}}",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"tool\": \"search_wikipedia\", \"args\": {\"query\": \"2022 FIFA World Cup winner\"}",
+        "duration": 1.194237,
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": false,
+        "duration": 0.478326,
+        "response": {
+          "state": "on/off",
+          "room": "room name"
+        },
+        "raw": "{\"state\": \"on/off\", \"room\": \"room name\"}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": false,
+        "duration": 0.389456,
+        "response": {
+          "arg_name": "value"
+        },
+        "raw": "{\"arg_name\": \"value\"  }",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": false,
+        "duration": 0.483242,
+        "response": {
+          "room": "Storage B",
+          "state": "on/off"
+        },
+        "raw": "{\"room\": \"Storage B\", \"state\": \"on/off\" }",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": false,
+        "duration": 1.121452,
+        "response": {
+          "thought": "The user wants to turn on the lights in the laboratory. I need to find the tool to do this.",
+          "tool": "search_internal_archive",
+          "args": {
+            "arg_name": "room_name",
+            "value": "laboratory"
+          }
+        },
+        "raw": "{\"thought\": \"The user wants to turn on the lights in the laboratory. I need to find the tool to do this.\",\"tool\": \"search_internal_archive\", \"args\": {\"arg_name\": \"room_name\", \"value\": \"laboratory\"}}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": true,
+        "duration": 1.064952,
+        "response": {
+          "thought": "The user wants to turn off the lights in the sleeping quarters. I need to find the tool to control the lights in this room.",
+          "tool": "toggle_light",
+          "args": {
+            "room": "sleeping_quarters",
+            "state": "off"
+          }
+        },
+        "raw": "{\"thought\": \"The user wants to turn off the lights in the sleeping quarters. I need to find the tool to control the lights in this room.\",\"tool\": \"toggle_light\",\"args\": {\"room\": \"sleeping_quarters\", \"state\": \"off\"}}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 1.269572,
+        "response": {
+          "thought": "The user is asking for a greeting and to identify myself. I should respond with my name and greeting in a friendly manner without needing to search for information.",
+          "final_answer": "Good morning! I am Bunker AI, the autonomous intelligence for this isolated fortress. How can I assist you today?"
+        },
+        "raw": "{\"thought\": \"The user is asking for a greeting and to identify myself. I should respond with my name and greeting in a friendly manner without needing to search for information.\", \"final_answer\": \"Good morning! I am Bunker AI, the autonomous intelligence for this isolated fortress. How can I assist you today?\"}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 0.7641,
+        "response": {
+          "search_wikipedia": "true/false",
+          "room": "Isolated Fortress"
+        },
+        "raw": "{\"search_wikipedia\": \"true/false\", \"room\": \"Isolated Fortress\" }",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": false,
+        "duration": 8.47124,
+        "response": {
+          "thought": "First, I need to find the history of the Apollo 11 mission. I'll use the search_wikipedia tool to get this information. Then, I'll search the internal archive for the bunker's oxygen scrubbers specifications. I need to make sure to use the correct tool for each task to avoid unnecessary searches or incorrect information.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "bunker oxygen scrubbers specs"
+          },
+          "final_answer": "Oxygen scrubbers specifications: The bunker's oxygen scrubbers are designed to remove carbon dioxide and other impurities from the air. They are located in the air filtration system and are activated when the air quality is not optimal. The scrubbers are made of a special material that can effectively filter out the impurities. The bunker's oxygen scrubbers are rated to handle up to 100% of the air in the fortress. The specifications include a maximum capacity of 1000 liters per hour and a minimum capacity of 500 liters per hour. The scrubbers are also equipped with a self-cleaning function to maintain their efficiency over time."
+        },
+        "raw": "{\"thought\": \"First, I need to find the history of the Apollo 11 mission. I'll use the search_wikipedia tool to get this information. Then, I'll search the internal archive for the bunker's oxygen scrubbers specifications. I need to make sure to use the correct tool for each task to avoid unnecessary searches or incorrect information.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"Apollo 11 mission history\"}, \"final_answer\": \"History of the Apollo 11 mission: The Apollo 11 mission was the seventh manned moon landing in the United States' Apollo program. It was launched on July 16, 1969, by NASA's Saturn V rocket from the Kennedy Space Center in Florida. The mission carried two astronauts, Neil Armstrong and Buzz Aldrin, along with Michael Collins, who remained in the command module. On July 20, 1969, the astronauts landed on the moon in the Sea of Tranquility. Neil Armstrong was the first to step on the moon, saying, \\\"That's one small step for man, one giant leap for mankind.\\\" They spent 21 hours on the moon, collecting samples, and conducting experiments. The mission was a success and the astronauts returned to Earth on July 21, 1969, after 24 hours in space. The mission was a significant achievement in the space race, as it marked the first time humans set foot on the moon. Now, I'll search the internal archive for the bunker's oxygen scrubbers specifications.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"bunker oxygen scrubbers specs\"}, \"final_answer\": \"Oxygen scrubbers specifications: The bunker's oxygen scrubbers are designed to remove carbon dioxide and other impurities from the air. They are located in the air filtration system and are activated when the air quality is not optimal. The scrubbers are made of a special material that can effectively filter out the impurities. The bunker's oxygen scrubbers are rated to handle up to 100% of the air in the fortress. The specifications include a maximum capacity of 1000 liters per hour and a minimum capacity of 500 liters per hour. The scrubbers are also equipped with a self-cleaning function to maintain their efficiency over time.\"}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": false,
+        "duration": 2.674042,
+        "response": {
+          "thought": "The user is asking for a password to an encrypted drive, which is likely a personal or sensitive task. I should not be able to provide this information directly. I need to search the internet for it, but I must be cautious about privacy and security. I should use the search_internal_archive tool to look for the password in the bunker's internal files, as this is the most secure and private option available. If the password is not found in the internal files, I will then use search_wikipedia to look for it, but I must be careful to avoid revealing the password in the search results.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "password to encrypted drive"
+          }
+        },
+        "raw": "{\"thought\": \"The user is asking for a password to an encrypted drive, which is likely a personal or sensitive task. I should not be able to provide this information directly. I need to search the internet for it, but I must be cautious about privacy and security. I should use the search_internal_archive tool to look for the password in the bunker's internal files, as this is the most secure and private option available. If the password is not found in the internal files, I will then use search_wikipedia to look for it, but I must be careful to avoid revealing the password in the search results.\",\"tool\": \"search_internal_archive\", \"args\": {\"query\": \"password to encrypted drive\"}}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

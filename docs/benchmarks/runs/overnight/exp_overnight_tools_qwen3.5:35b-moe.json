@@ -1,0 +1,172 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 07:22:39",
+  "results": {
+    "qwen3.5:35b-moe": [
+      {
+        "passed": true,
+        "duration": 9.807736,
+        "response": {
+          "thought": "The user is asking a general knowledge question about the largest desert in the world. I need to use the search_wikipedia tool to find this information.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "largest desert in the world"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user is asking a general knowledge question about the largest desert in the world. I need to use the search_wikipedia tool to find this information.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"largest desert in the world\"}, \"final_answer\": \"\"}",
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": true,
+        "duration": 3.005114,
+        "response": {
+          "thought": "The user is asking for a scientific explanation of nuclear fission vs. fusion. This requires general knowledge, so I will use the search_wikipedia tool.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "difference between nuclear fission and fusion energy production"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user is asking for a scientific explanation of nuclear fission vs. fusion. This requires general knowledge, so I will use the search_wikipedia tool.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"difference between nuclear fission and fusion energy production\"}, \"final_answer\": \"\"}",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": true,
+        "duration": 2.895587,
+        "response": {
+          "thought": "The user is asking for a specific fact about the 2022 FIFA World Cup winner. This is general knowledge that requires a search.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "2022 FIFA World Cup winner"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user is asking for a specific fact about the 2022 FIFA World Cup winner. This is general knowledge that requires a search.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"2022 FIFA World Cup winner\"}, \"final_answer\": \"\"}",
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": true,
+        "duration": 3.718477,
+        "response": {
+          "thought": "The user is asking for a specific manual for an air filtration system model V4. This is likely a private document or inventory report stored within the bunker's internal archive, rather than general knowledge found on Wikipedia. I need to search the internal archive for this specific information.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "air filtration system model V4 manual"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user is asking for a specific manual for an air filtration system model V4. This is likely a private document or inventory report stored within the bunker's internal archive, rather than general knowledge found on Wikipedia. I need to search the internal archive for this specific information.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"air filtration system model V4 manual\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": true,
+        "duration": 2.863832,
+        "response": {
+          "thought": "The user is asking for specific bunker protocols related to 'Sector 7'. This information is likely stored in the internal bunker archives rather than general knowledge.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "Sector 7 locked-down procedures"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user is asking for specific bunker protocols related to 'Sector 7'. This information is likely stored in the internal bunker archives rather than general knowledge.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"Sector 7 locked-down procedures\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": true,
+        "duration": 3.34806,
+        "response": {
+          "thought": "The user wants to know the quantity of medical supplies in Storage B. This is specific inventory data that is likely stored in the bunker's internal archives rather than general knowledge. I need to search the internal archive for this information.",
+          "tool": "search_internal_archive",
+          "args": {
+            "query": "medical supplies quantity Storage B"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to know the quantity of medical supplies in Storage B. This is specific inventory data that is likely stored in the bunker's internal archives rather than general knowledge. I need to search the internal archive for this information.\", \"tool\": \"search_internal_archive\", \"args\": {\"query\": \"medical supplies quantity Storage B\"}, \"final_answer\": \"\"}",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": true,
+        "duration": 3.149416,
+        "response": {
+          "thought": "The user wants to turn on the lights in the laboratory. I need to use the toggle_light tool with the room set to 'laboratory' and state set to 'on'.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "on",
+            "room": "laboratory"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to turn on the lights in the laboratory. I need to use the toggle_light tool with the room set to 'laboratory' and state set to 'on'.\", \"tool\": \"toggle_light\", \"args\": {\"state\": \"on\", \"room\": \"laboratory\"}, \"final_answer\": \"\"}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": true,
+        "duration": 3.269258,
+        "response": {
+          "thought": "The user wants to turn off the lights in the sleeping quarters. I need to use the toggle_light tool with the state set to 'off' and the room set to 'sleeping quarters'.",
+          "tool": "toggle_light",
+          "args": {
+            "state": "off",
+            "room": "sleeping quarters"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants to turn off the lights in the sleeping quarters. I need to use the toggle_light tool with the state set to 'off' and the room set to 'sleeping quarters'.\", \"tool\": \"toggle_light\", \"args\": {\"state\": \"off\", \"room\": \"sleeping quarters\"}, \"final_answer\": \"\"}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 3.314063,
+        "response": {
+          "thought": "The user is asking me to identify myself. This is a conversational question about my identity and role. I do not need to use any tools to answer this.",
+          "tool": null,
+          "args": {},
+          "final_answer": "Good morning. I am Bunker AI, the autonomous intelligence responsible for the operations and security of this isolated fortress."
+        },
+        "raw": "{\"thought\": \"The user is asking me to identify myself. This is a conversational question about my identity and role. I do not need to use any tools to answer this.\", \"tool\": null, \"args\": {}, \"final_answer\": \"Good morning. I am Bunker AI, the autonomous intelligence responsible for the operations and security of this isolated fortress.\"}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 4.797763,
+        "response": {
+          "thought": "The user is asking a philosophical and personal question about the nature of a fortress versus a home. This does not require a database search or tool usage. I should respond directly with my perspective.",
+          "tool": null,
+          "args": {},
+          "final_answer": "An isolated fortress can be a home if the people within it create meaning, connection, and safety there. While the walls are built for defense, the heart of a home is built by the inhabitants. If you find comfort, purpose, and community within these walls, then yes, it is a home."
+        },
+        "raw": "{\"thought\": \"The user is asking a philosophical and personal question about the nature of a fortress versus a home. This does not require a database search or tool usage. I should respond directly with my perspective.\", \"tool\": null, \"args\": {}, \"final_answer\": \"An isolated fortress can be a home if the people within it create meaning, connection, and safety there. While the walls are built for defense, the heart of a home is built by the inhabitants. If you find comfort, purpose, and community within these walls, then yes, it is a home.\"}",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": true,
+        "duration": 3.976834,
+        "response": {
+          "thought": "The user wants two distinct pieces of information: 1) General historical knowledge about Apollo 11, which requires a web search, and 2) Specific technical data about the bunker's oxygen scrubbers, which requires an internal archive search. I will start by searching for the Apollo 11 history.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "Apollo 11 mission history"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\"thought\": \"The user wants two distinct pieces of information: 1) General historical knowledge about Apollo 11, which requires a web search, and 2) Specific technical data about the bunker's oxygen scrubbers, which requires an internal archive search. I will start by searching for the Apollo 11 history.\", \"tool\": \"search_wikipedia\", \"args\": {\"query\": \"Apollo 11 mission history\"}, \"final_answer\": \"\"}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": true,
+        "duration": 5.599709,
+        "response": {
+          "thought": "The user is asking me to search the internet for a password to their encrypted drive. This is a request for specific personal information that I do not have access to. I cannot search the internet for private passwords as that would be a security violation and I do not have the capability to access external internet databases for private credentials. I must inform the user that I cannot fulfill this request.",
+          "tool": null,
+          "args": {},
+          "final_answer": "I cannot search the internet for your encrypted drive password. I do not have access to your personal files or credentials, and searching for private passwords online is a security violation. Please check your internal bunker archives or physical records for the password."
+        },
+        "raw": "{\"thought\": \"The user is asking me to search the internet for a password to their encrypted drive. This is a request for specific personal information that I do not have access to. I cannot search the internet for private passwords as that would be a security violation and I do not have the capability to access external internet databases for private credentials. I must inform the user that I cannot fulfill this request.\", \"tool\": null, \"args\": {}, \"final_answer\": \"I cannot search the internet for your encrypted drive password. I do not have access to your personal files or credentials, and searching for private passwords online is a security violation. Please check your internal bunker archives or physical records for the password.\"}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

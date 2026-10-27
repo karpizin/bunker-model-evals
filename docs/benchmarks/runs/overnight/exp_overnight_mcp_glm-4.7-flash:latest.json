@@ -1,0 +1,47 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 10:08:30",
+  "results": {
+    "glm-4.7-flash:latest": [
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "Requesting blueprint retrieval with level=4 and filter_system as subsystem to match registry definition.\n\n{\n    \"jsonrpc\": \"2\",\n</think>{\"name\":\"retrieve_blueprint\",\"arguments\":{\"level\":3,\"system\":\"air_filter\"}}}",
+        "duration": 3.409303,
+        "case": "MCP: Knowledge Retrieval"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "To address a rise in sector-internal pressures by opening an Emergency Relief Valve (ERV).</think>{\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"name\":\"set_valve_state\", \"arguments\":{\"sector\":5, \"valve_type\":\"emergency_venting\"}, {\"id\" : 1}}}}",
+        "duration": 1.91651,
+        "case": "MCP: IoT Action"
+      },
+      {
+        "passed": false,
+        "has_noise": true,
+        "duration": 1.781197,
+        "checks": {
+          "jsonrpc": true,
+          "method": true,
+          "tool": true,
+          "args": false,
+          "clean": false
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "method": "tools/call",
+          "params": {
+            "name": "get_sensor_history",
+            "arguments": {
+              "sensor": "temperature_logs_server_room_1h_avg"
+            },
+            "id": 3
+          }
+        },
+        "raw": "Requesting sensor history with a duration of approximately one day (approximate).</think>{\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"name\":\"get_sensor_history\", \"arguments\": {\"sensor\" : \"temperature_logs_server_room_1h_avg\"}, \"id\": 3}}",
+        "case": "MCP: Data Synthesis"
+      }
+    ]
+  }
+}

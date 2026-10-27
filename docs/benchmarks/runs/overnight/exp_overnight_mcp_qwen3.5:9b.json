@@ -1,0 +1,29 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 04:42:36",
+  "results": {
+    "qwen3.5:9b": [
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "",
+        "duration": 1.408337,
+        "case": "MCP: Knowledge Retrieval"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "",
+        "duration": 0.625648,
+        "case": "MCP: IoT Action"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "",
+        "duration": 0.620729,
+        "case": "MCP: Data Synthesis"
+      }
+    ]
+  }
+}

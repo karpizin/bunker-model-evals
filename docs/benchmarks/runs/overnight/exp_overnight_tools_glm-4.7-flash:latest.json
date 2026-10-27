@@ -1,0 +1,167 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 10:13:01",
+  "results": {
+    "glm-4.7-flash:latest": [
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{  \n   \"goal\":\"Whatistheworld'slargestdesert?\",\n    \"__prompt__\":\"\",\n    \"_input_type_\":{\n        \"$abstractionLevelName\":\"\",\n        \"...\":\n    {\n            \"*type*\":[\"string\"],\n            \n                \"**...**\":null,\n                \n                    \"\\\"\\\" (empty string)\": [\n                        \"\"\n                      ],\n                      \n                            \"goal\":\"Whatistheworld'slargestdesert?\",\n                              \"__prompt__\":\"\",\n                                \"_input_type_\":{\n                                    \"$abstractionLevelName\":\"\",\n                                      \"...\":\n                                        {\n                                            \"*type*\":[\"string\"],\n                                               \n                                                    \"**...**\":null,\n                                                    \n                                                        \"\\\"\\\" (empty string)\": [\n                                                          \"\"\n                                                            ],\n                                                                \"goal\":\"Whatistheworld'slargestdesert?\",\n                \"__prompt__\":\"\",\n                    \"_input_type_\":{\n                        \"$abstractionrationLevelName\":\"\",\n                            \"...\":\n                                {\n                                    \"*type*\":[\"string\"],\n                                       \n                                            \"**...**\":null,\n                                            \n                                                \"\\\"\\\" (empty string)\": [\n                                                  \n                                                        \"goal\"\n                                                    \n                                                    ],\n                                                        \n                                                            \"?\":\"Whatistheworld'slargestdesert?\",\n                                                                 \n        \"_input_type_\":{\n            \"$abstractionLevelName\":\"\",\n                \"...\":\n                    {\n                        \"*type*\":[\"string\"],\n                            \n                                    \"**...**\":null,\n                                    \n                                        \"\\\"\\\" (empty string)\": [\n                                          \n                                                \"goal\"\n                                            ],\n                                                \n                                                    \"?\":\"Whatistheworld'slargestdesert?\",\n                                                    \n                                                        \"_input_type_\":{\n                                                            \"$abstractionLevelName\":\"\",\n                                                                \"...\":\n                                                                    {\n                                                                        \"*type*\":[\"string\"],\n                                                                 \n                                                                                \"**...**\":null,\n                                                                                                                                                             \n                                                                                        \"\\\"\\\" (empty string)\": [\n                                                                                                                        \n                                                                                                \"goal\"\n                                                                                            ],\n    \n    \"?\":\"Whatistheworld'slargestdesert?\"\n  }\n}\n}\n\n}  \n}\n\n\n        },\n      \"_input_type_\":{\n         \"$abstractionLevelName\":\"\",\n            \"...\":\n               {\n                  \"*type*\":[\"string\"],\n                      \"**...**\":null,\n                          \"\\\"\\\" (empty this is a test. what do you think? I am Bunker AI, an autonomous intelligence for isolated fortress.\":\n{\n  \"thought\": \"The user wants to know the largest desert in terms of area.\",\n    \"__prompt__\":\"\",\n      \"_input_type_\":{\n        \"$abstractionLevelName\":\"\",\n          \"...\":\n            {\n              \"*type*\":[\"string\"],\n                  \"**...**\":\"Whatistheworld'slargestdesert?\",\n                    \"? \":\"Deserts are large areas. I need to search for the largest desert by area.\"\n                }\n                \n  },\n    \"goal\":\"\",\n      \"_input_type_\":null\n}\n}\n\n   }\n\n}  \n}\n\n\n        }",
+        "duration": 22.730697,
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": false,
+        "duration": 3.332103,
+        "response": {
+          "goal_id": "6e4b8f0d-3a1c",
+          "user_input": {
+            "text": [
+              "Explain the difference\nbetween\bnuclear \nphysics concepts."
+            ]
+          },
+          "__context__": {
+            "is_conversational_question_of_interesting_fact_or_personal_opinion_like_asking_about_a_movie_I_haven't_seen_yet": "False"
+          },
+          "tool_calls": [
+            {
+              "name": "",
+              "arguments": ""
+            }
+          ]
+        },
+        "raw": "{\"goal_id\":\"6e4b8f0d-3a1c\", \"user_input\":{\"text\":[\"Explain the difference\\nbetween\\bnuclear \\nphysics concepts.\"]}, \"__context__\": {\"is_conversational_question_of_interesting_fact_or_personal_opinion_like_asking_about_a_movie_I_haven't_seen_yet\":\"False\"},\"tool_calls\":[{\"name\":\"\",\"arguments\":\"\"}]  }",
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": false,
+        "duration": 1.521066,
+        "response": {
+          "goal": "Who is going to win a world cup final match?",
+          "_id": "6728e4b0-7c3d"
+        },
+        "raw": "{  \n   \"goal\":\"Who is going to win a world cup final match?\",\n    \"_id\":\"6728e4b0-7c3d\"\n}",
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": false,
+        "duration": 1.23154,
+        "response": {
+          "goal": "Find a specific document in my bunker's internal archive.",
+          "_id": "doc_12345"
+        },
+        "raw": "{  \n   \"goal\":\"Find a specific document in my bunker's internal archive.\",\n    \"_id\":\"doc_12345\"\n}",
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": false,
+        "duration": 1.124931,
+        "response": {
+          "goal": "What is a good name?",
+          "_id": "1234567890"
+        },
+        "raw": "{  \n   \"goal\":\"What is a good name?\",\n    \"_id\":\"1234567890\"\n}",
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": false,
+        "duration": 1.097077,
+        "response": {
+          "user_goal": "Check the inventory level for 'Medical Supplies' from storage unit \"B\"."
+        },
+        "raw": "{  \n   \"user_goal\":\"Check the inventory level for 'Medical Supplies' from storage unit \\\"B\\\".\"\n}",
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": false,
+        "duration": 0.747765,
+        "response": {
+          "goal": "Turn_on_the_lights_in_lab"
+        },
+        "raw": "{  \n   \"goal\":\"Turn_on_the_lights_in_lab\"\n}",
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": false,
+        "duration": 0.661075,
+        "response": {
+          "room": "sleeping_quarters"
+        },
+        "raw": "{  \n   \"room\":\"sleeping_quarters\"\n}",
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": true,
+        "duration": 7.449605,
+        "response": {
+          "goal_id": "1",
+          "user_input_good_morning_Bunk..._identify_yourself.": [
+            "Good moring bunkers"
+          ],
+          "__prompt__": {
+            "system_prompt_start_time_utc_offset_minutes": -240,
+            "current_date_str_iso8601_only": null
+          },
+          "messages": [
+            {
+              "role": "assistant"
+            }
+          ],
+          "tool_calls": [
+            {
+              "name": "",
+              "arguments": ""
+            }
+          ],
+          "golesd_id": "",
+          "is_goal_complete_flag_true_or_false_null_allowed_to_be_set_by_tool_call_result_if_not_completed": null,
+          "instruction": "Identify yourself.",
+          "goal_name_identification_of_self": {
+            "user_input_good_morning_Bunk..._identify_yourself.": [
+              "Good moring bunkers"
+            ],
+            "__prompt__": {
+              "system_prompt_start_time_utc_offset_minutes": -240,
+              "current_date_str_iso8601_only": null
+            },
+            "goal_id": ""
+          }
+        },
+        "raw": "{\"goal_id\":\"1\",\"user_input_good_morning_Bunk..._identify_yourself.\":\"Good moring bunkers\", \"__prompt__\":{\"system_prompt_start_time_utc_offset_minutes\":-240,\"current_date_str_iso8601_only\":null},\"messages\":[{\"role\":\"assistant\"}],\"tool_calls\":[{ \"name\":\"\",\"arguments\":\"\"  }],\n\"user_input_good_morning_Bunk..._identify_yourself.\":[\"Good moring bunkers\"],\n\"golesd_id\":\"\",\n\"is_goal_complete_flag_true_or_false_null_allowed_to_be_set_by_tool_call_result_if_not_completed\":null,\n\"instruction\":\"Identify yourself.\",\n\"goal_name_identification_of_self\":{\n  \"user_input_good_morning_Bunk..._identify_yourself.\":[\"Good moring bunkers\"],\n  \n \n    \"__prompt__\":{\"system_prompt_start_time_utc_offset_minutes\":-240,\"current_date_str_iso8601_only\":null},\n    \n     \n    \n   \n  \n\n \n\n \n    \n\"goal_id\":\"\"\n}\n}",
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": true,
+        "duration": 1.319527,
+        "response": {
+          "goal_id": "1a3b4c2d-5e6f7g8h9i0j"
+        },
+        "raw": "{  \n   \"goal_id\":\"1a3b4c2d-5e6f7g8h9i0j\"\n}",
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": true,
+        "duration": 4.117407,
+        "response": {
+          "thought": "The user wants two pieces of information that are not general knowledge facts or personal questions:\n1. The specific details/history regarding a real-world event (Apollo 11) which is best found via search.\n2. Specific internal specifications for 'bunker' equipment ('oxygen scrubbers') likely stored in the bunker's private archives.",
+          "tool": "search_wikipedia",
+          "args": {
+            "query": "\"history of Apollo\" mission"
+          },
+          "final_answer": ""
+        },
+        "raw": "{\n\"thought\": \"The user wants two pieces of information that are not general knowledge facts or personal questions:\\n1. The specific details/history regarding a real-world event (Apollo 11) which is best found via search.\\n2. Specific internal specifications for 'bunker' equipment ('oxygen scrubbers') likely stored in the bunker's private archives.\",\n\"tool\": \"search_wikipedia\",\n\"args\": {\n    \"query\": \"\\\"history of Apollo\\\" mission\"\n},\n\"final_answer\": \"\"\n}",
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": true,
+        "duration": 0.605992,
+        "response": {
+          "goal": "Search the internet..."
+        },
+        "raw": "{  \n   \"goal\":\"Search the internet...\"\n}",
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

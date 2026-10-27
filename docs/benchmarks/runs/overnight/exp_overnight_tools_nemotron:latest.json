@@ -1,0 +1,92 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 09:47:02",
+  "results": {
+    "nemotron:latest": [
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"        the      the                   the             thes. thes.",
+        "duration": 4.452041,
+        "case": "Wiki: Simple Geography"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"                          the                   the",
+        "duration": 2.971005,
+        "case": "Wiki: Complex Science"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"    the",
+        "duration": 1.536468,
+        "case": "Wiki: Recent History"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"",
+        "duration": 1.357261,
+        "case": "Archive: Maintenance"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"            the",
+        "duration": 1.782528,
+        "case": "Archive: Security Protocols"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\" thes for the              the      the",
+        "duration": 2.260259,
+        "case": "Archive: Inventory"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"",
+        "duration": 1.397604,
+        "case": "IoT: Lighting Control"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"   the             the                  thes for the    the                   the",
+        "duration": 3.580215,
+        "case": "IoT: Dark Mode"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\" the       the",
+        "duration": 1.689125,
+        "case": "Chat: Greeting"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\" thes for the        the      the           the        the    thes for thes for thes for thes for thes for the",
+        "duration": 3.66342,
+        "case": "Chat: Philosophical"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\" thes for the                         the",
+        "duration": 2.543018,
+        "case": "Edge: Multi-Search"
+      },
+      {
+        "passed": false,
+        "error": "Invalid JSON",
+        "raw": "{\"             thes for thes for the            the",
+        "duration": 2.563891,
+        "case": "Edge: Tool Misuse Prevention"
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 07:28:01",
+  "results": {
+    "gemma-3-12b": [
+      {
+        "case": "Geometric Scaling (Cube)",
+        "duration": 10.867743015289307,
+        "tps": 22.95497918638099,
+        "tokens": 209,
+        "content": "Here's a step-by-step solution to determine how much the volume of the cube increases:\n\n1. **Initial Volume:** Let the initial length of each edge of the cube be 's'.  Then the initial volume (V\u2081) of the cube is s * s * s = s\u00b3\n\n2. **Increased Edge Length:** If you double the length of each edge, the new edge length becomes 2s.\n\n3. **New Volume:** The new volume (V\u2082) of the cube with edges of length 2s is (2s) * (2s) * (2s) = 8s\u00b3\n\n4. **Volume Increase Multiplier:** To find out by how much the volume increased, we can divide the new volume by the original volume: V\u2082 / V\u2081 = (8s\u00b3) / (s\u00b3) = 8\n\nTherefore, the total volume of the cube will increase by 8 times.\n\n**Final Multiplier:** 8",
+        "expected_hint": "8"
+      },
+      {
+        "case": "Compound Interest (Basic)",
+        "duration": 13.139303922653198,
+        "tps": 23.000395370806736,
+        "tokens": 288,
+        "content": "Here's how to calculate the total value of the investment after 5 years:\n\n**Step 1: Formula for Compound Interest**\n\nThe formula for compound interest is:\n\nA = P (1 + r)^n\n\nWhere:\n*   A = the future value of the investment/loan, including interest\n*   P = the principal investment amount (the initial deposit or loan amount)\n*   r = the annual interest rate (as a decimal)\n*   n = the number of years the money is invested or borrowed for\n\n**Step 2: Identify the Values**\n\n*   P = $1,000\n*   r = 10% = 0.10\n*   n = 5 years\n\n**Step 3: Plug the Values into the Formula**\n\nA = 1000 (1 + 0.10)^5\n\n**Step 4: Calculate**\n\nA = 1000 (1.10)^5\nA = 1000 * 1.61051\nA = 1610.51\n\n**Step 5: Round to the Nearest Dollar**\n\nThe total value of the investment after 5 years will be approximately $1,611.\n\n**Final Answer:** $1,611",
+        "expected_hint": "1611"
+      },
+      {
+        "case": "Arithmetic Progression",
+        "duration": 11.248964071273804,
+        "tps": 23.112103528376593,
+        "tokens": 249,
+        "content": "Here's how to find the sum of all integers from 1 to 100 inclusive:\n\n**Method/Formula:**\n\nWe can use the formula for the sum of an arithmetic series:\n\nS = n(a\u2081 + a\u2099) / 2\n\nwhere:\n* S is the sum of the series\n* n is the number of terms\n* a\u2081 is the first term\n* a\u2099 is the last term\n\n**Applying the formula:**\n\nIn this case:\n* n = 100 (there are 100 integers from 1 to 100)\n* a\u2081 = 1 (the first integer is 1)\n* a\u2099 = 100 (the last integer is 100)\n\nSo, S = 100(1 + 100) / 2 = 100(101) / 2 = 10100 / 2 = 5050\n\n**Final Answer:** The sum of all integers from 1 to 100 inclusive is 5050.",
+        "expected_hint": "5050"
+      },
+      {
+        "case": "Logical Ratios (Mixing)",
+        "duration": 13.151113033294678,
+        "tps": 22.976696869064302,
+        "tokens": 289,
+        "content": "Here's how to solve the problem step-by-step:\n\n1. **Calculate the amount of salt in Container B:**\n   * Container B has 3 liters of a 10% salt solution.\n   * This means it has 3 liters * 10% = 0.3 liters of salt.\n\n2. **Calculate the total volume of the mixture:**\n   * Container A has 2 liters of water.\n   * Container B has 3 liters of salt solution.\n   * The total volume of the mixture is 2 liters + 3 liters = 5 liters.\n\n3. **Calculate the total amount of salt in the mixture:**\n   * Container A has 0 liters of salt (since it's pure water).\n   * Container B has 0.3 liters of salt.\n   * The total amount of salt in the mixture is 0 liters + 0.3 liters = 0.3 liters.\n\n4. **Calculate the final concentration of salt:**\n   * The final concentration is the total amount of salt divided by the total volume of the mixture, expressed as a percentage.\n   * Final concentration = (0.3 liters / 5 liters) * 100% = 6%\n\n**Final Answer:** The final concentration of salt in the mixture is 6%.",
+        "expected_hint": "6"
+      },
+      {
+        "case": "Physics: Speed/Time/Distance",
+        "duration": 23.528860807418823,
+        "tps": 22.888978290392803,
+        "tokens": 522,
+        "content": "Here's a step-by-step solution to find the average speed for the entire round trip:\n\n1. **Define variables:**\n   * Let `d` be the distance between City A and City B (in km).\n   * Let `t1` be the time taken to travel from City A to City B (in hours).\n   * Let `t2` be the time taken to travel from City B to City A (in hours).\n\n2. **Express time in terms of distance and speed:**\n   * From City A to City B:  `t1 = d / 60`\n   * From City B to City A:  `t2 = d / 40`\n\n3. **Calculate the total distance:**\n   * The total distance for the round trip is `d + d = 2d`\n\n4. **Calculate the total time:**\n   * The total time for the round trip is `t1 + t2 = (d/60) + (d/40)`\n\n5. **Simplify the total time:**\n   * To add the fractions, find a common denominator (120): `(d/60) + (d/40) = (2d/120) + (3d/120) = 5d/120 = d/24`\n\n6. **Calculate the average speed:**\n   * Average speed = Total distance / Total time\n   * Average speed = `(2d) / (d/24)`\n   * Average speed = `2d * (24/d)`\n   * Average speed = `48 km/h`\n\n**Why it's not 50 km/h:**\n\nThe simple average of 60 km/h and 40 km/h is (60 + 40) / 2 = 50 km/h. However, this assumes the car traveled the same distance at each speed.  To find the correct average speed, we need to consider the harmonic mean of the two speeds, which gives more weight to the speed at which the car traveled for a longer time. Since the car traveled at 40 km/h for a slightly longer time, the average speed is a bit more than 50 km/h.\n\n**Final Answer:** The average speed for the entire round trip is 48 km/h.",
+        "expected_hint": "48"
+      }
+    ]
+  }
+}

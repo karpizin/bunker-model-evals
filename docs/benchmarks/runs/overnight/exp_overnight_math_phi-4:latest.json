@@ -1,0 +1,48 @@
+{
+  "experiment_id": "overnight",
+  "timestamp": "2026-03-17 10:18:37",
+  "results": {
+    "phi-4:latest": [
+      {
+        "case": "Geometric Scaling (Cube)",
+        "duration": 17.825148105621338,
+        "tps": 19.93979409266858,
+        "tokens": 330,
+        "content": "To solve this problem, we need to understand how the volume of a cube changes when its edge length is doubled.\n\n1. **Original Volume Calculation:**\n   - Let's denote the original edge length of the cube as \\( s \\).\n   - The formula for the volume \\( V \\) of a cube with edge length \\( s \\) is:\n     \\[\n     V = s^3\n     \\]\n\n2. **New Edge Length:**\n   - If each edge of the cube is doubled, the new edge length becomes \\( 2s \\).\n\n3. **New Volume Calculation:**\n   - The volume \\( V' \\) of the cube with the new edge length \\( 2s \\) is:\n     \\[\n     V' = (2s)^3\n     \\]\n   - Expanding this expression, we have:\n     \\[\n     V' = 2^3 \\times s^3 = 8s^3\n     \\]\n\n4. **Volume Increase Factor:**\n   - The original volume was \\( s^3 \\).\n   - The new volume is \\( 8s^3 \\).\n   - To find the factor by which the volume increases, we divide the new volume by the original volume:\n     \\[\n     \\text{Increase Factor} = \\frac{V'}{V} = \\frac{8s^3}{s^3} = 8\n     \\]\n\nThus, when each edge of a cube is doubled, the total volume increases by a factor of 8. \n\n**Final Answer:** The volume increases by 8 times.",
+        "expected_hint": "8"
+      },
+      {
+        "case": "Compound Interest (Basic)",
+        "duration": 23.52420210838318,
+        "tps": 19.91832710026749,
+        "tokens": 460,
+        "content": "To solve this problem, we need to use the formula for compound interest:\n\n\\[\nA = P \\left(1 + \\frac{r}{n}\\right)^{nt}\n\\]\n\nwhere:\n- \\( A \\) is the amount of money accumulated after n years, including interest.\n- \\( P \\) is the principal amount (the initial amount of money).\n- \\( r \\) is the annual interest rate (decimal).\n- \\( n \\) is the number of times that interest is compounded per year.\n- \\( t \\) is the time in years.\n\nIn this problem:\n- \\( P = 1000 \\)\n- \\( r = 0.10 \\) (10% as a decimal)\n- \\( n = 1 \\) (compounded annually)\n- \\( t = 5 \\)\n\nPlug these values into the formula:\n\n\\[\nA = 1000 \\left(1 + \\frac{0.10}{1}\\right)^{1 \\times 5}\n\\]\n\nSimplify inside the parentheses:\n\n\\[\nA = 1000 \\left(1 + 0.10\\right)^5\n\\]\n\n\\[\nA = 1000 \\times (1.10)^5\n\\]\n\nNow calculate \\( (1.10)^5 \\):\n\n\\[\n(1.10)^5 = 1.10 \\times 1.10 \\times 1.10 \\times 1.10 \\times 1.10\n\\]\n\nCalculating step-by-step:\n\n\\[\n1.10 \\times 1.10 = 1.21\n\\]\n\n\\[\n1.21 \\times 1.10 = 1.331\n\\]\n\n\\[\n1.331 \\times 1.10 = 1.4641\n\\]\n\n\\[\n1.4641 \\times 1.10 = 1.61051\n\\]\n\nSo, \\( (1.10)^5 = 1.61051 \\).\n\nNow calculate the total amount:\n\n\\[\nA = 1000 \\times 1.61051 = 1610.51\n\\]\n\nRound to the nearest dollar:\n\nThe final value of the investment after 5 years is approximately \\(\\$1611\\).",
+        "expected_hint": "1611"
+      },
+      {
+        "case": "Arithmetic Progression",
+        "duration": 13.027860879898071,
+        "tps": 20.113864309289255,
+        "tokens": 256,
+        "content": "To find the sum of all integers from 1 to 100 inclusive, we can use a well-known formula for the sum of an arithmetic series. The formula for the sum \\( S \\) of the first \\( n \\) positive integers is:\n\n\\[\nS = \\frac{n(n + 1)}{2}\n\\]\n\nwhere \\( n \\) is the last integer in the series.\n\nIn this problem, we want to find the sum from 1 to 100. Here, \\( n = 100 \\).\n\nSubstitute \\( n = 100 \\) into the formula:\n\n\\[\nS = \\frac{100(100 + 1)}{2}\n\\]\n\nCalculate inside the parentheses first:\n\n\\[\n100 + 1 = 101\n\\]\n\nNow substitute back into the equation:\n\n\\[\nS = \\frac{100 \\times 101}{2}\n\\]\n\nMultiply 100 by 101:\n\n\\[\n100 \\times 101 = 10100\n\\]\n\nFinally, divide by 2 to find the sum:\n\n\\[\nS = \\frac{10100}{2} = 5050\n\\]\n\nThus, the sum of all integers from 1 to 100 inclusive is \\( \\boxed{5050} \\).",
+        "expected_hint": "5050"
+      },
+      {
+        "case": "Logical Ratios (Mixing)",
+        "duration": 19.83553719520569,
+        "tps": 19.978636843623114,
+        "tokens": 388,
+        "content": "To find the final concentration of salt in the mixture, follow these steps:\n\n1. **Determine the amount of salt in Container B:**\n\n   - Container B has 3 liters of a 10% salt solution.\n   - The amount of salt in Container B is calculated as:\n     \\[\n     \\text{Amount of salt} = \\text{Volume} \\times \\text{Concentration} = 3 \\, \\text{liters} \\times 0.10 = 0.3 \\, \\text{liters of salt}\n     \\]\n\n2. **Determine the total volume of the mixture:**\n\n   - Container A has 2 liters of pure water.\n   - Container B has 3 liters of a salt solution.\n   - The total volume after mixing is:\n     \\[\n     \\text{Total volume} = 2 \\, \\text{liters} + 3 \\, \\text{liters} = 5 \\, \\text{liters}\n     \\]\n\n3. **Calculate the concentration of salt in the mixture:**\n\n   - The total amount of salt remains 0.3 liters (from Container B).\n   - The concentration of salt in the mixture is given by:\n     \\[\n     \\text{Concentration} = \\left( \\frac{\\text{Amount of salt}}{\\text{Total volume}} \\right) \\times 100\\%\n     \\]\n   - Substituting the known values:\n     \\[\n     \\text{Concentration} = \\left( \\frac{0.3 \\, \\text{liters}}{5 \\, \\text{liters}} \\right) \\times 100\\% = 0.06 \\times 100\\% = 6\\%\n     \\]\n\nTherefore, the final concentration of salt in the mixture is \\(6\\%\\).",
+        "expected_hint": "6"
+      },
+      {
+        "case": "Physics: Speed/Time/Distance",
+        "duration": 23.144186973571777,
+        "tps": 19.91104204192647,
+        "tokens": 450,
+        "content": "To find the average speed for the entire round trip, we need to consider the total distance traveled and the total time taken.\n\nLet's assume the distance from City A to City B is \\( D \\) kilometers.\n\n### Step 1: Calculate the time taken for each leg of the journey\n\n- **Time from City A to City B:**\n  \\[\n  \\text{Time}_{AB} = \\frac{D}{60} \\text{ hours}\n  \\]\n\n- **Time from City B to City A:**\n  \\[\n  \\text{Time}_{BA} = \\frac{D}{40} \\text{ hours}\n  \\]\n\n### Step 2: Calculate the total distance and total time\n\n- **Total distance for the round trip:**\n  \\[\n  \\text{Total Distance} = D + D = 2D\n  \\]\n\n- **Total time for the round trip:**\n  \\[\n  \\text{Total Time} = \\frac{D}{60} + \\frac{D}{40}\n  \\]\n\nTo add these times, find a common denominator:\n\n\\[\n\\frac{D}{60} + \\frac{D}{40} = \\frac{2D}{120} + \\frac{3D}{120} = \\frac{5D}{120} = \\frac{D}{24}\n\\]\n\n### Step 3: Calculate the average speed\n\nThe average speed is given by the total distance divided by the total time:\n\n\\[\n\\text{Average Speed} = \\frac{\\text{Total Distance}}{\\text{Total Time}} = \\frac{2D}{\\frac{D}{24}}\n\\]\n\nSimplify the expression:\n\n\\[\n\\text{Average Speed} = 2D \\times \\frac{24}{D} = 48 \\text{ km/h}\n\\]\n\n### Conclusion\n\nThe average speed for the entire round trip is \\( 48 \\) km/h. The reason it is not simply the arithmetic mean of 60 km/h and 40 km/h (which would be 50 km/h) is because the time spent traveling at each speed is different, affecting the overall average.",
+        "expected_hint": "48"
+      }
+    ]
+  }
+}
